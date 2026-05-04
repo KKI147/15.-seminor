@@ -45,3 +45,21 @@
 확인된 파일 구조(`common/`, `public/`)를 바탕으로 추천드리는 커밋 메시지입니다:
 1. `feat: 프로젝트 기본 디렉토리 구조 생성 (common, public)`
 2. `feat: 공통 자산 및 주차별 폴더 구조 초기화`
+
+**사용자:**
+이제 index에 간단한 기능을 만들어 볼건데 pixijs로 2d 그래픽을 활용한 게임을 만들어 볼거야 plan-implemenatation-observation-debugging 이 4가지 절차에 맞춰 리스트를 작성해줘
+
+**Gemini CLI:**
+PixiJS 게임 개발을 위한 4단계 절차 리스트를 작성했습니다 (Plan-Implementation-Observation-Debugging).
+
+**사용자:**
+가장 고전적인 테트리스로 갈까 ?
+
+**Gemini CLI:**
+테트리스는 좋은 선택입니다! 10x20 그리드, 7개 테트로미노 로직, 줄 삭제 및 jQuery UI 연동을 포함한 세부 설계(Plan)를 제안했습니다.
+
+**사용자:**
+만들어보자
+
+**Gemini CLI:**
+`public/weekOne/index.html` 파일을 생성하여 PixiJS 캔버스 초기화, 배경 그리드 렌더링, jQuery 이벤트 바인딩 등 기본 환경 구축을 완료했습니다. (화살표 함수 미사용 규칙 준수)
