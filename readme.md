@@ -50,7 +50,29 @@
 이제 index에 간단한 기능을 만들어 볼건데 pixijs로 2d 그래픽을 활용한 게임을 만들어 볼거야 plan-implemenatation-observation-debugging 이 4가지 절차에 맞춰 리스트를 작성해줘
 
 **Gemini CLI:**
-PixiJS 게임 개발을 위한 4단계 절차 리스트를 작성했습니다 (Plan-Implementation-Observation-Debugging).
+PixiJS 게임 개발을 위한 4단계 절차 리스트를 작성했습니다:
+
+### 1. Plan (설계)
+* **게임 컨셉 설정:** 핵심 메커니즘 정의.
+* **기술 스택 확인:** PixiJS 및 jQuery 연동 계획 수립.
+* **파일 구조 배치:** `public/weekOne/index.html` 및 자산 연결.
+* **에셋 준비:** 기본 그래픽 요소 정의.
+
+### 2. Implementation (구현)
+* **환경 구축:** 캔버스 생성 및 기본 마크업.
+* **초기화 코드:** `const`, `let` 및 `function` 키워드 사용 (화살표 함수 배제).
+* **메인 루프 구성:** Ticker 활용 및 jQuery UI 제어.
+* **상호작용:** 이벤트 리스너 등록.
+
+### 3. Observation (관찰)
+* **렌더링 확인:** 캔버스 출력 여부 확인.
+* **로그 모니터링:** 에러 및 프레임드랍 체크.
+* **규칙 검사:** 코딩 컨벤션 준수 여부 검토.
+
+### 4. Debugging (디버깅)
+* **오류 수정:** 발견된 로직 및 렌더링 이슈 해결.
+* **코드 리팩토링:** 구조 최적화.
+* **호환성 테스트:** 안정성 확인.
 
 **사용자:**
 가장 고전적인 테트리스로 갈까 ?
@@ -63,3 +85,9 @@ PixiJS 게임 개발을 위한 4단계 절차 리스트를 작성했습니다 (P
 
 **Gemini CLI:**
 `public/weekOne/index.html` 파일을 생성하여 PixiJS 캔버스 초기화, 배경 그리드 렌더링, jQuery 이벤트 바인딩 등 기본 환경 구축을 완료했습니다. (화살표 함수 미사용 규칙 준수)
+
+**사용자:**
+4가지 절차 리스트 내용이 readme에 누락되어 있어
+
+**Gemini CLI:**
+누락되었던 4단계 절차(Plan, Implementation, Observation, Debugging)의 상세 내용을 `readme.md`에 추가하여 업데이트했습니다.
