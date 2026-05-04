@@ -1,0 +1,3900 @@
+/* ───────────────────────────────────────────────────────┐
+ * file name : common.css
+ * description : 22개정 3,4학년 과학용 공용CSS 모음
+ * create date : 2024-07-25 13:17:59
+ * creator : JGY
+ * modify: 2024-08-21 14:23:38 - 3,4학년 동일 사용
+ * usage:
+└────────────────────────────────────────────────────── */
+
+/* @charset "utf-8";
+
+@import url(../../common/css/reset.css);
+@import url(../../common/fonts/fonts.css);
+@import url(../../common/css/animate.css);
+@import url(../../common/css/scrollBar.css);
+@import url(../../common/css/jquery.mCustomScrollbar.css); */
+
+/* 기본, 과목 공통 기능, 과목 개별 기능, 기타 */
+
+/* =========================================================================================
+ * 기본
+ * ====================================================================================== */
+/* ---------------------------------------
+ * *
+ * --------------------------------------- */
+* {
+    box-sizing: border-box;
+    font-family: "KoPubDotum";
+    /* color: #000; */
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* -webkit-transform: translateZ(0) scale(1, 1) translate3d(0,0,0);
+    transform: translateZ(0) scale(1, 1) translate3d(0,0,0); */
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+    outline: none;
+}
+
+a,
+a:link,
+a:hover,
+a:visited {
+    text-decoration: none !important;
+}
+
+/* i */
+i {
+    font-style: normal;
+    text-align: center;
+    font-size: 40px;
+}
+
+i.off {
+    display: none;
+}
+
+/* https://stackoverflow.com/questions/2460100/remove-the-complete-styling-of-an-html-button-submit */
+button,
+input[type="submit"],
+input[type="reset"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+/* ---------------------------------------
+ * screen
+ * --------------------------------------- */
+html {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    overflow: auto;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background: rgba(0, 0, 0, 0);
+    overflow: hidden;
+}
+
+button {
+    border: 0;
+}
+
+/* container */
+#container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: center;
+    position: relative;
+    background-size: 100%;
+    visibility: hidden;
+    background: none;
+    /* background: url('../images/bg2.png') no-repeat; */
+}
+
+/* #container.intro {
+    background: url('../images/bg1.png') no-repeat;
+    background-position: center;
+} */
+
+/* wrap */
+#wrap {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    background-position: center;
+    visibility: hidden;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background-color: rgba(0, 0, 0, 1) !important; */
+    /* overflow: visible; */
+    overflow: hidden;
+}
+
+/* #wrap.intro {
+    background: url('../images/bg1.png') no-repeat;
+    background-position: center;
+} */
+
+#wrap [overflow-type="visible"] {
+    /* overflow: visible !important; */
+}
+
+/* ---------------------------------------
+ * contents
+ * --------------------------------------- */
+.contentsWrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.contents {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    /* overflow: hidden; */
+}
+
+/* optionPage */
+.contents.clickPage {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* ---------------------------------------
+ * setContent(상단 contents 전환 버튼)
+ * --------------------------------------- */
+.setContent {
+    position: absolute;
+    top: 27px;
+    right: 45px;
+}
+
+.setContent li {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin-right: 8px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 30px;
+    line-height: 1;
+    color: transparent;
+    text-indent: -99999px;
+}
+
+.test2 .setContent li {
+    color: #111;
+    text-indent: 0px;
+}
+
+
+.setContent li.on {
+    pointer-events: none;
+}
+
+.setContent li:last-child {
+    margin-right: 0px;
+}
+
+.setContent::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---------------------------------------
+ * btns
+ * --------------------------------------- */
+button {
+    backface-visibility: hidden;
+    overflow: visible;
+    cursor: pointer;
+    outline: none;
+    outline: 0;
+    background: 0 0;
+    border: none;
+}
+
+/* ansbtn */
+/* 확인하기 */
+.ansbtn {
+    background: url('../images/clickitem/ansbtn.png') 0 0 no-repeat;
+    width: 194px;
+    height: 74px;
+    position: absolute;
+    top: 929px;
+    left: 1707px;
+    cursor: pointer;
+}
+
+#wrap.quiz .ansbtn {
+    background: url('../images/clickitem/ansbtn2.png') 0 0 no-repeat;
+}
+
+/* 다시하기 */
+.ansbtn.re {
+    background: url('../images/clickitem/rebtn.png') 0 0 no-repeat;
+}
+
+.popup .ansbtn {
+    top: 884px;
+    left: 1587px;
+}
+
+/* 예시보기 */
+.exbtn {
+    background: url('../images/clickitem/btn_openEx.png') 0 0 no-repeat;
+    width: 212px;
+    height: 61px;
+    position: absolute;
+    top: 934px;
+    left: 1457px;
+    cursor: pointer;
+}
+
+.exWrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 99999;
+}
+
+.exWrap .close {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 109px;
+    right: 62px;
+    cursor: pointer;
+}
+
+/* =========================================================================================
+ * 과목 공통 기능
+ * ====================================================================================== */
+/* ---------------------------------------
+ * pageingContents
+ * --------------------------------------- */
+/* pageWrap, pages, page */
+.pageWrap,
+.pageWrap .pages,
+.pageWrap .page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* overflow: hidden; */
+}
+
+.pageWrap {
+    overflow: hidden;
+}
+
+/* page */
+.pageWrap .page {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.pageWrap .page:nth-child(1) {
+    display: block;
+}
+
+/* pages transition move */
+.pageWrap.moving .pages {
+    overflow: visible;
+}
+
+.pageWrap.moving .page {
+    display: block !important;
+}
+
+.pageWrap.moving.x {
+    width: 1920px;
+}
+
+.pageWrap.moving.x .pages {
+    transition: left 0.2s ease-in-out;
+}
+
+.pageWrap.moving.y .pages {
+    transition: top 0.2s ease-in-out;
+}
+
+/* .pageWrap.moving.direct .pages {
+    transition-duration: 0s;
+} */
+
+/* navigation */
+.pageWrap .navigation {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pageWrap .prev {
+    /* background: url('../images/naviitem/btn.png') no-repeat; */
+    background: none;
+    /* transform: rotate(180deg); */
+    width: 78px;
+    height: 140px;
+    position: absolute;
+    top: 436px;
+    left: 0px;
+    cursor: pointer;
+    /* 클릭영역 확대 */
+    /* transform: scaleX(1.2) scaleY(1.5);
+    transform-origin: left; */
+}
+
+.pageWrap .next {
+    /* background: url('../images/naviitem/btn.png') no-repeat; */
+    background: none;
+    /* transform: rotate(0deg); */
+    width: 78px;
+    height: 140px;
+    position: absolute;
+    top: 436px;
+    right: 0px;
+    cursor: pointer;
+    /* 클릭영역 확대 */
+    /* transform: scaleX(1.2) scaleY(1.5);
+    transform-origin: right; */
+}
+
+.pageWrap .prev.dis {
+    /* background: url('../images/naviitem/btn_dis.png') no-repeat;
+    transform: rotate(0deg);
+    cursor: auto; */
+}
+
+.pageWrap .next.dis {
+    /* background: url('../images/naviitem/btn_dis.png') no-repeat;
+    transform: rotate(180deg);
+    cursor: auto; */
+}
+
+.pageWrap .next.dis,
+.pageWrap .prev.dis {
+    display: none;
+    background: none;
+    /* pointer-events: none; */
+}
+
+/* pageing */
+.pageWrap .pageing {
+    /* background: #5fcbd6 url('../images/naviitem/navi.png') center no-repeat; */
+    height: 42px;
+    position: absolute;
+    top: 946px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: auto;
+    border-radius: 21px;
+    /* opacity: 0; */
+}
+
+.pageWrap .pageing:before {
+    /* content: '';
+    display: block;
+    background: url('../images/naviitem/navi.png') left no-repeat;
+    position: absolute;
+    width: 35px;
+    height: 55px;
+    left: -34px; */
+}
+
+.pageWrap .pageing:after {
+    /* content: '';
+    display: block;
+    background: url('../images/naviitem/navi.png') right no-repeat;
+    position: absolute;
+    width: 35px;
+    height: 55px;
+    right: -34px; */
+}
+
+.pageWrap .pageing:before,
+.pageWrap .pageing:after {
+    display: none;
+}
+
+.pageWrap .pageing .dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 10px;
+    /* background: #fff; */
+    /* margin: 15px 16px; */
+    float: left;
+    margin-left: 14px;
+    cursor: pointer;
+}
+
+.pageWrap .pageing .dot.on {
+    /* background: #fbb03b; */
+    cursor: auto;
+}
+
+#wrap.math .pageWrap .pageing .dot:first-child {
+    margin-left: 11px;
+    /* margin-right: 19px; */
+}
+
+#wrap.math .pageWrap .pageing .dot {
+    margin-right: 7px;
+    margin-top: 7px;
+}
+
+.pageWrap .pageing .dot:first-child {
+    margin-left: 25px;
+    /* margin-right: 14px; */
+}
+
+.pageWrap .pageing .dot:last-child {
+    margin-right: 29px;
+}
+
+.pageWrap .pageing .dot .text {
+    display: none;
+}
+
+.pageWrap .prev,
+.pageWrap .next,
+.pageWrap .pageing,
+.pageWrap .pageing .dot,
+.pageWrap .pageing .dot.on {
+    /* background: none; */
+}
+
+/* popup 내부 */
+.popup.pageWrap .prev,
+.popup .pageWrap .prev {
+    height: 130px;
+    left: 81px;
+    top: 432px;
+}
+
+.popup.pageWrap .next,
+.popup .pageWrap .next {
+    height: 130px;
+    right: 81px;
+    top: 432px;
+}
+
+.popup.pageWrap .pageing,
+.popup .pageWrap .pageing {
+    top: 935px;
+}
+
+.pageWrap .pageing .dot.on::after {
+    pointer-events: none;
+}
+
+/* ---------------------------------------
+ * tabContents
+ * --------------------------------------- */
+/* tabWrap, tabs, tab */
+.tabWrap,
+.tabWrap .tabs,
+.tabWrap .tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* overflow: hidden; */
+}
+
+.tabWrap {
+    overflow: hidden;
+}
+
+/* tab */
+.tabWrap .tab {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tabWrap .tab:nth-child(1) {
+    display: block;
+}
+
+
+/* btnTab */
+.btnTabWrap {
+    position: absolute;
+    top: 177px;
+    right: 130px;
+}
+
+.btnTabWrap .btnTab {
+    float: left;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.btnTabWrap .btnTab.on {
+    pointer-events: none;
+}
+
+.btnTabWrap .btnTab:last-child {
+    margin-right: 0px;
+}
+
+.btnTabWrap .btnTab .text {
+    display: none;
+}
+
+.btnTabWrap::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---------------------------------------
+ * pop & popup
+ * --------------------------------------- */
+/* btns */
+.btnPop,
+.btnPopup {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    cursor: pointer;
+    /* z-index: 10; */
+}
+
+.btnPop.dis,
+.btnPopup.dis {
+    display: none !important;
+}
+
+.btnPop.on,
+.btnPopup.on {}
+
+/* pop */
+.pop {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    display: none;
+    z-index: 11;
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 12;
+}
+
+/*  */
+.pop .close {
+    position: absolute;
+    top: 9px;
+    right: 4px;
+    width: 76px;
+    height: 76px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.popup .close {
+    width: 76px;
+    height: 76px;
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* dragPop */
+.pop[data-type="dragPop"] {
+    cursor: pointer;
+}
+
+.pop[data-type="dragPop"] .close {
+    top: 165px;
+    right: 27px;
+    width: 70px;
+    height: 70px;
+}
+
+/* green */
+.btnPop[data-type="green"] {
+    width: 150px;
+    height: 101px;
+    background: url(../images/clickitem/char_green.png) 0px 0px no-repeat;
+    top: 336px;
+    right: 58px;
+}
+
+.btnPop[data-type="green"].on {
+    background: url(../images/clickitem/char_green_on.png) 0px 2px no-repeat;
+}
+
+.btnPop[data-type="green"].left {
+    background: url(../images/clickitem/char_green_left.png) 0px 0px no-repeat;
+    top: 366px;
+    left: 91px;
+}
+
+.btnPop[data-type="green"].left.on {
+    background: url(../images/clickitem/char_green_left_on.png) 0px 2px no-repeat;
+}
+
+.pop[data-type="green"] .close {
+    top: 165px;
+    right: 27px;
+    width: 70px;
+    height: 70px;
+}
+
+.btnPop[data-type="green"]::after {
+    content: "";
+    width: 56px;
+    height: 54px;
+    background: url(../images/clickitem/char_green_aft.png) 0px 0px no-repeat;
+    position: absolute;
+    top: -10px;
+    right: 116px;
+    animation: opacity101 1s infinite;
+}
+
+.btnPop[data-type="green"].left::after {
+    background: url(../images/clickitem/char_green_left_aft.png) 0px 0px no-repeat;
+    position: absolute;
+    top: -11px;
+    right: -25px;
+}
+
+.btnPop[data-type="green"].on::after {
+    display: none;
+    animation: none;
+}
+
+.btnPop[data-type="green"].act::after {
+    animation: none;
+}
+
+
+/* yellow */
+.btnPop[data-type="yellow"] {
+    width: 220px;
+    height: 130px;
+    background: url(../images/clickitem/char_yellow.png) 0 0 no-repeat;
+    bottom: -50px;
+    left: 120px;
+    animation: yellowAni 2.5s steps(35) infinite;
+    transform: rotate(0.001deg) translate(-50%, -50%);
+}
+
+.btnPop[data-type="yellow"].act {
+    animation: none;
+    background-position: -4620px;
+}
+
+.btnPop[data-type="yellow"].on {
+    background: url(../images/clickitem/char_yellow_on.png) 0 0 no-repeat;
+    animation: none;
+}
+
+.pop[data-type="yellow"] .close {
+    top: 165px;
+    right: 27px;
+    width: 70px;
+    height: 70px;
+}
+
+@keyframes yellowAni {
+    0% {
+        background-position: 0px;
+    }
+
+    100% {
+        background-position: -7700px;
+    }
+}
+
+/* yellow */
+.btnPop[data-type="solution"] {
+    width: 194px;
+    height: 74px;
+    background: url(../images/clickitem/solBtn.png) 0px 0px no-repeat;
+    top: 929px;
+    left: 1503px;
+    display: none;
+}
+
+.btnPop[data-type="solution"].on {
+    /* pointer-events: none; */
+}
+
+.pop[data-type="solution"] {
+    bottom: -26px;
+    left: 0px;
+}
+
+.pop[data-type="solution"] .close {
+    width: 70px;
+    height: 70px;
+    top: 31px;
+    right: 8px;
+}
+
+/* ---------------------------------------
+ * clickContent
+ * --------------------------------------- */
+.clickContent {
+    /* position: absolute; */
+    /* left: 0px; */
+    /* top: 0px; */
+}
+
+.clickContent .clickItemWrap {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+/* clickItem */
+.clickContent .clickItem {
+    background: #fff 0 0 no-repeat;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    border-radius: 20px;
+    position: absolute;
+    opacity: 1;
+}
+
+.clickContent .clickItem.on {
+    opacity: 0;
+}
+
+.clickContent .clickItem.off {
+    pointer-events: none;
+}
+
+.clickContent .clickItem:before {
+    display: block;
+    content: '';
+    width: 157px;
+    height: 166px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -46%);
+    background: url('../images/clickitem/clickitem.png') center center no-repeat;
+}
+
+.clickContent .clickItem.off:before {
+    background: url('../images/clickitem/clickitem_dis.png') center center no-repeat;
+}
+
+/* sequence */
+.clickContent.sequence .clickItem.on {
+    pointer-events: none;
+}
+
+.clickContent.sequence .clickItem:not(.act) {
+    pointer-events: none;
+}
+
+.clickContent.sequence .clickItem:not(.act):before {
+    content: none;
+}
+
+.clickContent.sequence .clickGuide:not(.act) {
+    display: none;
+    pointer-events: none;
+}
+
+/* guide */
+.clickGuide {
+    background: url('../images/clickitem/clickitem.png') 0 0 no-repeat;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    width: 73px;
+    height: 76px;
+    /* border-radius: 18px; */
+    /* background-color: #e6e6e4; */
+    pointer-events: none;
+}
+
+
+/* checkbox */
+.clickContent.checkbox .clickItem {
+    background: url('../images/clickitem/check_off.png') 0 0 no-repeat;
+    width: 50px;
+    height: 51px;
+    opacity: 1 !important;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.clickContent.checkbox .clickItem.on {
+    background: url('../images/clickitem/check.png') 0 0 no-repeat;
+}
+
+.clickContent.checkbox .clickItem:after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.clickContent.checkbox .clickItem:before {
+    content: '';
+    position: absolute;
+    display: block;
+    background: none;
+    width: auto;
+    height: 90px;
+    left: 66px;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+}
+
+/* OX */
+.clickContent.ox .clickItem {
+    opacity: 1 !important;
+}
+
+.clickContent.ox .clickItem::before {
+    content: none !important;
+}
+
+/* cho */
+.clickContent.cho .clickItem {
+    opacity: 1 !important;
+}
+
+.clickContent.cho .clickItem.on::before,
+.clickContent.cho .clickItem.cho::before {
+    content: none !important;
+}
+
+.clickContent.cho .clickItem.on::before,
+.clickContent.cho .clickItem.cho::before {
+    content: none !important;
+}
+
+.clickContent.cho .chobtn {
+    width: 258px;
+    height: 78px;
+    background: url('../images/clickitem/choBtn.png') 0 0 no-repeat;
+    position: absolute;
+    left: 1369px;
+    top: 924px;
+    cursor: pointer;
+}
+
+.clickContent.cho .chobtn.off {
+    background: url('../images/clickitem/choBtn_off.png') 0 0 no-repeat;
+}
+
+/* ansbtn */
+.clickContent .ansbtn {}
+
+.clickContent.checkbox .ansbtn {
+    display: none;
+}
+
+.popup .clickContent .ansbtn {
+    top: 914px;
+    left: 1657px;
+}
+
+/* ---------------------------------------
+ * 드래그
+ * --------------------------------------- */
+/* dragContents */
+.dragContents {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+/* drag */
+.dragContents .dragArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.dragContents .dragItem {
+    width: 200px;
+    height: 200px;
+    background: #fdbb38;
+    cursor: pointer;
+}
+
+.dragContents .dragItem p {
+    /* display: none; */
+    font-size: 30px;
+    text-align: center;
+    line-height: 180px;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* drop */
+.dragContents .dropArea {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.dragContents .dropItem {
+    width: 200px;
+    height: 200px;
+    background: #f1f1f1;
+}
+
+.dragContents .dropItem .dragItem {
+    pointer-events: none;
+}
+
+/* ansbtn */
+.dragContents .ansbtn {}
+
+.dragContents .ansbtn.re {}
+
+.dragContents.sticker .ansbtn {
+    display: none;
+}
+
+.dragContents.sticker .ansbtn.re {
+    display: block;
+}
+
+/* ---------------------------------------
+ * 스크롤
+ * --------------------------------------- */
+/* scroll - custom */
+/* scrollbox */
+[data-type='customScroll'] {
+    width: 100%;
+    height: 835px;
+    position: absolute;
+    left: 0px;
+    top: 150px;
+    overflow-y: auto;
+}
+
+[data-type='customScroll'] .scrollpage {
+    width: 100%;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+/* scroll - drag */
+/* scrollbox */
+[data-type='dragScroll'] {
+    position: absolute;
+}
+
+/* dragScroll */
+[data-type='dragScroll'] .dragScrollWrap {}
+
+[data-type='dragScroll'] .dragScroll {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+[data-type='dragScroll'] .dragScroll .bar {
+    background: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    border-radius: 14px;
+    border: 2px solid rgba(62, 62, 162, 0.6);
+}
+
+[data-type='dragScroll'] .dragScroll .bar.evt {
+    cursor: pointer;
+}
+
+[data-type='dragScroll'] .dragScroll[data-axis="x"] .bar {
+    width: 300px;
+    height: 10px;
+}
+
+[data-type='dragScroll'] .dragScroll[data-axis="y"] .bar {
+    left: 20px;
+    top: 10px;
+    width: 10px;
+    height: 300px;
+}
+
+[data-type='dragScroll'] .dragScroll .jog {
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 0px;
+    border-radius: 50%;
+    transform: translateY(-10px);
+    cursor: pointer;
+}
+
+[data-type='dragScroll'] .dragScroll[data-axis="x"] .jog {
+    background-image: url('../images/scrollitem/jog_x.png');
+    top: 0px;
+    left: 0px;
+    transform: translateY(-13px);
+}
+
+[data-type='dragScroll'] .dragScroll[data-axis="y"] .jog {
+    background-image: url('../images/scrollitem/jog_y.png');
+    top: 100px;
+    transform: translateX(5px);
+}
+
+/* ---------------------------------------
+ * 선긋기
+ * --------------------------------------- */
+.lineWrap {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.lineWrap .lineArea {
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+}
+
+.lineWrap .leftLine,
+.lineWrap .rightLine {
+    position: absolute;
+}
+
+.lineWrap .leftLine .clickArea .dot,
+.lineWrap .rightLine .r_item .dot,
+.lineWrap .leftLine .clickArea .dot,
+.lineWrap .rightLine .r_item .dot {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.lineWrap .leftLine .dot::before,
+.lineWrap .rightLine .dot::before {
+    content: '';
+    position: absolute;
+    display: block;
+    background: #F66E9E;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+/* ---------------------------------------
+ * 줌
+ * --------------------------------------- */
+/* zoomWrap */
+.zoomWrap {
+    width: 1596px;
+    height: 949px;
+    position: absolute;
+    top: 49px;
+    left: 173px;
+}
+
+
+/* zoombtn */
+.zoomWrap .zoombtn {
+    width: 91px;
+    height: 301px;
+    position: absolute;
+    top: 39px;
+    left: -105px;
+    z-index: 9999;
+    background: transparent;
+}
+
+.zoomWrap .zoombtn div {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 77px;
+    left: 0px;
+}
+
+.zoomWrap .zoombtn .btn.plus {
+    top: 0px;
+    cursor: pointer;
+}
+
+.zoomWrap .zoombtn .btn.minus {
+    top: auto;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.zoomWrap .zoombtn .text {
+    top: 97px;
+    left: 14px;
+    width: 58px;
+    height: 40px;
+    border-radius: 6px;
+    line-height: 42px;
+    font-size: 18px;
+    color: #000;
+    user-select: none;
+}
+
+/* zoombox */
+.zoomWrap .zoombox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.zoomWrap .zoombox .zoomImgbox {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: scale(1.0) translate(-50%, -50%);
+    user-select: none;
+}
+
+.zoomWrap .zoombox .zoomImg {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.0) translate(0px, 0px);
+    transition: transform 0.2s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+}
+
+/* ---------------------------------------
+ * 줌2
+ * --------------------------------------- */
+.contents.zoomPage {}
+
+.mapZoom .map {
+    background: transparent center center no-repeat;
+    background-size: 100%;
+}
+
+.mapZoom .map .innerbtn {
+    width: 80px;
+    height: 50px;
+    display: none;
+    position: absolute;
+    top: 510px;
+    left: 330px;
+    cursor: pointer;
+}
+
+/* 확대축소영역­ */
+.mapWrap {
+    position: absolute;
+    top: 195px;
+    left: 126px;
+}
+
+/* '※ 손가락 버튼을 클릭하세요.' 문구있을시 */
+.mapWrap.tp2 {
+    top: 143px;
+}
+
+/* 줌버튼 */
+/* .mapWrap .mapbtn {
+    background: url(../images/mapitem/mapcontrol.png) center center no-repeat;
+    width: 77px;
+    height: 227px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+} */
+
+.mapWrap .mapbtn {
+    background: url(../images/mapitem/mapcontrol_page.png) center center no-repeat;
+    width: 76px;
+    height: 237px;
+    position: absolute;
+    top: 1px;
+    left: 1689px;
+}
+
+.mapWrap .mapbtn div {
+    width: 100%;
+    height: 77px;
+    user-select: none;
+    text-align: center;
+    /* line-height: 77px; */
+    line-height: 89px;
+    color: #000;
+    font-size: 20px;
+}
+
+.mapWrap .mapbtn .btn {
+    cursor: pointer;
+}
+
+.mapWrap .mapbox {
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    overflow: hidden;
+    border: none;
+}
+
+.mapWrap .mapbox .map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(1.0) translate(0px, 0px);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* ---------------------------------------
+ * 오디오
+ * --------------------------------------- */
+audio {
+    display: none;
+}
+
+/* ---------------------------------------
+ * 비디오
+ * --------------------------------------- */
+
+.videoFrame * {
+    font-weight: normal;
+    text-align: left;
+    font-size: 0;
+    line-height: 1;
+}
+
+.videoFrame {
+    position: absolute;
+    z-index: 3;
+    width: 1224px;
+    height: 754px;
+    display: block;
+    top: 159px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.videoFrame .vdo-wrap video {
+    width: 100%;
+    position: absolute;
+}
+
+/* .pc.chrome .videoFrame .vdo-wrap video {
+    object-fit: fill;
+}
+
+.pc.ie .videoFrame .vdo-wrap video {
+    background: url('inc/images/09/thumbnail.png') no-repeat 0 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+} */
+
+.videoFrame .vdo-wrap .play {
+    background: url(../images/video/playbtn_big.png) 0 0 no-repeat;
+    width: 158px;
+    height: 157px;
+    position: absolute;
+    top: calc(50% - 113px);
+    left: calc(50% - 80px);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.videoFrame .vdo-wrap .videoend {
+    /*background:url(../images/video/videoend.png) 0 0 no-repeat;
+    width:193px;
+    height:155px;
+    position:absolute;
+    bottom:130px;
+    right: 40px;
+    cursor:pointer;*/
+}
+
+
+.videoFrame .control-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 1;
+    background: #707578;
+}
+
+.videoFrame .control-wrap>* {
+    position: absolute;
+}
+
+.videoFrame .control-wrap .p-con {
+    top: 4px;
+    left: 19px;
+}
+
+.videoFrame .control-wrap .p-con button {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 62px;
+    height: 62px;
+    ;
+    cursor: pointer;
+}
+
+.videoFrame .control-wrap .p-con .play {
+    background: url(../images/video/play_btn.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+.videoFrame .control-wrap .p-con .pause {
+    background: url(../images/video/pause.png) 0 0 no-repeat;
+    background-size: 100%;
+    width: 45px;
+    height: 52px;
+    display: none;
+    top: 6px;
+    left: 9px;
+    /* display: block; */
+}
+
+.videoFrame .control-wrap .stop {
+    top: 10px;
+    left: 100px;
+    background: url(../images/video/stop.png) 0 0 no-repeat;
+    background-size: 100%;
+    width: 49px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.videoFrame .control-wrap .stop:before {
+    /* content: ''; */
+    display: block;
+    height: 66px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -14px;
+    left: -27px;
+    opacity: 0.2;
+}
+
+.videoFrame .control-wrap .c-con {
+    left: 177px;
+    top: 12px;
+    width: calc(100% - 646px);
+}
+
+.videoFrame .control-wrap .c-con:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -5px;
+    left: -15px;
+    opacity: 0.2;
+}
+
+.videoFrame .control-wrap .c-con .progress {
+    position: absolute;
+    top: 19px;
+    left: 19px;
+    width: calc(100% - 141px);
+    height: 5px;
+    background-color: #5C5E5E;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.videoFrame .control-wrap.novtt .c-con .progress {
+    width: 390px;
+}
+
+
+.videoFrame .control-wrap .c-con .progress span {
+    height: 100%;
+    background: #90d3fc;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 25px;
+}
+
+.videoFrame .control-wrap .c-con .progress span:before {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    /*    background: url(images/video/jog.png) 0 0 no-repeat;*/
+    background: url(../images/video/jog.png) 0 0 no-repeat;
+    top: -25px;
+    right: -31px;
+}
+
+.videoFrame .control-wrap .c-con .time {
+    position: absolute;
+    top: 14px;
+    right: -20px;
+    width: 97px;
+}
+
+.videoFrame .control-wrap.novtt .c-con .time {
+    left: 610px;
+}
+
+.videoFrame .control-wrap .c-con .time .currentTime {
+    color: #FFE674;
+    font-size: 15px;
+    float: left;
+    font-weight: bold;
+}
+
+.videoFrame .control-wrap .c-con .time .totalTime {
+    color: #fff;
+    font-size: 15px;
+    float: right;
+    font-weight: bold;
+}
+
+.videoFrame .control-wrap .c-con .time .totalTime:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: 47px;
+    width: 2px;
+    height: 15px;
+    background: #fff;
+}
+
+.videoFrame .control-wrap .s-con {
+    top: 9px;
+    right: 253px;
+}
+
+.videoFrame .s-con:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -1px;
+    left: -3px;
+    opacity: 0.2;
+}
+
+.videoFrame .control-wrap.novtt .s-con {
+    left: 830px;
+}
+
+.videoFrame .control-wrap .s-con .s_icon {
+    /*    background:url(images/video/sound.png) 0 0 no-repeat;*/
+    background: url(../images/video/sound.png) 0 0 no-repeat;
+    width: 62px;
+    height: 62px;
+    position: relative;
+    background-size: 100%;
+    cursor: pointer;
+}
+
+.videoFrame .control-wrap .s-con .s_icon.mute {
+    /* width: 38px; */
+    /* height: 31px; */
+    /* margin-top: 0px; */
+    background: url(../images/video/mute.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+.videoFrame .control-wrap .s-con .sound {
+    position: absolute;
+    top: 26px;
+    left: 76px;
+    width: 116px;
+    height: 5px;
+    background-color: #5C5E5E;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.videoFrame .control-wrap .s-con .sound span {
+    width: 50%;
+    height: 100%;
+    background: #90d3fc;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 25px;
+}
+
+.videoFrame .control-wrap .s-con .sound span:before {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 31px;
+    height: 62px;
+    background: url(../images/video/s_jog.png) 0 0 no-repeat;
+    top: -25px;
+    right: -20px;
+    background-size: 100%;
+}
+
+.videoFrame .control-wrap .script {
+    top: 20px;
+    left: 826px;
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-sizing: content-box;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-indent: 30px;
+    display: none;
+}
+
+.videoFrame .control-wrap .f-con {
+    top: 8px;
+    right: 17px;
+}
+
+.videoFrame .control-wrap .f-con:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 2px solid #00002D;
+    border-right: 2px solid #fff;
+    position: absolute;
+    top: 2px;
+    left: -20px;
+    opacity: 0.2;
+}
+
+.videoFrame .control-wrap .f_icon {
+    width: 61px;
+    height: 62px;
+    background: url(../images/video/full.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+.videoFrame .control-wrap .f_icon.on {
+    width: 68px;
+    height: 68px;
+    background: url(../images/video/full_on.png) 0 0 no-repeat;
+    margin-top: -5px;
+}
+
+.videoFrame .control-wrap .f_icon.close {
+    width: 28px;
+    height: 28px;
+    background: url(../images/video/close.png) 0 0 no-repeat;
+}
+
+.videoFrame .control-wrap .script .icon {
+    background: url(../images/video/script.png) -8px -8px no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 2px;
+    left: 5px;
+}
+
+/*0626 수정*/
+.videoFrame {
+    /*background: #fff;*/
+}
+
+.videoFrame .control-wrap .script-wrap {
+    width: 1280px;
+    height: 54px;
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    line-height: 54px;
+}
+
+/*배속 추가*/
+
+.videoFrame .r-con {
+    top: 18px;
+    right: 423px;
+    display: block;
+}
+
+.videoFrame .r-con:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #FFF;
+    position: absolute;
+    top: -9px;
+    left: -21px;
+    opacity: 0.2;
+}
+
+.videoFrame .r-con .r-btn {
+    width: 86px;
+    height: 32px;
+    cursor: pointer;
+    box-sizing: content-box;
+    border-radius: 20px;
+    color: #4D4D4D;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 34px;
+    background: #90d3fc;
+    position: absolute;
+    text-indent: 40px;
+}
+
+.videoFrame .r-con .r-btn:before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 24px;
+    height: 26px;
+    background: url(../images/video/rate_item.png) center center no-repeat;
+    top: 3px;
+    left: 3px;
+}
+
+.videoFrame .r-con .r-box {
+    position: absolute;
+    top: -274px;
+    left: -21px;
+    width: 128px;
+    height: 254px;
+    background: url(../images/video/ratebg.png) center center no-repeat;
+    padding: 11px 15px;
+    display: none;
+    z-index: 2;
+}
+
+.videoFrame .r-con .r-box:before {
+    content: '배속 선택';
+    display: block;
+    clear: both;
+    position: absolute;
+    color: #fff;
+    font-size: 23px;
+    width: 98px;
+    text-align: center;
+}
+
+.videoFrame .r-box div {
+    width: 86px;
+    height: 27px;
+    cursor: pointer;
+    box-sizing: content-box;
+    border-radius: 20px;
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    line-height: 30px;
+    background: #cbcbcb;
+    position: relative;
+    text-indent: 36px;
+    margin-top: 10px;
+    margin-left: 2px;
+}
+
+.videoFrame .r-box div:before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 24px;
+    height: 26px;
+    background: url(../images/video/rate_item.png) center center no-repeat;
+    top: 1px;
+    left: 2px;
+}
+
+.videoFrame .r-box div.on {
+    background: #90d3fc;
+}
+
+.videoFrame .r-box div:first-child {
+    margin-left: 4;
+    margin-top: 37px;
+}
+
+
+:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    background: none !important;
+}
+
+:-webkit-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+    background: none !important;
+}
+
+:-ms-fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    background: none !important;
+}
+
+:-ms-fullscreen.videoFrame {
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+}
+
+:fullscreen.videoFrame {
+    width: 100%;
+    height: 100% !important;
+    position: relative;
+}
+
+:-webkit-full-screen.videoFrame {
+    width: 100%;
+    height: 100% !important;
+    position: relative;
+}
+
+:-ms-fullscreen.videoFrame {
+    width: 100%;
+    height: 100% !important;
+    position: relative;
+}
+
+:fullscreen.videoFrame video {
+    height: 100% !important;
+    /*height: calc(100% - 76px) !important;*/
+}
+
+:-webkit-full-screen.videoFrame video {
+    height: 100% !important;
+    /*height: calc(100% - 76px) !important;*/
+}
+
+:-ms-fullscreen.videoFrame video {
+    height: 100% !important;
+    /*height: calc(100% - 76px) !important;*/
+}
+
+.videoFrame .control-wrap .c-con {
+    left: 258px;
+    top: 15px;
+    width: calc(100% - 752px);
+}
+
+.videoFrame .control-wrap .replay {
+    top: 4px;
+    left: 165px;
+    background: url(../images/video/role.png) 0 0 no-repeat;
+    background-size: 100%;
+    width: 61px;
+    height: 61px;
+    cursor: pointer;
+}
+
+.videoFrame .control-wrap .replay.on {
+    background: url(../images/video/role_on.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+.videoFrame .control-wrap .replay:before {
+    /* content: ''; */
+    display: block;
+    height: 66px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -14px;
+    left: -20px;
+    opacity: 0.2;
+}
+
+.videoFrame .r-con .r-box {
+    position: absolute;
+    top: -289px;
+    left: -18px;
+    width: 120px;
+    height: 273px;
+    background: #727581;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 11px 15px;
+}
+
+.videoFrame .r-con .r-box:before {
+    content: '배속 선택';
+    display: block;
+    clear: both;
+    position: absolute;
+    color: #fff;
+    font-size: 22px;
+    width: 94px;
+    padding-bottom: 6px;
+    text-align: center;
+}
+
+.videoFrame .r-con .r-box:after {
+    content: '';
+    display: block;
+    width: 88px;
+    border-top: 1px solid #00002D;
+    border-bottom: 1px solid #FFF;
+    position: absolute;
+    top: 37px;
+    left: 18px;
+    opacity: 0.2;
+}
+
+.markerbox {
+    width: calc(100% - 140px);
+    position: absolute;
+}
+
+.markerbox .marker {
+    background: url(../images/video/marker.png) 0 0 no-repeat;
+    position: absolute;
+    /*    background: blue;*/
+    width: 16px;
+    height: 15px;
+    top: -10px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.videoFrame.fullvideo .replay,
+.videoFrame.fullvideo .time,
+.videoFrame.fullvideo .r-con,
+.videoFrame.fullvideo .s-con {
+    display: none;
+}
+
+.videoFrame.fullvideo .c-con {
+    left: 177px;
+    top: 12px;
+    width: calc(100% - 156px);
+}
+
+/* 탭 */
+.videoFrame:not(.adomode) .tabbox {
+    position: absolute;
+    top: 0;
+    left: -225px;
+}
+
+.videoFrame:not(.adomode) .tabbox .tab {
+    background: #999999;
+    font-size: 36px;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+    position: relative;
+    color: #fff;
+    width: 225px;
+    padding-left: 35px;
+    padding-right: 60px;
+    padding-top: 16px;
+    padding-bottom: 12px;
+    line-height: 52px;
+    min-height: 76px;
+}
+
+.videoFrame:not(.adomode) .tabbox .tab.on {
+    background: #00a99d;
+}
+
+.videoFrame:not(.adomode) .tabbox .tab .rolemode {
+    background: url(../images/video/role.png) 0 0 no-repeat;
+    background-size: 100%;
+    width: 45px;
+    height: 33px;
+    cursor: pointer;
+    top: 25px;
+    left: 170px;
+    position: absolute;
+}
+
+.videoFrame:not(.adomode) .tabbox .tab .rolemode.on {
+    background: url(../images/video/role_on.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+/* adomode */
+.videoFrame.adomode {
+    width: 780px;
+    height: 40px;
+    top: 499px;
+    left: 970px;
+}
+
+.videoFrame.adomode .vdo-wrap .play {
+    display: none !important;
+}
+
+.videoFrame.adomode video {
+    display: none;
+}
+
+.videoFrame.adomode .control-wrap .s-con {
+    right: 120px;
+}
+
+.videoFrame.adomode .s-con:before {
+    left: -14px;
+}
+
+.videoFrame.adomode .control-wrap .c-con {
+    width: calc(100% - 439px);
+}
+
+.videoFrame.adomode .control-wrap .s-con .sound {
+    width: 90px;
+}
+
+.videoFrame.adomode .control-wrap .f-con {
+    display: none;
+}
+
+.videoFrame.adomode .control-wrap .r-con {
+    display: none;
+}
+
+/* 탭 */
+.videoFrame.adomode .tabbox {
+    position: absolute;
+    top: -27px;
+    left: -5px;
+    width: 1600px;
+}
+
+.videoFrame.adomode .tabbox .tab {
+    margin-bottom: 36px;
+    letter-spacing: -0.3px;
+    font-size: 50px;
+    text-align: justify;
+    font-family: 'NotoSerifKr-Bold';
+    pointer-events: none;
+}
+
+.videoFrame.adomode .tabbox .tab:first-child {
+    margin-left: 104px;
+}
+
+.videoFrame.adomode .tabbox .tab .btn {
+    display: none;
+}
+
+.videoFrame.adomode .tabbox .tab.on {
+    color: #ff3300;
+}
+
+.videoFrame.adomode .tabbox .tab .rolemode {
+    background: url(../images/video/role.png) 0 0 no-repeat;
+    background-size: 100%;
+    width: 45px;
+    height: 33px;
+    cursor: pointer;
+    top: 25px;
+    left: 170px;
+    position: absolute;
+}
+
+.videoFrame.adomode .tabbox .tab .rolemode.on {
+    background: url(../images/video/role_on.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+/* adomode - simple */
+.videoFrame.adomode.simple {
+    width: 151px;
+    height: 40px;
+    top: 499px;
+    left: 970px;
+}
+
+.videoFrame.adomode.simple .control-wrap .replay,
+.videoFrame.adomode.simple .control-wrap .c-con,
+.videoFrame.adomode.simple .control-wrap .progress,
+.videoFrame.adomode.simple .control-wrap .time,
+.videoFrame.adomode.simple .control-wrap .btn script,
+.videoFrame.adomode.simple .control-wrap .r-con,
+.videoFrame.adomode.simple .control-wrap .s-con,
+.videoFrame.adomode.simple .control-wrap .f-con {
+    display: none;
+}
+
+/* adomode - speaker */
+.videoFrame.adomode.speaker {
+    width: 151px;
+    height: 40px;
+    top: 499px;
+    left: 970px;
+}
+
+.videoFrame.adomode.speaker .control-wrap .replay,
+.videoFrame.adomode.speaker .control-wrap .c-con,
+.videoFrame.adomode.speaker .control-wrap .progress,
+.videoFrame.adomode.speaker .control-wrap .time,
+.videoFrame.adomode.speaker .control-wrap .btn script,
+.videoFrame.adomode.speaker .control-wrap .r-con,
+.videoFrame.adomode.speaker .control-wrap .s-con,
+.videoFrame.adomode.speaker .control-wrap .f-con {
+    display: none;
+}
+
+.videoFrame.adomode.speaker .control-wrap {
+    background: transparent;
+    width: 80px;
+    height: 80px;
+}
+
+.videoFrame.adomode.speaker .control-wrap .p-con {
+    left: 0;
+    top: 0;
+}
+
+.videoFrame.adomode.speaker .control-wrap .p-con .pause {
+    display: none !important;
+}
+
+.videoFrame.adomode.speaker .control-wrap .p-con .play {
+    width: 70px;
+    height: 75px;
+    background: url(../images/audio/btnSound_stop.png) 0 0 no-repeat;
+    top: 0;
+    left: 0;
+}
+
+.videoFrame.adomode.speaker .control-wrap .stop {
+    width: 80px;
+    height: 80px;
+    background: url(../images/audio/btnSound_play.png) 0 0 no-repeat;
+    top: 0;
+    left: 0;
+}
+
+.videoFrame.adomode.speaker .control-wrap .stop::before {
+    content: none;
+}
+
+/* player */
+.videoFrame.adomode.player {
+    width: 799px;
+    height: 82px;
+    top: 162px;
+    left: 428px;
+}
+
+.videoFrame.adomode.player .control-wrap {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+}
+
+.videoFrame.adomode.player .control-wrap .p-con {
+    top: 11px;
+    left: 18px;
+}
+
+.videoFrame.adomode.player .control-wrap .stop {
+    top: 16px;
+    left: 95px;
+}
+
+.videoFrame.adomode.player .control-wrap .replay {
+    top: 9px;
+    left: 169px;
+}
+
+.videoFrame.adomode.player .control-wrap .c-con {
+    left: 250px;
+    top: 18px;
+    width: calc(100% - 409px);
+}
+
+.videoFrame.adomode.player .control-wrap .s-con {
+    top: 11px;
+    right: 159px !important;
+}
+
+.videoFrame.adomode.player .control-wrap .s-con .sound {
+    width: 113px;
+    top: 26px;
+    left: 73px;
+}
+
+.videoFrame.adomode.player .control-wrap .c-con:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -2px;
+    left: -11px;
+    opacity: 0.2;
+}
+
+.videoFrame.adomode.player .control-wrap .replay:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: 7px;
+    left: -11px;
+    opacity: 0.2;
+}
+
+.videoFrame.adomode.player .control-wrap .stop:before {
+    content: '';
+    display: block;
+    height: 51px;
+    border-left: 1px solid #00002D;
+    border-right: 1px solid #fff;
+    position: absolute;
+    top: -1px;
+    left: -11px;
+    opacity: 0.2;
+}
+
+.videoFrame.adomode.player .control-wrap .c-con .time {
+    display: none;
+}
+
+/* 팝업 */
+.popup .videoFrame {
+    top: 149px;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+}
+
+/* 인라인 비디오 */
+.inVideo {
+    cursor: pointer;
+    position: absolute;
+    width: 689px;
+    height: 623px;
+    border: 3px solid #cfd3db;
+    top: 247px;
+    left: 207px;
+    overflow: hidden;
+}
+
+.inVideo.on {
+    background: transparent;
+}
+
+/*  */
+.btnVideo {
+    width: 71px;
+    height: 75px;
+    background: url(../images/video/btnVideo.png) 0 0 no-repeat;
+    position: absolute;
+    bottom: 191px;
+    right: 456px;
+}
+
+/*  */
+.inVideo>.bg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: translate(0, 0) scale(1);
+}
+
+.inVideo.on .bg {
+    background: #000 !important;
+}
+
+/*  */
+.inVideo .videoFrame .vdo-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :-webkit-full-screen.videoFrame .vdo-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :fullscreen.videoFrame .vdo-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*  */
+.inVideo .videoFrame .vdo-wrap video {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :-webkit-full-screen.videoFrame .vdo-wrap video {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :fullscreen.videoFrame .vdo-wrap video {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*  */
+.inVideo .videoFrame .vdo-wrap .play {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :fullscreen.videoFrame .vdo-wrap .play {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.inVideo :-webkit-full-screen.videoFrame .vdo-wrap .play {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*  */
+.inVideo .videoFrame.fullvideo {
+    transform: translate(-50%, -50%) scale(0.535);
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    z-index: auto;
+    display: none !important;
+}
+
+.inVideo.on .videoFrame.fullvideo {
+    display: block !important;
+}
+
+/* ---------------------------------------
+ * 글쓰기
+ * --------------------------------------- */
+/* textarea */
+textarea,
+input {
+    resize: none;
+    background: transparent;
+    outline: none;
+    overflow-y: auto;
+    color: #333;
+    font-family: 'NanumGothicB' !important;
+    font-size: 17px;
+    line-height: 1;
+    overflow-x: hidden;
+}
+
+textarea::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+textarea:-ms-input-placeholder {
+    color: #ccc;
+}
+
+textarea::placeholder {
+    color: #ccc;
+}
+
+/* input */
+input[type=text]::-ms-clear {
+    display: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+input[disabled="true"] {
+    -webkit-text-fill-color: blue;
+    color: blue !important;
+    opacity: 1;
+}
+
+/* textContents */
+.textContent {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+/* textWrap */
+.textContent .textWrap {
+    position: absolute;
+    left: 490px;
+    top: 410px;
+    width: 950px;
+    height: 200px;
+}
+
+.textContent .textWrap textarea {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    /* padding: 0 55px; */
+    background: transparent;
+    border: none;
+    resize: none;
+    font-family: 'KoPubDotum' !important;
+    font-weight: 400;
+    font-size: 70px;
+    text-align: left;
+    line-height: 88px;
+    line-height: 1;
+    padding: 20px;
+    color: #000;
+}
+
+.textContent .textWrap .exWrap {
+    /* background: url('../images/09/ex.png') 238px 132px no-repeat; */
+    width: 110%;
+    height: 140%;
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.textContent .textWrap .exWrap .closeBtn {
+    background: url('../images/textitem/exClose.png') 0 0 no-repeat;
+    width: 55px;
+    height: 58px;
+    position: absolute;
+    top: -37px;
+    right: 56px;
+    cursor: pointer;
+}
+
+.textContent .textWrap .placeholder {
+    background: url('../images/textitem/placeholder.png') 12px 15px no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.textContent .exbtn {
+    background: url('../images/clickitem/btn_openEx.png') 0 0 no-repeat;
+    width: 176px;
+    height: 63px;
+    position: absolute;
+    top: 909px;
+    left: 1673px;
+    cursor: pointer;
+}
+
+.textContent .exbtn.dis {
+    background: url('../images/clickitem/btn_openEx_dis.png') 0 0 no-repeat;
+    pointer-events: auto !important;
+}
+
+.textContent .exbtn.re {
+    /*  background: url('../images/clickitem/replay.png') 0 0 no-repeat; */
+}
+
+/* inputWrap */
+.textContent .inputWrap {
+    position: absolute;
+    left: 490px;
+    top: 550px;
+    width: 950px;
+    height: 160px;
+}
+
+.textContent .inputWrap input {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    padding: 0 55px;
+    font-size: 88px;
+    line-height: 88px;
+    line-height: 1;
+    color: #000;
+    background: transparent;
+    resize: none;
+    border: none;
+}
+
+.textContent .inputWrap .exWrap {
+    /* background: url('../images/09/ex.png') 238px 132px no-repeat; */
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.textContent .inputWrap .exWrap .closeBtn {
+    background: url('../images/inputItem/exClose.png') 0 0 no-repeat;
+    width: 55px;
+    height: 58px;
+    position: absolute;
+    top: 44px;
+    right: 62px;
+    cursor: pointer;
+}
+
+.textContent .inputWrap .placeholder {
+    background: url('../images/inputItem/placeholder.png') 270px 42px no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+/* ---------------------------------------
+ * 캐릭터 음원
+ * --------------------------------------- */
+/* aniWrap */
+.aniWrap {
+    position: relative;
+}
+
+/* aniItem */
+.aniWrap .aniItem {
+    position: absolute;
+    cursor: pointer;
+}
+
+/*  */
+.aniWrap .aniItem .char {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+/*  */
+.aniWrap .aniItem .item {
+    position: absolute;
+    pointer-events: none;
+    display: block !important;
+    opacity: 0;
+}
+
+.aniWrap .aniItem.ing .item {
+    opacity: 1;
+}
+
+/* motion */
+.aniWrap .aniItem .motionWrap .cover {
+    display: block;
+}
+
+.aniWrap .aniItem .motionWrap.on .cover {
+    display: none;
+}
+
+.aniWrap .aniItem .motionWrap .motion {
+    display: none;
+}
+
+.aniWrap .aniItem .motionWrap.on .motion {
+    display: block;
+}
+
+/* soundBtn */
+.aniWrap .soundBtn {
+    position: absolute;
+    width: 228px;
+    height: 78px;
+    top: 905px;
+    left: 1635px;
+    cursor: pointer;
+    background: url('../images/clickitem/soundbtn.png') no-repeat;
+}
+
+.aniWrap .soundBtn.re {
+    background: url('../images/clickitem/replay.png') no-repeat;
+}
+
+/* ---------------------------------------
+ * 슬라이드 컨텐츠
+ * --------------------------------------- */
+.slideWrap {
+    width: auto;
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.slideWrap .slide {
+    position: absolute;
+    pointer-events: auto;
+    background: #999;
+}
+
+.slideWrap .slide .slideBtn {
+    width: auto;
+    height: auto;
+    position: absolute;
+    cursor: pointer;
+    background: #666;
+}
+
+.slideWrap.top .slide .slideBtn {
+    bottom: 0;
+}
+
+.slideWrap.bottom .slide .slideBtn {
+    top: 0;
+}
+
+.slideWrap.left .slide .slideBtn {
+    right: 0;
+}
+
+.slideWrap.right .slide .slideBtn {
+    left: 0;
+}
+
+/* ---------------------------------------
+ * stamp
+ * --------------------------------------- */
+.stampWrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.stampWrap .stamp {
+    width: 800px;
+    height: 1000px;
+    background: url('../images/motion/stamp_800_22.png') no-repeat;
+    animation: stampAni 2s steps(25);
+    position: absolute;
+    top: -40px;
+    left: 1453px;
+}
+
+.stampWrap .item {
+    width: 390px;
+    height: 390px;
+    position: absolute;
+    top: 574px;
+    left: 1476px;
+    display: none;
+}
+
+.stampWrap .item.st1 {
+    background: url('../images/motion/stamp01.png') center center no-repeat;
+}
+
+.stampWrap .item.st2 {
+    background: url('../images/motion/stamp02.png') center center no-repeat;
+}
+
+.stampWrap .item.st3 {
+    background: url('../images/motion/stamp03.png') center center no-repeat;
+}
+
+.stampWrap .item.st4 {
+    background: url('../images/motion/stamp04.png') center center no-repeat;
+}
+
+.stampWrap .item.st5 {
+    background: url('../images/motion/stamp05.png') center center no-repeat;
+}
+
+.stampWrap .item.st6 {
+    background: url('../images/motion/stamp06.png') center center no-repeat;
+}
+
+.stampWrap .item.st7 {
+    background: url('../images/motion/stamp07.png') center center no-repeat;
+}
+
+.stampWrap .item.st8 {
+    background: url('../images/motion/stamp08.png') center center no-repeat;
+}
+
+@keyframes stampAni {
+    0% {
+        background-position: 0px;
+    }
+
+    100% {
+        background-position: -20000px;
+    }
+}
+
+@keyframes bounce2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+
+    60% {
+        -webkit-transform: scale3d(1.03, 1.03, 1.03);
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+
+
+    100% {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.bounce2 {
+    animation-name: bounce2;
+    -webkit-animation-name: bounce2;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+}
+
+/* ---------------------------------------
+ * 함께읽기
+ * --------------------------------------- */
+.toReadWrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.btnToRead {
+    position: absolute;
+    width: 328px;
+    height: 105px;
+    top: 890px;
+    right: 96px;
+    cursor: pointer;
+    /* background: #333; */
+    pointer-events: auto;
+}
+
+.btnToRead.on {
+    background: #fff;
+    pointer-events: none;
+}
+
+.toRead {
+    position: absolute;
+    background: url('../images/motion/toRead.png') no-repeat;
+    width: 800px;
+    height: 634px;
+    top: 47.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.toRead.motion {
+    animation: toReadAni1 4s steps(46);
+    animation-fill-mode: both;
+    animation-delay: 1s;
+    transform: rotate(0.001deg) translate(-50%, -50%);
+}
+
+@keyframes toReadAni1 {
+    0% {
+        background-position: 0px;
+    }
+
+    100% {
+        background-position: -36800px;
+    }
+}
+
+/* ---------------------------------------
+ * 링크 버튼
+ * --------------------------------------- */
+.linkContent {
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.linkContent .linkItem {
+    width: 1770px;
+    height: 270px;
+    position: absolute;
+    left: 79px;
+    top: 300px;
+}
+
+.linkContent .linkItem .linkArea {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.linkContent .linkItem .linkBtn {
+    background: url(../images/fingeritem/iconfinger_motion.png) 0 0 no-repeat;
+    width: 180px;
+    height: 200px;
+    position: absolute;
+    left: 1036px;
+    top: 182px;
+    cursor: pointer;
+    opacity: 1;
+    animation: iconFlash 1.5s steps(75) infinite;
+    animation-fill-mode: both;
+    transform: rotate(0.001deg) translate(-50%, -50%) scale(0.8);
+    /* animation: none; */
+}
+
+@keyframes iconFlash {
+    0% {
+        background-position: 0px;
+    }
+
+    100% {
+        background-position: -13500px;
+    }
+}
+
+
+/* <img/> Sequence Animation */
+.wrapAni {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    animation-play-state: running;
+}
+
+.wrapAni>img {
+    left: -10000px;
+    top: 0px;
+    position: absolute;
+    display: none;
+    width: 100%;
+}
+
+.wrapAni>img.show {
+    left: 0px;
+    display: block;
+}
+
+.wrapAni>img.hide {
+    left: -10000px;
+    display: none;
+}
+
+.wrapAni>.wrapLoad {
+    top: 0px !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0.01 !important;
+}
+
+.wrapAni>.wrapLoad>img {
+    position: absolute !important;
+    display: block !important;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+/* =========================================================================================
+ * 과목 개별 기능
+ * ====================================================================================== */
+/* ---------------------------------------
+ * 손가락 아이콘 모션
+ * --------------------------------------- */
+.fingerAni {
+    width: 180px;
+    height: 200px;
+    background: url(../images/fingeritem/iconfinger_dot_motion.png) 0 0 no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 2;
+    animation: fingerAni 1.5s steps(75) infinite;
+    animation-fill-mode: both;
+    transform: rotate(0.001deg) translate(-50%, -50%);
+}
+
+@keyframes fingerAni {
+    0% {
+        background-position: 0px;
+    }
+
+    100% {
+        background-position: -13500px;
+    }
+}
+
+
+.finger::before {
+    content: "";
+    width: 112px;
+    height: 116px;
+    background: url(../images/fingeritem/finger.png) 0 0 no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: opacity101 1s infinite;
+}
+
+.finger.act::before {
+    animation: none;
+    display: none;
+}
+
+/* ---------------------------------------
+ * 순차 체크리스트
+ * --------------------------------------- */
+.starContent {
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.starContent .starGroup {
+    position: absolute;
+}
+
+.starContent .starGroup::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.starContent .starGroup .star {
+    background: url('../images/clickitem/star1.png') center center no-repeat;
+    width: 161px;
+    height: 189px;
+    position: relative;
+    float: left;
+    margin-right: 107px;
+    cursor: pointer;
+}
+
+.starContent .starGroup .star:nth-child(2) {
+    background: url('../images/clickitem/star2.png') center center no-repeat;
+    width: 157px;
+    height: 175px;
+    margin-top: 12px;
+    margin-right: 108px;
+}
+
+.starContent .starGroup .star:last-child {
+    background: url('../images/clickitem/star3.png') center center no-repeat;
+    width: 177px;
+    height: 182px;
+    margin-right: 0px;
+    margin-top: 4px;
+}
+
+.starContent .starGroup .star.on {
+    background: url('../images/clickitem/star1_on.png') center center no-repeat;
+    margin-top: -3px;
+}
+
+.starContent .starGroup .star:nth-child(2).on {
+    background: url('../images/clickitem/star2_on.png') center center no-repeat;
+    margin-top: 9px;
+}
+
+.starContent .starGroup .star:nth-child(3).on {
+    background: url('../images/clickitem/star3_on.png') center center no-repeat;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.starContent .starGroup .star.on::after {
+    content: "";
+    width: 101px;
+    height: 67px;
+    position: absolute;
+    background: url('../images/clickitem/star1_on_aft.png') center center no-repeat;
+    top: -7px;
+    left: -67px;
+}
+
+.starContent .starGroup .star:nth-child(2).on::after {
+    width: 102px;
+    background: url('../images/clickitem/star2_on_aft.png') center center no-repeat;
+    top: -20px;
+    left: -94px;
+}
+
+.starContent .starGroup .star:nth-child(3).on::after {
+    width: 118px;
+    background: url('../images/clickitem/star3_on_aft.png') center center no-repeat;
+    top: -13px;
+    left: -77px;
+}
+
+/* triangletool */
+.triangletool {
+    width: 148px;
+    height: 117px;
+    background: url(../images/toolitem/triangle_tool_off.png) 0 0 no-repeat;
+    position: absolute;
+    /* top: 271px;
+    right: 59px; */
+    top: 165px;
+    right: 0;
+    cursor: pointer;
+}
+
+.triangletool.on {
+    width: auto;
+    height: 119px;
+    background: url('../images/toolitem/triangle_tool_on.png') 0 0 no-repeat;
+    position: absolute;
+    top: 271px;
+    right: 59px;
+    cursor: auto;
+    padding-left: 55px;
+    padding-right: 25px;
+}
+
+.triangletool.tools.on {
+    width: auto;
+    height: 119px;
+    background: url('../images/toolitem/tools_on.png') left top no-repeat;
+    position: absolute;
+    /* top: 271px; */
+    top: 165px;
+    right: 0px;
+    cursor: auto;
+    padding-left: 55px;
+    padding-right: 25px;
+}
+
+.triangletool div {
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.triangletool.on .close {
+    display: block;
+    width: 46px;
+    height: 118px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.triangletool.on .triangle1 {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    background: #fff url('../images/toolitem/ja1.png') center center no-repeat;
+    background-size: 100%;
+}
+
+.triangletool.on .triangle1.on {
+    background: #fff url('../images/toolitem/dot3.png') center center no-repeat;
+}
+
+.triangletool.on .triangle2 {
+    width: 170px;
+    height: 100px;
+    cursor: pointer;
+    background: #fff url('../images/toolitem/ja2.png') center center no-repeat;
+    background-size: 100%;
+}
+
+.triangletool.on .triangle2.on {
+    background: #fff url('../images/toolitem/dot4.png') center center no-repeat;
+}
+
+.triangletool.on .angle {
+    width: 161px;
+    height: 100px;
+    cursor: pointer;
+    background: #fff url('../images/toolitem/angle.png') center center no-repeat;
+    background-size: 100%;
+}
+
+.triangletool.on .angle.on {
+    background: #fff url('../images/toolitem/dot5.png') center center no-repeat;
+}
+
+.triangletool.on .ja {
+    width: 163px;
+    height: 100px;
+    cursor: pointer;
+    background: #fff url('../images/toolitem/ja5.png') center center no-repeat;
+    background-size: 100%;
+}
+
+.triangletool.on .ja.on {
+    background: #fff url('../images/toolitem/dot2.png') center center no-repeat;
+}
+
+.triangletool.on .cir {
+    width: 77px;
+    height: 77px;
+    cursor: pointer;
+    background: #fff url('../images/toolitem/cirs.png') center center no-repeat;
+    background-size: 100%;
+    margin-top: 20px;
+    margin-left: 15px;
+
+}
+
+.triangletool.on .cir.on {
+    background: #fff url('../images/toolitem/cirs_on.png') center center no-repeat;
+}
+
+/* effBtn */
+.effBtn {
+    width: 86px;
+    height: 103px;
+    background: url(../images/clickitem/effect_on.png) 0 0 no-repeat;
+    position: absolute;
+    cursor: pointer;
+    bottom: 27px;
+    right: 108px;
+}
+
+.effBtn.on {
+    background: url(../images/clickitem/effect_off.png) 0 0 no-repeat;
+}
+
+/* math_I */
+.math_t {
+    width: 269px;
+    height: 93px;
+    position: absolute;
+    top: 914px;
+    left: 1612px;
+    /* background: url(../images/clickitem/math_I.png) 0 0 no-repeat; */
+    cursor: pointer;
+}
+
+
+/* pop */
+.btnPop[data-type="vivasam"] {
+    width: 168px;
+    height: 122px;
+    background: url(../images/clickitem/vivasam.png) 0 0 no-repeat;
+    top: 36px;
+    left: 1701px;
+    /* animation: vivasam 1.5s infinite both; */
+    z-index: 2;
+}
+
+.btnPop[data-type="vivasam"].stop {
+    width: 186px;
+    height: 156px;
+    background: url(../images/clickitem/vivasam_stop.png) 0 0 no-repeat;
+    top: 17px;
+    left: 1688px;
+    pointer-events: none;
+    /* animation: none; */
+}
+
+.btnPop[data-type="vivasam"]::after {
+    content: "";
+    width: 179px;
+    height: 80px;
+    background: url(../images/clickitem/vivasam_talk.png) 0 0 no-repeat;
+    position: absolute;
+    top: 12px;
+    left: -167px;
+    animation: vivasam 1.5s infinite both;
+}
+
+.btnPop[data-type="vivasam"].act::after {
+    animation: none !important;
+}
+
+.btnPop[data-type="vivasam"].stop::after {
+    content: none;
+}
+
+@keyframes vivasam {
+    0% {
+        top: 10px;
+    }
+
+    50% {
+        top: 3px;
+    }
+
+    100% {
+        top: 10px;
+    }
+}
+
+.pop[data-type="vivasam"] .close {
+    width: 70px;
+    height: 70px;
+    top: 30px;
+    right: 93px;
+}
+
+.btnPop[data-type="vivasam"].left {
+    width: 168px;
+    height: 121px;
+    background: url(../images/clickitem/vivasam_l.png) 0 0 no-repeat;
+    top: 59px;
+    left: 1539px;
+    /* animation: vivasam 1.5s infinite both; */
+    z-index: 2;
+}
+
+.btnPop[data-type="vivasam"].left.stop {
+    width: 186px;
+    height: 156px;
+    background: url(../images/clickitem/vivasam_stop_l.png) 0 0 no-repeat;
+    top: 17px;
+    left: 1688px;
+    /* animation: none; */
+}
+
+.btnPop[data-type="vivasam"].left::after {
+    content: "";
+    width: 178px;
+    height: 80px;
+    background: url(../images/clickitem/vivasam_l_talk.png) 0 0 no-repeat;
+    position: absolute;
+    top: 14px;
+    left: 156px;
+    animation: vivasam2 1.5s infinite both;
+}
+
+.btnPop[data-type="vivasam"].stop::after {
+    content: none;
+}
+
+@keyframes vivasam2 {
+    0% {
+        top: 10px;
+    }
+
+    50% {
+        top: 3px;
+    }
+
+    100% {
+        top: 10px;
+    }
+}
+
+.pop[data-type="vivasam"].left .close {
+    width: 70px;
+    height: 70px;
+    top: 30px;
+    right: 93px;
+}
+
+/* @keyframes vivasam {
+    0% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(15deg);
+    }
+} */
+
+.btnPop[data-type="needs"] {
+    width: 226px;
+    height: 88px;
+    background: url(../images/clickitem/needsBtn.png) 0 0 no-repeat;
+    top: 96px;
+    left: 1588px;
+}
+
+.btnPop[data-type="needs"].on {
+    background: url(../images/clickitem/needsBtn_on.png) 0 0 no-repeat;
+}
+
+.btnPop[data-type="needs"].next {
+    top: 130px;
+    left: 1518px;
+    z-index: 2;
+}
+
+.pop[data-type="needs"] .close {
+    display: none;
+}
+
+/* 흥미진진 활동 */
+.btnPopup[data-type="songs"] {
+    width: 140px;
+    height: 149px;
+    background: url(../images/clickitem/songBtn.png) 0 0 no-repeat;
+    top: 626px;
+    left: 1665px;
+}
+
+/* Ã¬Ë†ËœÃ­â€¢â„¢Ã¬â€ Â¡ */
+.popup[data-type="songs"] {
+    background: url(../images/popup/songPopup.png) 0 0 no-repeat;
+}
+
+.popup[data-type="songs"] .close {
+    top: 23px;
+    right: 165px;
+    width: 80px;
+    height: 80px;
+}
+
+.popup[data-type="songs"] .videoFrame {
+    width: 1182px;
+    height: 729px;
+    top: 214px;
+    /* left: 961px; */
+}
+
+.popup[data-type="songs"] .videoFrame .tabbox {
+    top: 15px;
+    left: -190px;
+}
+
+.popup[data-type="songs"] .videoFrame .tabbox .tab {
+    font-size: 29px;
+    margin-top: 14px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    line-height: 36px;
+    min-height: 57px;
+    padding-left: 19px;
+    padding-right: 33px;
+    letter-spacing: 0.6px;
+    word-spacing: -3.5px;
+    width: 191px;
+}
+
+.popup[data-type="songs"] .videoFrame:not(.adomode) .tabbox .tab .rolemode {
+    width: 55px;
+    height: 53px;
+    top: 0px;
+    left: 130px;
+}
+
+/* #wrap.math .btnPopup[data-type="songs"].on{
+    background: url(../images/clickitem/songBtn.png) 0 0 no-repeat;
+} */
+
+
+/* 흥미진진 활동 */
+.btnPopup[data-type="challenge"] {
+    width: 639px;
+    height: 602px;
+}
+
+.btnPopup[data-type="challenge"].dis {
+    display: block !important;
+    pointer-events: none;
+}
+
+/* #wrap.math .btnPopup[data-type="challenge"].on::after{
+    content: "";
+    width: 112px;
+    height: 117px;
+    background: url(../images/effectitem/twink.png) 0 0 no-repeat;
+    position: absolute;
+    top: -100px;
+    left: -90px;
+    animation: opacity101 1s infinite both;
+} */
+
+.hwalbtn {
+    width: 251px;
+    height: 67px;
+    position: absolute;
+    top: 98px;
+    right: 182px;
+    cursor: pointer;
+}
+
+/* checkQuiz */
+/* choicePage */
+#wrap.math.checkQuiz .choicePage {
+    width: 100%;
+    height: 100%;
+    background: #fff url('../images/quizitem/choice_bg.png') center top no-repeat;
+    position: absolute;
+}
+
+#wrap.math.checkQuiz .choicePage .choiceBtn {
+    width: 755px;
+    height: 632px;
+    position: absolute;
+    top: 224px;
+    left: 168px;
+    cursor: pointer;
+}
+
+#wrap.math.checkQuiz .choicePage .choiceBtn[data-quiz="hard"] {
+    left: 965px;
+}
+
+
+/* introPage */
+#wrap.math.checkQuiz .introPage {
+    width: 100%;
+    height: 100%;
+    background: #fff url('../images/quizitem/intro_bg.png') center bottom no-repeat;
+    position: absolute;
+}
+
+/* startBtn */
+#wrap.math.checkQuiz .introPage .startBtn {
+    width: 345px;
+    height: 99px;
+    position: absolute;
+    right: 262px;
+    top: 750px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* question */
+#wrap.math.checkQuiz .introPage .question {
+    position: absolute;
+    left: 409px;
+}
+
+#wrap.math.checkQuiz .introPage .question::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#wrap.math.checkQuiz .introPage .question li {
+    width: 150px;
+    height: 150px;
+    background: url('../images/quizitem/li_off.png') 0 0 no-repeat;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    margin-right: 20px;
+    font-size: 80px;
+    font-family: 'recipe';
+    text-align: center;
+    line-height: 173px;
+    user-select: none;
+}
+
+#wrap.math.checkQuiz .introPage .easy {
+    top: 265px;
+}
+
+#wrap.math.checkQuiz .introPage .easy li {
+    color: #45bfe5;
+}
+
+#wrap.math.checkQuiz .introPage .easy li.act {
+    background: url('../images/quizitem/li_easy.png') 0 0 no-repeat;
+    opacity: 1;
+    color: #195999;
+}
+
+#wrap.math.checkQuiz .introPage .normal {
+    top: 471px;
+}
+
+#wrap.math.checkQuiz .introPage .normal li {
+    color: #f2855f;
+}
+
+#wrap.math.checkQuiz .introPage .normal li.act {
+    background: url('../images/quizitem/li_normal.png') 0 0 no-repeat;
+    opacity: 1;
+    color: #912909;
+}
+
+#wrap.math.checkQuiz .introPage .hard {
+    top: 673px;
+}
+
+#wrap.math.checkQuiz .introPage .hard li {
+    color: #a07fc6;
+}
+
+#wrap.math.checkQuiz .introPage .hard li.act {
+    background: url('../images/quizitem/li_hard.png') 0 0 no-repeat;
+    opacity: 1;
+    color: #4d1e84;
+}
+
+/* sum */
+#wrap.math.checkQuiz .introPage .sum {
+    color: #187735;
+    font-size: 260px;
+    font-weight: normal;
+    font-family: 'recipe';
+    position: absolute;
+    right: 269px;
+    top: 384px;
+    width: 351px;
+    text-align: center;
+    user-select: none;
+}
+
+/* setContent */
+#wrap.math.checkQuiz .setContent {
+    position: absolute;
+    top: 27px;
+    right: 129px;
+}
+
+#wrap.math.checkQuiz .setContent li {
+    width: 84px;
+    height: 62px;
+    background: url(../images/quizitem/tab_off.png) 0 0 no-repeat;
+    cursor: pointer;
+    float: left;
+    margin-right: 0px;
+    color: #fff;
+    font-size: 38px;
+    text-align: center;
+    line-height: 75px;
+    font-family: 'cookie';
+    text-indent: -4px;
+    font-weight: 800;
+    text-shadow: 0px 1.2px 1.2px #5b5b5b;
+    user-select: none;
+}
+
+#wrap.math.checkQuiz .quizWrap[data-quiz="easy"] .setContent li.on {
+    background: url(../images/quizitem/tab_easy.png) 0 0 no-repeat;
+}
+
+#wrap.math.checkQuiz .quizWrap[data-quiz="hard"] .setContent li.on {
+    background: url(../images/quizitem/tab_hard.png) 0 0 no-repeat;
+}
+
+/* return */
+#wrap.math.checkQuiz .return {
+    width: 86px;
+    height: 73px;
+    background: url(../images/quizitem/return_hard.png) 0 0 no-repeat;
+    position: absolute;
+    top: 24px;
+    right: 29px;
+    cursor: pointer;
+    /* display: none; */
+}
+
+#wrap.math.checkQuiz .quizWrap[data-quiz="easy"] .return {
+    background: url(../images/quizitem/return_easy.png) 0 0 no-repeat;
+}
+
+/*  */
+#wrap.math.checkQuiz .introPage::after,
+#wrap.math.checkQuiz .quizWrap::after {
+    content: '';
+    width: 1890px;
+    height: 77px;
+    background: url(../images/quizitem/title_hard.png) 0 0 no-repeat;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+#wrap.math.checkQuiz .quizWrap[data-quiz="easy"]::after {
+    background: url(../images/quizitem/title_easy.png) 0 0 no-repeat;
+}
+
+/* pageing */
+#wrap.math.checkQuiz .pageing {
+    display: none;
+}
+
+#wrap.math.checkQuiz .pageing div {
+    position: absolute;
+    width: 53px;
+    height: 110px;
+    top: 453px;
+    cursor: pointer;
+}
+
+#wrap.math.checkQuiz .pageing div.dis {
+    pointer-events: none;
+}
+
+#wrap.math.checkQuiz .next {
+    background: url(../images/quizitem/nextBtn.png) 0 0 no-repeat;
+    right: 5px;
+}
+
+#wrap.math.checkQuiz .prev {
+    background: url(../images/quizitem/prevBtn.png) 0 0 no-repeat;
+    left: 5px;
+}
+
+#wrap.math.checkQuiz .next.dis {
+    background: url(../images/quizitem/nextBtn_dis.png) 0 0 no-repeat;
+}
+
+#wrap.math.checkQuiz .prev.dis {
+    background: url(../images/quizitem/prevBtn_dis.png) 0 0 no-repeat;
+}
+
+/* numberbox */
+#wrap.math.checkQuiz .numberbox {
+    width: 146px;
+    height: 50px;
+    position: absolute;
+    top: 43px;
+    left: 230px;
+    text-indent: -9999px;
+}
+
+#wrap.math.checkQuiz .numberbox.easy {
+    background: url(../images/quizitem/numberbox_easy.png) 0 0 no-repeat;
+}
+
+#wrap.math.checkQuiz .numberbox.normal {
+    background: url(../images/quizitem/numberbox_normal.png) 0 0 no-repeat;
+}
+
+#wrap.math.checkQuiz .numberbox.hard {
+    background: url(../images/quizitem/numberbox_hard.png) 0 0 no-repeat;
+}
+
+/* finish_btn */
+#wrap.math.checkQuiz .finish_btn {
+    width: 223px;
+    height: 262px;
+    background: url(../images/quizitem/finish.png) 0 0 no-repeat;
+    position: absolute;
+    left: 1618px;
+    top: 619px;
+    display: none;
+}
+
+#wrap.math.checkQuiz .finish_btn.on {
+    display: block;
+    animation: fini_ani 1.2s infinite;
+}
+
+@keyframes fini_ani {
+    0% {
+        transform: rotate(-10deg)
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(-10deg);
+    }
+}
+
+@keyframes opacity10 {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/*  */
+#wrap.math.checkQuiz .btnPop[data-type="dragPop"] {
+    display: block;
+    top: 933px;
+    left: 1456px;
+    width: 212px;
+    height: 61px;
+    background: url(../images/quizitem/ans_ex.png) no-repeat;
+    cursor: pointer;
+}
+
+
+/* ---------------------------------------
+ * tester
+ * --------------------------------------- */
+.tt {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* display: none; */
+    opacity: 0.5;
+    pointer-events: none;
+    background-position-x: 0px !important;
+    background-position-y: 0px !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    z-index: 9999;
+}
+
+#wrap.math.checkQuiz .choicePage .choiceBtn,
+.aniWrap .aniItem .char,
+.aniWrap .aniItem .item,
+.setContent li,
+.btnPop,
+.btnPopup,
+.objWrap .obj,
+.textWrap,
+.textWrap .textarea,
+.clickContent .clickItem,
+.colorPicker ul>li,
+.pageWrap .prev,
+.pageWrap .next,
+.pageWrap .pageing,
+.pageWrap .pageing .dot,
+.pageWrap .closeBtn,
+.btnToRead,
+.placeholder,
+.exWrap,
+.exWrap .closeBtn,
+button,
+input,
+textarea,
+.sliding,
+.test,
+.btn,
+.linkContent .linkItem .linkArea,
+.linkContent .linkItem .linkBtn,
+.introPage .startBtn,
+.dragScroll .jog,
+.scrollbox,
+.scrollbox .scrollpage,
+.dropArea .dropItem,
+.dragArea .dragItem,
+.pop .closeBtn,
+.popup .closeBtn,
+.pop .close,
+.popup .close,
+.hwalbtn,
+.tabWrap .btnTab {
+    /* background-color: rgba(0, 0, 0, 0.5) !important; */
+    /* background-color: rgba(255, 0, 255, 0.5) !important; */
+    /* background-color: rgba(255, 237, 96, 0.5) !important; */
+    /* background-color: rgba(129, 193, 71, 0.5) !important; */
+    /* background-color: rgba(10, 55, 17, 0.5) !important; */
+    /* outline: 1px solid red; */
+}
+
+/* ---------------------------------------
+ * custom
+ * --------------------------------------- */
+/* position */
+.posr {
+    position: relative;
+}
+
+.posa {
+    position: absolute;
+}
+
+/* display */
+.blk {
+    display: block !important;
+}
+
+.none {
+    display: none !important;
+}
+
+/* tir */
+.tir {
+    text-indent: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.tir.off {
+    text-indent: -9999px;
+    position: absolute;
+    top: -999px;
+}
+
+/* 접근성용 숨김 텍스트 */
+.sr-only,
+.sr_only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+    clip: rect(0 0 0 0);
+}
+
+.sr-only.testView,
+.sr_only.testView {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 50px;
+    clip-path: none;
+    clip: auto;
+    overflow: visible;
+    font-size: 50px;
+}
+
+.sr-only.testView,
+.sr_only.testView,
+.sr-only.testView *,
+.sr_only.testView * {
+    color: #ff0000;
+}
+
+/* clear */
+.clear:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+/* event */
+.dis,
+.evtN,
+.aEvtN,
+.aEvtN * {
+    pointer-events: none !important;
+}
+
+/* align */
+.center {
+    text-align: center;
+}
+
+/* radius */
+.circle {
+    border-radius: 50%;
+}
+
+
+
+/* active */
+.btnPopup[data-type="active"] {
+    width: 75px;
+    height: 75px;
+    top: 401px;
+    left: 1128px;
+    border-radius: 50%;
+}
+
+.popup[data-type="active"] {
+    background: url(../images/clickitem/popup.png) center bottom no-repeat;
+}
+
+.popup[data-type="active"]>.close {
+    width: 92px;
+    height: 92px;
+    background: url(../images/clickitem/close.png) center bottom no-repeat;
+    top: 13px;
+    right: 14px;
+}
+
+.popup[data-type="active"] iframe {
+    border: 0;
+    width: 1780px;
+    height: 880px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

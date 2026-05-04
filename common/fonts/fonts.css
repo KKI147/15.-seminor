@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+/* font */
+
+/* goyang */
+@font-face {font-family:'goyang'; font-style:normal; font-weight:400; src:url('GoyangDeogyang.woff') format('woff'); }
+@font-face {font-family:'goyang'; font-style:normal; font-weight:700; src:url('GoyangDeogyang.woff') format('woff'); }
+
+/* @font-face {font-family:'goyang'; font-style:normal; font-weight:400; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GoyangDeogyang.woff') format('woff'); } */
+
+/* NotoSan_kr */
+
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:400;src:url('NotoSansKR-Regular.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:500;src:url('NotoSansKR-Medium.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:700;src:url('NotoSansKR-Bold.woff') format('woff');}
+@font-face {font-family:'NotoSansKR_B';font-style:normal; font-weight:700;src:url('NotoSansKR-Black.woff') format('woff');}
+
+/* @font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:100;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:300;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:400;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:500;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:700;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff') format('woff');}
+@font-face {font-family:'NotoSan_kr';font-style:normal; font-weight:900;src:url('https://fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff') format('woff');} */
+/* ------------------------------------------------------------------------------------------------------------- */
+
+
+.go,
+.gor {
+    font-family: 'goyang' !important;
+    font-weight: 400 !important;
+}
+
+.notot {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 100 !important;
+}
+
+
+.notol {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 300 !important;
+}
+
+.noto,
+.notor {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 400 !important;
+}
+
+.notom {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 500 !important;
+}
+
+.notob {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 700 !important;
+}
+
+.notobk {
+    font-family: 'NotoSan_kr' !important;
+    font-weight: 900 !important;
+}
