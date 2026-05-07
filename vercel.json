@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/common/:path*",
+      "destination": "/common/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/weekOne/$1"
+    }
+  ]
+}
