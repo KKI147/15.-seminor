@@ -21,7 +21,7 @@ goldenbell = function (wrap, quiz) {
 
 	this.init = function () {
 		self.makeHtml();
-		
+
 		self.wrap.find(".counter li").on("click", function () {
 			$(this).siblings().removeClass("on");
 			$(this).addClass("on");
@@ -165,10 +165,10 @@ goldenbell = function (wrap, quiz) {
 		});
 	};
 
-	this.makeHtml = function(){
+	this.makeHtml = function () {
 		var contentsHtml = `
 			<div class="intro">
-				<video id='introVideo' class='gbvideo' src="../../common/media/mp4/gb_int.mp4"></video>
+				<video id='introVideo' class='gbvideo' src="common/media/mp4/gb_int.mp4"></video>
 				<div class="main"></div>
 				<div class="option">
 					<div class="counter">
@@ -214,10 +214,10 @@ goldenbell = function (wrap, quiz) {
 			</div>
 			<div class="outro">
 				<div class="out_o">
-					<video id='outroVideo1' class='gbvideo' src="../../common/media/mp4/gb_suc.mp4"></video>
+					<video id='outroVideo1' class='gbvideo' src="common/media/mp4/gb_suc.mp4"></video>
 				</div>
 				<div class="out_x">
-					<video id='outroVideo2' class='gbvideo' src="../../common/media/mp4/gb_fail.mp4"></video>
+					<video id='outroVideo2' class='gbvideo' src="common/media/mp4/gb_fail.mp4"></video>
 				</div>
 				<div class="btns">
 					<div class="btn regame"></div>
@@ -225,10 +225,10 @@ goldenbell = function (wrap, quiz) {
 				</div>
 			</div>
 			<div class="helppop"></div>
-		`
+		`;
 
 		self.wrap.append(contentsHtml);
-	}
+	};
 
 	this.setGame = function (quizNum) {
 		self.wrap.find(".game .quiz").html("");

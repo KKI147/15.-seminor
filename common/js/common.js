@@ -11,9 +11,9 @@
 const VERSION = 'v1.0 - 2024-07-25 14:14:27';
 
 // js common의 경로
-const COMM_PATH = '../../common/';
-const COMM_IMG_PATH = '../../common/images/';
-const COMM_IMG_SCI_PATH = '../../common/images/sci/';
+const COMM_PATH = 'common/';
+const COMM_IMG_PATH = 'common/images/';
+const COMM_IMG_SCI_PATH = 'common/images/sci/';
 
 const windowTop = $(window);
 const docTop = $(document);
@@ -1316,15 +1316,15 @@ docTop[0].addEventListener('DOMContentLoaded', initDomReady, false);
 
     // 배경 이미지 프리로드
     if (wrapTop.find('#cimgPreload').length < 1) {
-		wrapTop.prepend('<div id="cimgPreload"></div>');
-	}
-	wrapTop.find('#cimgPreload').css({
-		'opacity': 0.01,
-		'width': '100%',
-		'height': '100%',
-		'position': 'absolute',
-		'z-index': -999,
-		'transform': 'scale(0.01)'
+        wrapTop.prepend('<div id="cimgPreload"></div>');
+    }
+    wrapTop.find('#cimgPreload').css({
+        'opacity': 0.01,
+        'width': '100%',
+        'height': '100%',
+        'position': 'absolute',
+        'z-index': -999,
+        'transform': 'scale(0.01)'
     });
 
     let bgImgNone = [];
@@ -1342,35 +1342,35 @@ docTop[0].addEventListener('DOMContentLoaded', initDomReady, false);
         wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
     });
 
-	wrapTop.find('.pageWrap .page').each(function (i) {
+    wrapTop.find('.pageWrap .page').each(function (i) {
         var b = $(this).css('background-image');
         if (b === 'none') {
             bgImgNone.push($(this).getSelector()[0]);
         }
-		b = b.split('/');
-		var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
-		wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
-	});
+        b = b.split('/');
+        var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
+        wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
+    });
 
     wrapTop.find('.tabWrap .tab').each(function (i) {
         var b = $(this).css('background-image');
         if (b === 'none') {
             bgImgNone.push($(this).getSelector()[0]);
         }
-		b = b.split('/');
-		var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
-		wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
-	});
+        b = b.split('/');
+        var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
+        wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
+    });
 
     /* wrapTop.find('.popup').each(function (i) {
         var b = $(this).css('background-image');
         if (b === 'none') {
             bgImgNone.push($(this).getSelector()[0]);
         }
-		b = b.split('/');
-		var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
-		wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
-	}); */
+        b = b.split('/');
+        var imgSrc = 'inc/images/' + b[b.length - 2] + '/' + b[b.length - 1].split('.')[0] + '.png';
+        wrapTop.find('#cimgPreload').append('<div style=background-image:url(' + imgSrc + ')>');
+    }); */
 
     wrapTop.find('#cimgPreload div').css({
         'width': '100%',
@@ -1400,14 +1400,14 @@ docTop[0].addEventListener('DOMContentLoaded', initDomReady, false);
 function resetContentsCom() {
     /*
     $('[data-pop]').removeClass('dis');
-	$('.ing').removeClass('ing');
+    $('.ing').removeClass('ing');
     */
 
     wrapTop.find('.full_pop_bg').hide();
     wrapTop.find('.pop, .popup').hide();
 
-	ado_stop('#popAdo');
-	ado_stop('#contentAdo');
+    ado_stop('#popAdo');
+    ado_stop('#contentAdo');
 
     clearTimeout(rootTimer);
     clearTimeout(toReadTimer);
@@ -1567,13 +1567,13 @@ windowTop.on('load', function () {
         // resetContentsCom();
         resetContents();
 
-         //* 2025-05-14 13:15:54 - JGY : 사용자의 직접 클릭에 의해서만 동작가능
-		// effectAdo('click');
-		if (isHuman(e) === true) {
-			// effectAdo('click', false);
+        //* 2025-05-14 13:15:54 - JGY : 사용자의 직접 클릭에 의해서만 동작가능
+        // effectAdo('click');
+        if (isHuman(e) === true) {
+            // effectAdo('click', false);
             effectAdo('click');
-		}
-		//*--------------------------------------------
+        }
+        //*--------------------------------------------
 
         contentsIdx = idx;
         contents = wrapTop.find('.contents').eq(contentsIdx);
@@ -2169,13 +2169,13 @@ function effectAdo(effect, bStopOther, psParentPath, cookie) {
     }
     //*---------------------------------------------
 
-    psParentPath = psParentPath || '../../common/media/mp3/';
+    psParentPath = psParentPath || 'common/media/mp3/';
 
     //* 효과음 cookie 처리
     var cookie = cookie;
     if (!cookie) cookie = false;
     if (getCookie('effMode') == 'true' && !cookie && effect == 'click') {
-        if(effect == 'click'){
+        if (effect == 'click') {
             return false;
         }
         // return false;
@@ -2609,12 +2609,12 @@ var AudioSimpleContents = function AudioSimpleContents(wrap, src, psType) {
 /* ---------------------------------------
  * 세팅
  * --------------------------------------- */
-// loadScriptFile('../../common/js/jquery.ui.drag.js', function (){});
-// loadScriptFile('../../common/js/jquery.ui.touch-punch.min.js', function (){});
-// loadScriptFile('../../common/js/jquery.mCustomScrollbar.js', function (){});
-loadScriptFile('../../common/js/dragContents.js', function () { });
-loadScriptFile('../../common/js/scrollContents.js', function () { });
-loadScriptFile('../../common/js/lineContents.js', function () { });
+// loadScriptFile('common/js/jquery.ui.drag.js', function (){});
+// loadScriptFile('common/js/jquery.ui.touch-punch.min.js', function (){});
+// loadScriptFile('common/js/jquery.mCustomScrollbar.js', function (){});
+loadScriptFile('common/js/dragContents.js', function () { });
+loadScriptFile('common/js/scrollContents.js', function () { });
+loadScriptFile('common/js/lineContents.js', function () { });
 /**
  * 컨텐츠 관련
  * @param {*} wrap 컨텐츠가 만들어질 요소
@@ -2660,22 +2660,22 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
             // console.log('클릭');
             effect = 'click';
 
-            if(pbIsSetRe){
+            if (pbIsSetRe) {
                 self.wrap.find('.btnPop[data-type="solution"]').show();
             }
-            else{
+            else {
                 self.wrap.find('.btnPop[data-type="solution"]').removeClass('on').hide();
                 self.wrap.find('.pop[data-type="solution"]').hide().remove();
             }
 
-            if(wrapTop.hasClass('checkQuiz')){
-                if(pbIsSetRe){
-                    if($('.setContent > li:last-child').hasClass('on')){
+            if (wrapTop.hasClass('checkQuiz')) {
+                if (pbIsSetRe) {
+                    if ($('.setContent > li:last-child').hasClass('on')) {
                         $('.finish_btn').addClass('on');
                     }
                     effect = 'anschk_o';
                 }
-                else{
+                else {
                     $('.finish_btn').removeClass('on');
                 }
             }
@@ -2709,14 +2709,14 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
         self.clickCon.onShowAns = function (pbIsOpen) {
             // console.log('확인하기');
             self.wrap.find('.btnPop[data-type="solution"]').show();
-            if(self.clickCon.type == 'ox' || self.clickCon.type == 'OX'){
-                if(pbIsOpen){
+            if (self.clickCon.type == 'ox' || self.clickCon.type == 'OX') {
+                if (pbIsOpen) {
                     return;
                 }
             }
             effect = 'click';
 
-            if(wrapTop.hasClass('checkQuiz')){
+            if (wrapTop.hasClass('checkQuiz')) {
                 effect = 'anschk_o';
             }
 
@@ -2734,12 +2734,12 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
         self.clickCon.onCorrect = function () {
             // console.log('정답');
             effect = 'anschk_o';
-            if(wrapTop.hasClass('checkQuiz')){
-                if(self.clickCon.type == 'ox' || self.clickCon.type == 'OX'){
-                    if (self.clickCon.clickItemWrap.find('[data-ans="true"]').length == self.clickCon.clickItemWrap.find('.on[data-ans="true"]').length){
+            if (wrapTop.hasClass('checkQuiz')) {
+                if (self.clickCon.type == 'ox' || self.clickCon.type == 'OX') {
+                    if (self.clickCon.clickItemWrap.find('[data-ans="true"]').length == self.clickCon.clickItemWrap.find('.on[data-ans="true"]').length) {
                         effect = 'anschk_o';
                     }
-                    else{
+                    else {
                         effect = 'click';
                     }
                 }
@@ -2761,7 +2761,7 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
             effectAdo(effect, self.bStopOther);
             if (self.onShowCho) { self.onShowCho(); }
         };
-    }
+    };
 
     /**
      * .clickItem과 연결된 요소 생성
@@ -2824,7 +2824,7 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
                 }
             }
             // 다시하기
-            else{
+            else {
                 self.clickCon.connItem.hide().removeClass('active');
             }
         });
@@ -2841,45 +2841,45 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
         self.dragCon.onDrag = function (pjRec, e, obj) {
             // console.log('드래그 시작');
             if (self.onDrag) { self.onDrag(pjRec, e, obj); }
-        }
+        };
         self.dragCon.endDrag = function (pjRec, e, obj) {
             // console.log('드래그 완료');
             if (self.endDrag) { self.endDrag(pjRec, e, obj); }
-        }
+        };
         self.dragCon.onDrop = function (pnDragIdx, pnDropIdx, pbAns, pbComplete, pjRec, e, obj) {
             // console.log('드롭 완료');
             effect = 'click';
 
-            if(wrapTop.hasClass('checkQuiz')){
-                if(pbComplete){
-                    if($('.setContent > li:last-child').hasClass('on')){
+            if (wrapTop.hasClass('checkQuiz')) {
+                if (pbComplete) {
+                    if ($('.setContent > li:last-child').hasClass('on')) {
                         $('.finish_btn').addClass('on');
                     }
                     effect = 'anschk_o';
                 }
-                else{
+                else {
                     $('.finish_btn').removeClass('on');
                 }
             }
             effectAdo(effect, self.bStopOther);
             if (self.onDrop) { self.onDrop(pnDragIdx, pnDropIdx, pbAns, pbComplete, pjRec, e, obj); }
-        }
+        };
         self.dragCon.onShowAns = function (dragIdxInfo, dropIdxInfo) {
             // console.log('정답보기');
             effect = 'click';
-            if(wrapTop.hasClass('checkQuiz')){
+            if (wrapTop.hasClass('checkQuiz')) {
                 effect = 'anschk_o';
             }
             effectAdo(effect, self.bStopOther);
             if (self.onShowAns) { self.onShowAns(dragIdxInfo, dropIdxInfo); }
-        }
+        };
         self.dragCon.onReset = function () {
             // console.log('다시하기');
             effect = 'click';
             effectAdo(effect, self.bStopOther);
 
             if (self.onReset) { self.onReset(); }
-        }
+        };
         self.dragCon.onCorrect = function () {
             // console.log('정답');
             effect = 'anschk_o';
@@ -2888,14 +2888,14 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
             // }
             effectAdo(effect, self.bStopOther);
             if (self.onCorrect) { self.onCorrect(); }
-        }
+        };
         self.dragCon.onWrong = function () {
             // console.log('오답');
             effect = 'anschk_x';
             effectAdo(effect, self.bStopOther);
             if (self.onWrong) { self.onWrong(); }
-        }
-    }
+        };
+    };
 
 
 
@@ -3091,8 +3091,8 @@ var contentsSet = function contentsSet(wrap, bStopOther) {
             effectAdo('click', self.bStopOther);
             if (self.onClose) { self.onClose(); }
         };
-    }
-}
+    };
+};
 
 /**
  * 스크롤 관련
@@ -3113,14 +3113,14 @@ var scrollSet = function scrollSet(wrap) {
      */
     this.dragScroll = function (tmax_pos, idx, axis, maxDir) {
         self.wrap.attr('data-type', 'dragScroll');
-        self.dragScroll = new dragScrollContents(self.wrap, tmax_pos, idx, axis, maxDir)
+        self.dragScroll = new dragScrollContents(self.wrap, tmax_pos, idx, axis, maxDir);
         self.dragScroll.init();
 
         self.dragScroll.onScroll = function (pnValue, pnPos, pnMinPos, pnMaxPos, ui) {
             // console.log('스크롤');
             if (self.onScroll) { self.onScroll(pnValue, pnPos, pnMinPos, pnMaxPos, ui); }
         };
-    }
+    };
 
     /**
      * 스크롤 세팅
@@ -3156,7 +3156,7 @@ var scrollSet = function scrollSet(wrap) {
             }
         });
     };
-}
+};
 
 /* ---------------------------------------
  * 페이지 이동
@@ -3222,7 +3222,7 @@ var pageingContents = function pageingContents(wrap, type, bStopOther) {
         }
 
         self.moving(self.movingType);
-    }
+    };
 
     this.pageGrasp = function () {
         if (self.page.eq(0).closest('.pageWrap').find('.pageWrap').length > 0) {
@@ -3235,7 +3235,7 @@ var pageingContents = function pageingContents(wrap, type, bStopOther) {
             self.pages = self.wrap.children('.pages');
             self.pages.append(self.page);
         }
-    }
+    };
 
     this.makeNavi = function () {
         var html = '<div class="navigation"></div>';
@@ -3365,22 +3365,22 @@ var pageingContents2 = function pageingContents2(wrap) {
     // this.value;  // public
 
     this.pageMove = function (page) {
-		self.wrap.find('.page').hide();
-		self.wrap.find('.page').eq(self.currentPage).show();
-		self.navi.find('.pageing .dot').removeClass('on');
-		self.navi.find('.pageing .dot').eq(self.currentPage).addClass('on');
+        self.wrap.find('.page').hide();
+        self.wrap.find('.page').eq(self.currentPage).show();
+        self.navi.find('.pageing .dot').removeClass('on');
+        self.navi.find('.pageing .dot').eq(self.currentPage).addClass('on');
 
         // 효과음이 나도 다른 음성 영향 없게...
         effectAdo('click', false);
         /////
 
-		$('.dis').removeClass('dis');
-		if (self.currentPage == 0) {
-			self.prev.addClass('dis');
-		} else if (self.currentPage + 1 == self.pageNum) {
-			self.next.addClass('dis');
-		}
-	};
+        $('.dis').removeClass('dis');
+        if (self.currentPage == 0) {
+            self.prev.addClass('dis');
+        } else if (self.currentPage + 1 == self.pageNum) {
+            self.next.addClass('dis');
+        }
+    };
 };
 pageingContents2.prototype = Object.create(pageingContents.prototype);
 pageingContents2.prototype.constructor = pageingContents2;
@@ -3448,7 +3448,7 @@ var tabContents = function tabContents(wrap, bStopOther) {
             });
         });
 
-    }
+    };
 
     this.tabGrasp = function () {
         if (self.tab.eq(0).closest('.tabWrap').find('.tabWrap').length > 0) {
@@ -3461,7 +3461,7 @@ var tabContents = function tabContents(wrap, bStopOther) {
             self.tabs = self.wrap.children('.tabs');
             self.tabs.append(self.tab);
         }
-    }
+    };
 
     this.makeBtnWrap = function () {
         var html = '<div class="btnTabWrap"></div>';
@@ -3549,7 +3549,7 @@ var tabContents = function tabContents(wrap, bStopOther) {
 
         resetPopAll();
     };
-}
+};
 
 /* ---------------------------------------
  * 팝업
@@ -3886,7 +3886,7 @@ var clickContents = function clickContents(items, wrap, type, ansIdx) {
                                 setT = setTimeout(function () {
                                     self.items.removeClass('dis');
                                     $this.removeClass('on');
-                                }, 800)
+                                }, 800);
                             }
                         }
                         if (self.items.length == 2) {
@@ -4103,7 +4103,7 @@ var clickContents = function clickContents(items, wrap, type, ansIdx) {
                         ansCnt === self.itemwrap.find('[data-ans="true"]').length &&
                         self.items.filter('.on').length === ansIdx.length
                     ) {
-                    //------------
+                        //------------
 
                         isCorrect = true;
                         if (typeof self.onCorrect !== 'undefined') { self.onCorrect(); }
@@ -4259,12 +4259,12 @@ var clickContents2 = function clickContents2(items, wrap) {
                 //다시하기
                 if ($(this).hasClass('re')) {
                     //self.items.css('opacity', '0');
-					self.items.removeClass('on');
+                    self.items.removeClass('on');
                     self.openItemNum = 0;
                     self.ansbtn.removeClass('re');
-                //모두보기
+                    //모두보기
                 } else {
-					//self.items.css('opacity', '1');
+                    //self.items.css('opacity', '1');
                     self.items.addClass('on');
                     self.openItemNum = self.clickItems;
                     self.ansbtn.addClass('re');
@@ -4357,7 +4357,7 @@ var zoomContents = function zoomContents(wrap) {
             'width': `${self.zoomImg.width()}px`,
             'height': `${self.zoomImg.height()}px`
         });
-    }
+    };
 
     this.makeHtml = function () {
         var html = '<div class="zoomWrap">';
@@ -4378,7 +4378,7 @@ var zoomContents = function zoomContents(wrap) {
         self.zoombtn = self.wrap.find('.zoombtn');
         self.zoomImgbox = self.wrap.find('.zoomImgbox');
         self.zoomImg = self.wrap.find('.zoomImg');
-    }
+    };
 
     this.scaleUp = function () {
         if (self.scale < self.max) {
@@ -4407,7 +4407,7 @@ var zoomContents = function zoomContents(wrap) {
             self.zoomImg.css('cursor', 'auto');
             self.zoomWrap.removeClass('map_draggable');
         }
-    }
+    };
 
     this.scaleDown = function () {
         if (self.scale > self.min) {
@@ -4415,7 +4415,7 @@ var zoomContents = function zoomContents(wrap) {
             self.scale -= self.chg;
             self.scale = Number(Number(String(self.scale)).toFixed(1));
             self.zoomImg.css('transform', 'scale(' + self.scale + ')');
-            var n = Math.round(self.scale * 100)
+            var n = Math.round(self.scale * 100);
             self.zoombtn.find('.text').html(`${n}%`);
 
             self.translateX = 0;
@@ -4435,7 +4435,7 @@ var zoomContents = function zoomContents(wrap) {
             self.zoomImg.css('cursor', 'auto');
             self.zoomWrap.removeClass('map_draggable');
         }
-    }
+    };
 
     this.zoomImgMove = function (el) {
         var moving = false;
@@ -4458,13 +4458,13 @@ var zoomContents = function zoomContents(wrap) {
 
                 mx = e.pageX;
                 my = e.pageY;
-                zoomX = ((mx - oX) / factor)+ (((self.scale - 1) * el.width()) / 2);
+                zoomX = ((mx - oX) / factor) + (((self.scale - 1) * el.width()) / 2);
                 zoomY = ((my - oY) / factor) + (((self.scale - 1) * el.height()) / 2);
 
                 self.translateX = zoomX;
                 self.translateY = zoomY;
 
-                if(wrapTop.hasClass('math')){
+                if (wrapTop.hasClass('math')) {
                     let leftLimit = (pxToInt(self.zoomImg.width() * self.scale) - pxToInt(self.zoomImgbox.width())) / 2;
                     let rightLimit = (pxToInt(self.zoomImg.height() * self.scale) - pxToInt(self.zoomImgbox.height())) / 2;
 
@@ -4473,18 +4473,18 @@ var zoomContents = function zoomContents(wrap) {
                     // }
 
                     // 가로
-                    if(zoomX < -leftLimit){
+                    if (zoomX < -leftLimit) {
                         zoomX = -leftLimit;
                     }
-                    else if(zoomX > leftLimit){
+                    else if (zoomX > leftLimit) {
                         zoomX = leftLimit;
                     }
 
                     // 세로
-                    if(zoomY < -rightLimit){
+                    if (zoomY < -rightLimit) {
                         zoomY = -rightLimit;
                     }
-                    else if(zoomY > rightLimit){
+                    else if (zoomY > rightLimit) {
                         zoomY = rightLimit;
                     }
                 }
@@ -4511,8 +4511,8 @@ var zoomContents = function zoomContents(wrap) {
                 moving = false;
                 self.zoomImg.find('.moveDis').removeClass('moveDis');
             }
-        })
-    }
+        });
+    };
 
     this.reset = function () {
         self.scale = 1;
@@ -4531,7 +4531,7 @@ var zoomContents = function zoomContents(wrap) {
 
         self.zoomwrap.removeClass('map_draggable');
     };
-}
+};
 
 /* ---------------------------------------
  * 글쓰기
@@ -4578,7 +4578,7 @@ var writeContents = function writeContents(wrap, textItems, inputItems) {
 
         self.addEventWrite();
         self.addEventBtns();
-    }
+    };
 
     this.reset = function () {
         self.textWraps.find('.placeholder').show();
@@ -4590,13 +4590,13 @@ var writeContents = function writeContents(wrap, textItems, inputItems) {
         self.exWrapsI.hide();
 
         self.btnEx.removeClass('re dis');
-    }
+    };
 
     this.makeCon = function () {
         let html = `<div class="textContent"></div>`;
         self.wrap.append(html);
         self.conWrap = self.wrap.find('.textContent');
-    }
+    };
 
     this.makeTextWrap = function () {
         let html = '';
@@ -4638,34 +4638,34 @@ var writeContents = function writeContents(wrap, textItems, inputItems) {
 
         self.exWrapsT = self.textWraps.find('.exWrap');
         self.exWrapsI = self.inputWraps.find('.exWrap');
-    }
+    };
 
     this.makeBtn = function () {
         let html = `<div class="exbtn"></div>`;
         self.conWrap.append(html);
         self.btnEx = self.conWrap.find('.exbtn');
-    }
+    };
 
     // 입력제한모드 설정
     this.setRestrictT = function (pjTexAreas, psMode) {
         pjTexAreas = pjTexAreas || self.textAreas;
         pjTexAreas.attr('restrict', psMode);
-    }
+    };
     this.setRestrictI = function (pjInputs, psMode) {
         pjInputs = pjInputs || self.inputs;
         pjInputs.attr('restrict', psMode);
-    }
+    };
 
     // 입력가능 값 설정
     this.setMaxLengthT = function (pjTexAreas, pnMaxLength) {
         pjTexAreas = pjTexAreas || self.textAreas;
         pjTexAreas.attr('maxlength', pnMaxLength);
-    }
+    };
 
     this.setMaxLengthI = function (pjInputs, pnMaxLength) {
         pjInputs = pjInputs || self.inputs;
         pjInputs.attr('maxlength', pnMaxLength);
-    }
+    };
 
     this.addEventWrite = function () {
         self.textAreas.add(self.inputs).on('focusin propertychange change keyup paste input', function () {
@@ -4700,7 +4700,7 @@ var writeContents = function writeContents(wrap, textItems, inputItems) {
 
             if (typeof self.onWrite !== 'undefined') { self.onWrite($(this), e); }
         });
-    }
+    };
 
     this.addEventBtns = function () {
         // 예시팝업 닫기버튼
@@ -4826,7 +4826,7 @@ var writeContents = function writeContents(wrap, textItems, inputItems) {
             }
             $this.addClass('re'); */
         });
-    }
+    };
 };
 
 /* ---------------------------------------
@@ -4885,13 +4885,13 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
 
         self.addEventItem();
         self.addEventBtn();
-    }
+    };
 
     this.makeWrap = function () {
         var html = '<div class="aniWrap"></div>';
         self.wrap.append(html);
         self.itemwrap = self.wrap.find('.aniWrap');
-    }
+    };
 
     this.makeItem = function () {
         var html = '';
@@ -4921,12 +4921,12 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
                 `);
             }
         }
-    }
+    };
 
     this.makeBtn = function () {
         self.itemwrap.append('<div class="soundBtn"></div>');
         self.soundBtn = self.itemwrap.find('.soundBtn');
-    }
+    };
 
     this.addEventItem = function () {
         self.items.off('click').on('click', function (e) {
@@ -4961,15 +4961,15 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
 
             if (typeof (videoCon) != 'undefined') { videoCon.stop(); }
 
-            if(typeof (self.duration) !== 'undefined'){
+            if (typeof (self.duration) !== 'undefined') {
                 clearTimeout(setT);
-                setT = setTimeout(function(){
+                setT = setTimeout(function () {
                     if (typeof (self.onEnded) !== 'undefined') { self.onEnded(false); }
                     $this.removeClass('on');
                     self.stopMotion(self.items);
                 }, self.duration);
             }
-            else{
+            else {
                 $(`#${ado}`).off('ended').on('ended', function () {
                     if (typeof (self.onEnded) !== 'undefined') { self.onEnded(false); }
                     $this.removeClass('on');
@@ -4979,7 +4979,7 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
 
             if (typeof (self.onClick) !== 'undefined') { self.onClick($(this)); }
         });
-    }
+    };
 
     this.addEventBtn = function () {
         self.soundBtn.off('click').on('click', function (e) {
@@ -5010,7 +5010,7 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
             $(this).parent().hide();
             $(this).parent().parent().removeClass("ing");
         });
-    }
+    };
 
     this.playMotion = function (pjThis, pbIsRefresh) {
         var wrap = pjThis.find('.motionWrap');
@@ -5033,7 +5033,7 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
             pjThis.siblings().find('.motionWrap').removeClass('on');
             wrap.addClass('on');
         }
-    }
+    };
 
     this.stopMotion = function (pjItems) {
         pjItems.each(function () {
@@ -5041,7 +5041,7 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
             wrap.removeClass('on');
             wrap.find('.motion').off('load');
         });
-    }
+    };
 
     this.allSound = function (play) {
         if (self.allChk) {
@@ -5063,8 +5063,8 @@ var aniContents = function (wrap, set, adoPath, imgPath, type, duration, bStopOt
                 self.stopMotion(target, true);
             });
         }
-    }
-}
+    };
+};
 
 /* ---------------------------------------
  * 스탬프 컨텐츠
@@ -5092,7 +5092,7 @@ var stampContents = function stampContents(wrap, bStopOther) {
         self.stamp.off(sAnimationStart).on(sAnimationStart, function () {
             self.soundOn();
         });
-    }
+    };
 
     this.makeHtml = function () {
         if (wrap.find('.stamp')) wrap.find('.stamp').remove();
@@ -5105,7 +5105,7 @@ var stampContents = function stampContents(wrap, bStopOther) {
 
         self.stamp = self.wrap.find('.stamp');
         self.item = self.wrap.find('.item');
-    }
+    };
 
     this.soundOn = function () {
         // effectAdo('stamp', self.bStopOther);
@@ -5120,8 +5120,8 @@ var stampContents = function stampContents(wrap, bStopOther) {
             // }
             effectAdo(("stamp" + (stampNum)), self.bStopOther);
         }, 1200);
-    }
-}
+    };
+};
 
 /* ---------------------------------------
  * 슬라이드 컨텐츠
@@ -5302,7 +5302,7 @@ var slidingContents = function slidingContents(wrap, location, type, bStopOther)
             slideBtnArrowPos();
         }, 1000 / 60);
     };
-}
+};
 
 /* ---------------------------------------
  * 함께 읽기
@@ -5320,7 +5320,7 @@ var toReadContents = function toReadContents(wrap, effect, bStopOther) {
     this.toRead, this.btn;
 
     effect = effect || 'count';
-    this.effect = effect
+    this.effect = effect;
     this.bStopOther = (bStopOther === false) ? false : true;
 
     var toReadTimer;
@@ -5359,7 +5359,7 @@ var toReadContents = function toReadContents(wrap, effect, bStopOther) {
 
         var delay = 2000;
 
-        if(wrapTop.hasClass('math')){
+        if (wrapTop.hasClass('math')) {
             delay = 1000;
         }
 
@@ -5368,7 +5368,7 @@ var toReadContents = function toReadContents(wrap, effect, bStopOther) {
             self.toRead.hide().removeClass('motion');
         }, time + delay);
     };
-}
+};
 
 /* ---------------------------------------
  * 링크 버튼
@@ -5506,7 +5506,7 @@ function makeContentsMask(pjContents, pnzIndex) {
  * 딤드 제거
  */
 function removeMask() {
-	containerTop.find('.mask').remove();
+    containerTop.find('.mask').remove();
 }
 
 /* ---------------------------------------
@@ -5931,7 +5931,7 @@ function isHuman(e) {
  * @param {boolean} value
  * @param {number} exp
  */
-var setCookie = function(name, value, exp) {
+var setCookie = function (name, value, exp) {
     var date = new Date();
     date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
     docTop[0].cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';';
@@ -5941,7 +5941,7 @@ var setCookie = function(name, value, exp) {
  * 쿠키 가져오기
  * @param {string} name 쿠키 명칭
  */
-var getCookie = function(name) {
+var getCookie = function (name) {
     var value = docTop[0].cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return value ? value[2] : null;
 };
@@ -5950,9 +5950,9 @@ var getCookie = function(name) {
  * 쿠키 삭제
  * @param {string} name 쿠키 명칭
  */
-var deleteCookie = function(name) {
+var deleteCookie = function (name) {
     docTop[0].cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
-}
+};
 
 /* ──────────────────────────────────────────────────────
 * Calculate
@@ -6452,19 +6452,19 @@ function subjectFunction() {
     if (wrapTop.hasClass('checkQuiz')) {
         // 깜빡임 방지
         imgPreLoad([
-            '../../common/images/quizitem/choice_bg.png',
-            '../../common/images/quizitem/numberbox_easy.png',
-            '../../common/images/quizitem/numberbox_hard.png',
-            '../../common/images/quizitem/numberbox_normal.png',
-            '../../common/images/quizitem/li_off.png',
-            '../../common/images/quizitem/li_easy.png',
-            '../../common/images/quizitem/li_normal.png',
-            '../../common/images/quizitem/li_hard.png',
-            '../../common/images/quizitem/return_easy.png',
-            '../../common/images/quizitem/return_hard.png',
-            '../../common/images/quizitem/tab_off.png',
-            '../../common/images/quizitem/tab_easy.png',
-            '../../common/images/quizitem/tab_hard.png',
+            'common/images/quizitem/choice_bg.png',
+            'common/images/quizitem/numberbox_easy.png',
+            'common/images/quizitem/numberbox_hard.png',
+            'common/images/quizitem/numberbox_normal.png',
+            'common/images/quizitem/li_off.png',
+            'common/images/quizitem/li_easy.png',
+            'common/images/quizitem/li_normal.png',
+            'common/images/quizitem/li_hard.png',
+            'common/images/quizitem/return_easy.png',
+            'common/images/quizitem/return_hard.png',
+            'common/images/quizitem/tab_off.png',
+            'common/images/quizitem/tab_easy.png',
+            'common/images/quizitem/tab_hard.png',
         ], true);
 
         let wrap = wrapTop;
@@ -6662,15 +6662,15 @@ function subjectFunction() {
 
                 switch (difficulty) {
                     case 'easy':
-                        // $('.difficulty').css('background', 'url(../../common/images/quizitem/difficulty_easy.png)');
+                        // $('.difficulty').css('background', 'url(common/images/quizitem/difficulty_easy.png)');
                         $('.numberbox').removeClass('easy normal hard').addClass('easy');
                         break;
                     case 'normal':
-                        // $('.difficulty').css('background', 'url(../../common/images/quizitem/difficulty_normal.png)');
+                        // $('.difficulty').css('background', 'url(common/images/quizitem/difficulty_normal.png)');
                         $('.numberbox').removeClass('easy normal hard').addClass('normal');
                         break;
                     case 'hard':
-                        // $('.difficulty').css('background', 'url(../../common/images/quizitem/difficulty_hard.png)');
+                        // $('.difficulty').css('background', 'url(common/images/quizitem/difficulty_hard.png)');
                         $('.numberbox').removeClass('easy normal hard').addClass('hard');
                         break;
                 }
@@ -6809,15 +6809,15 @@ var starContents = function starContents(wrap, group, star) {
 
         // 깜빡임 방지
         imgPreLoad([
-            '../../common/images/clickitem/star1.png',
-            '../../common/images/clickitem/star2.png',
-            '../../common/images/clickitem/star3.png',
-            '../../common/images/clickitem/star1_on.png',
-            '../../common/images/clickitem/star2_on.png',
-            '../../common/images/clickitem/star3_on.png',
-            '../../common/images/clickitem/star1_on_aft.png',
-            '../../common/images/clickitem/star2_on_aft.png',
-            '../../common/images/clickitem/star3_on_aft.png',
+            'common/images/clickitem/star1.png',
+            'common/images/clickitem/star2.png',
+            'common/images/clickitem/star3.png',
+            'common/images/clickitem/star1_on.png',
+            'common/images/clickitem/star2_on.png',
+            'common/images/clickitem/star3_on.png',
+            'common/images/clickitem/star1_on_aft.png',
+            'common/images/clickitem/star2_on_aft.png',
+            'common/images/clickitem/star3_on_aft.png',
         ], true);
 
 
@@ -6880,7 +6880,7 @@ var starContents = function starContents(wrap, group, star) {
             var idx = $ts.index();
             var stars = $ts.closest('.starGroup').find('.star');
 
-            if($(this).hasClass('on') && !$(this).next().hasClass('on')){
+            if ($(this).hasClass('on') && !$(this).next().hasClass('on')) {
                 $(this).removeClass('on');
                 effectAdo('click', false);
                 return false;
@@ -6931,7 +6931,7 @@ function cardSet(time) {
         $('.gamePageWrap').removeClass('animate');
     }, time);
 
-    $('.gamePageWrap .cardGame').off(sAnimationStart).on(sAnimationStart, function(){
+    $('.gamePageWrap .cardGame').off(sAnimationStart).on(sAnimationStart, function () {
         effectAdo('shuffle');
     });
 
@@ -7010,7 +7010,7 @@ var packDragContents = function packDragContents(wrap, items, limit) {
         self.makeHtml();
         self.addEventDrag();
         self.addEventBtn();
-    }
+    };
 
     this.makeHtml = function () {
         self.wrap.addClass('package');
@@ -7024,7 +7024,7 @@ var packDragContents = function packDragContents(wrap, items, limit) {
             <div class="exWrap">
                 <div class="close"></div>
             </div>
-        `
+        `;
         self.wrap.append(html);
         self.setDragWrap = wrap.find('.setDragWrap');
         self.dragArea = wrap.find('.dragArea');
@@ -7037,7 +7037,7 @@ var packDragContents = function packDragContents(wrap, items, limit) {
         }
 
         self.setDrag = self.setDragWrap.find('.dragItem');
-    }
+    };
 
     this.addEventDrag = function () {
         self.setDrag.off('click').on('click', function () {
@@ -7051,13 +7051,13 @@ var packDragContents = function packDragContents(wrap, items, limit) {
                 top: random(100, pxToInt(self.dragArea.css('height')) - 63 - 100) + "px",
             });
 
-            if(limit){
-                if(self.dragArea.find(`.drag${idx}`).length >= (limit - 1)){
+            if (limit) {
+                if (self.dragArea.find(`.drag${idx}`).length >= (limit - 1)) {
                     $this.addClass('dis');
                 }
                 self.dragArea.append(self.dragItem);
             }
-            else{
+            else {
                 self.dragArea.append(self.dragItem);
             }
 
@@ -7072,7 +7072,7 @@ var packDragContents = function packDragContents(wrap, items, limit) {
                     isRec = $(this);
 
                     var startPos = obj.position;
-				    obj.startPos = startPos;
+                    obj.startPos = startPos;
 
                     obj.helper.attr({
                         'data-pos-x': obj.startPos.left,
@@ -7089,37 +7089,37 @@ var packDragContents = function packDragContents(wrap, items, limit) {
                     obj.position.left = Math.round(obj.position.left / factor);
                 },
                 stop: function (e, obj) {
-                    if(pxToInt(obj.position.top) < 0 || pxToInt(obj.position.top) > (pxToInt(self.dragArea.css('height')) - pxToInt(isRec.css('height'))) || pxToInt(obj.position.left) < 0 || pxToInt(obj.position.left) > (pxToInt(self.dragArea.css('width')) - pxToInt(isRec.css('width')))){
+                    if (pxToInt(obj.position.top) < 0 || pxToInt(obj.position.top) > (pxToInt(self.dragArea.css('height')) - pxToInt(isRec.css('height'))) || pxToInt(obj.position.left) < 0 || pxToInt(obj.position.left) > (pxToInt(self.dragArea.css('width')) - pxToInt(isRec.css('width')))) {
                         // console.log('벗어남');
                         // isRec.remove();
                         isRec.draggable('option', 'revert', 'invalid');
                     }
-                    else{
+                    else {
                         sRec.draggable('option', 'revert', 'false');
                     }
                 },
             });
         });
-    }
+    };
 
     this.addEventBtn = function () {
-        self.ansbtn.off('click').on('click', function(){
+        self.ansbtn.off('click').on('click', function () {
             self.dragArea.find('.dragItem').remove();
             self.setDrag.removeClass('dis');
             effectAdo('click');
         });
 
-        self.exbtn.off('click').on('click', function(){
+        self.exbtn.off('click').on('click', function () {
             self.exWrap.show();
             effectAdo('click');
         });
 
-        self.exWrap.find('.close').off('click').on('click', function(){
+        self.exWrap.find('.close').off('click').on('click', function () {
             $(this).parent('.exWrap').hide();
             effectAdo('click');
         });
-    }
-}
+    };
+};
 
 var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
     var self = this;
@@ -7260,7 +7260,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle1.find(".rotateBg").css({
                 width: "400px",
                 height: "400px",
-                background: 'url("../../common/images/toolitem/ja1.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/ja1.png") 0px 0px no-repeat',
                 "background-size": "100%",
                 position: "absolute",
                 top: "0",
@@ -7271,7 +7271,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle1.find(".turn").css({
                 width: "50px",
                 height: "49px",
-                background: 'url("../../common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "0",
                 left: "-60px",
@@ -7281,7 +7281,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle1.find(".close").css({
                 width: "49px",
                 height: "50px",
-                background: 'url("../../common/images/toolitem/closebtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/closebtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "55px",
                 left: "-60px",
@@ -7374,7 +7374,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle2.find(".rotateBg").css({
                 width: "690px",
                 height: "400px",
-                background: 'url("../../common/images/toolitem/ja2.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/ja2.png") 0px 0px no-repeat',
                 "background-size": "100%",
                 position: "absolute",
                 top: "0",
@@ -7385,7 +7385,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle2.find(".turn").css({
                 width: "50px",
                 height: "49px",
-                background: 'url("../../common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "0",
                 left: "-60px",
@@ -7395,7 +7395,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.triangle2.find(".close").css({
                 width: "49px",
                 height: "50px",
-                background: 'url("../../common/images/toolitem/closebtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/closebtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "55px",
                 left: "-60px",
@@ -7491,7 +7491,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.angle.find(".rotateBg").css({
                 width: "723px",
                 height: "387px",
-                background: 'url("../../common/images/toolitem/angle.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/angle.png") 0px 0px no-repeat',
                 "background-size": "100%",
                 position: "absolute",
                 top: "0",
@@ -7504,7 +7504,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.angle.find(".turn").css({
                 width: "50px",
                 height: "49px",
-                background: 'url("../../common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "0",
                 left: "-60px",
@@ -7514,7 +7514,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.angle.find(".close").css({
                 width: "49px",
                 height: "50px",
-                background: 'url("../../common/images/toolitem/closebtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/closebtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "55px",
                 left: "-60px",
@@ -7625,7 +7625,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.ja.find(".rotateBg").css({
                 width: "875px",
                 height: "160px",
-                background: 'url("../../common/images/toolitem/ja5.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/ja5.png") 0px 0px no-repeat',
                 "background-size": "100%",
                 position: "absolute",
                 top: "0",
@@ -7636,7 +7636,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.ja.find(".turn").css({
                 width: "50px",
                 height: "49px",
-                background: 'url("../../common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "0",
                 left: "-60px",
@@ -7646,7 +7646,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.ja.find(".close").css({
                 width: "49px",
                 height: "50px",
-                background: 'url("../../common/images/toolitem/closebtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/closebtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 bottom: "55px",
                 left: "-60px",
@@ -7771,7 +7771,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.cir.find(".rotateBg").css({
                 width: "77px",
                 height: "77px",
-                background: 'url("../../common/images/toolitem/cirs.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/cirs.png") 0px 0px no-repeat',
                 "background-size": "100%",
                 position: "absolute",
                 top: "0",
@@ -7783,7 +7783,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             // self.cir.find('.turn').css({
             //     'width': '50px',
             //     'height': '49px',
-            //     'background': 'url("../../common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
+            //     'background': 'url("common/images/toolitem/turnbtn.png") 0px 0px no-repeat',
             //     'position': 'absolute',
             //     'bottom': '0',
             //     'left': '-60px',
@@ -7793,7 +7793,7 @@ var toolContents = function (wrap, triangle1, triangle2, angle, ja, cir) {
             self.cir.find(".close").css({
                 width: "49px",
                 height: "50px",
-                background: 'url("../../common/images/toolitem/closebtn.png") 0px 0px no-repeat',
+                background: 'url("common/images/toolitem/closebtn.png") 0px 0px no-repeat',
                 position: "absolute",
                 top: "-12px",
                 right: "-60px",

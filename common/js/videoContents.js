@@ -65,7 +65,7 @@ var videoPlayer = function videoPlayer(elem) {
 
 		self.scriptbtn = self.ctrwrap.find('.script');
 
-		if (!self.src) self.src = '../../../common_2022/videopage/mp4/dummy.mp4';
+		if (!self.src) self.src = '../common_2022/videopage/mp4/dummy.mp4';
 
 		self.markerbox = false;
 		self.replayMode = false;
@@ -83,19 +83,19 @@ var videoPlayer = function videoPlayer(elem) {
 		self.endbtn.on('click', self.stop);
 		self.c_stop.on('click', self.stop);
 		self.c_replay.on('click', self.replay);
-		self.c_pause.on('click', self.pause)
+		self.c_pause.on('click', self.pause);
 		self.s_bar.on('mousedown mousemove mouseup', self.soundControl);
 		self.p_bar.on('mousedown mousemove mouseup', self.progressControl);
-		self.fullbtn.on('click', self.fullScrren)
+		self.fullbtn.on('click', self.fullScrren);
 
 		self.s_icon.on('click', function () {
 			if ($(this).hasClass('mute')) {
-				$(this).removeClass('mute')
+				$(this).removeClass('mute');
 				self.video[0].muted = false;
 				self.video[0].volume = 0.5;
 				self.s_bar.find('span').width('50%');
 			} else {
-				$(this).addClass('mute')
+				$(this).addClass('mute');
 				self.video[0].muted = true;
 				self.video[0].volume = 0;
 				self.s_bar.find('span').width('0');
@@ -126,13 +126,13 @@ var videoPlayer = function videoPlayer(elem) {
 		// 	self.btnVideo.show();
 		// });
 
-		$(document).on('click', '.btnPopup, btnPop, .pop .close, .popup .close', function(){
+		$(document).on('click', '.btnPopup, btnPop, .pop .close, .popup .close', function () {
 			self.stop();
 			self.inVideo.removeClass('on');
 			self.btnVideo.show();
 			// console.log('asdasd');
 		});
-	}
+	};
 
 	this.addInVideoEvt = function () {
 		// if(self.wrap.parent().attr('class') == 'inVideo'){
@@ -145,7 +145,7 @@ var videoPlayer = function videoPlayer(elem) {
 			self.inVideo.parent().find('.btnVideo' + (self.inVideo.index() + 1)).remove();
 		}
 
-		var btnHtml = '<button type="button" class="btnVideo btnVideo' + (self.inVideo.index() + 1) + '"></button>'
+		var btnHtml = '<button type="button" class="btnVideo btnVideo' + (self.inVideo.index() + 1) + '"></button>';
 		self.inVideo.parent().append(btnHtml);
 		self.btnVideo = self.inVideo.parent().find('.btnVideo' + (self.inVideo.index() + 1));
 
@@ -156,7 +156,7 @@ var videoPlayer = function videoPlayer(elem) {
 			$(this).hide();
 			self.video[0].currentTime = 0;
 			self.currentTime.html('00:00');
-			self.progressBar.width('0')
+			self.progressBar.width('0');
 			self.vdowrap.find('.script-wrap').html('');
 			self.pause();
 			self.cancelRoleplayMode();
@@ -168,12 +168,12 @@ var videoPlayer = function videoPlayer(elem) {
 
 		self.inVideo.off('click').on('click', function () {
 			if ($(this).hasClass('on')) return false;
-			$(this).addClass('on')
+			$(this).addClass('on');
 			self.btnVideo.hide();
 			self.inVideo.find('.videoFrame').show();
 			self.play();
 		});
-	}
+	};
 
 	this.vdoLoad = function () {
 		var totalTime = self.ctrwrap.find('.totalTime');
@@ -192,14 +192,14 @@ var videoPlayer = function videoPlayer(elem) {
 		self.endbtn.hide();
 
 		if (self.wrap.hasClass('speaker')) { self.c_stop.hide(); }
-	}
+	};
 
 	this.play = function () {
 		self.playbtn.hide();
 		self.endbtn.hide();
 		self.c_play.hide();
 		self.c_pause.show();
-		self.video[0].play()
+		self.video[0].play();
 		self.ctrwrap.find('.r-box').hide();
 		self.video[0].playbackRate = self.ctrwrap.find('.r-btn').html();
 		self.id = window.requestAnimationFrame(self.render);
@@ -207,7 +207,7 @@ var videoPlayer = function videoPlayer(elem) {
 		if (self.wrap.hasClass('speaker')) { self.c_stop.show(); }
 
 		if (typeof (self.onPlay) !== 'undefined') { self.onPlay(); }
-	}
+	};
 
 	this.pause = function () {
 		self.playbtn.show();
@@ -215,7 +215,7 @@ var videoPlayer = function videoPlayer(elem) {
 		self.c_pause.hide();
 		self.video[0].pause();
 		window.cancelAnimationFrame(self.id);
-	}
+	};
 
 	this.ended = function () {
 		if (self.wrap.attr('data-end-pause') == 'true') {
@@ -241,12 +241,12 @@ var videoPlayer = function videoPlayer(elem) {
 		self.wrap.find('.textbox').text(text);
 
 		if (typeof (self.onEnded) !== 'undefined') { self.onEnded(); }
-	}
+	};
 
 	this.stop = function () {
 		self.video[0].currentTime = 0;
 		self.currentTime.html('00:00');
-		self.progressBar.width('0')
+		self.progressBar.width('0');
 		self.vdowrap.find('.script-wrap').html('');
 		self.pause();
 		if (self.tabbox) self.vdowrap.find('.tab').removeClass('on');
@@ -287,17 +287,17 @@ var videoPlayer = function videoPlayer(elem) {
 		}
 
 		if (typeof (self.onStop) !== 'undefined') { self.onStop(); }
-	}
+	};
 
 	this.replay = function () {
 		if ($(this).hasClass('on')) {
-			$(this).removeClass('on')
+			$(this).removeClass('on');
 			self.video.removeAttr('loop');
 		} else {
-			$(this).addClass('on')
+			$(this).addClass('on');
 			self.video.attr('loop', 'true');
 		}
-	}
+	};
 
 	this.soundControl = function (e) {
 		var s_wid = self.s_bar.width();
@@ -311,15 +311,15 @@ var videoPlayer = function videoPlayer(elem) {
 
 		function volumeC() {
 			if (volume < 1) {
-				self.s_icon.addClass('mute')
+				self.s_icon.addClass('mute');
 				self.video[0].muted = true;
 				self.video[0].volume = 0;
-				self.s_bar.find('span').width('0')
+				self.s_bar.find('span').width('0');
 			} else {
-				self.s_icon.removeClass('mute')
+				self.s_icon.removeClass('mute');
 				self.video[0].muted = false;
 				self.video[0].volume = volume / 100;
-				self.s_bar.find('span').width(volume + '%')
+				self.s_bar.find('span').width(volume + '%');
 			}
 		}
 
@@ -341,7 +341,7 @@ var videoPlayer = function videoPlayer(elem) {
 				self.move_vol = false;
 				break;
 		}
-	}
+	};
 
 	this.progressControl = function (e) {
 		var p_wid = self.p_bar.width();
@@ -365,7 +365,7 @@ var videoPlayer = function videoPlayer(elem) {
 			} else if (playbar > 99) {
 				self.progressBar.width('100%');
 			} else {
-				self.progressBar.width(playbar + '%')
+				self.progressBar.width(playbar + '%');
 			}
 
 			if (self.tabbox) {
@@ -390,7 +390,7 @@ var videoPlayer = function videoPlayer(elem) {
 				self.move_pr = false;
 				break;
 		}
-	}
+	};
 
 	this.makeVideo = function () {
 		var html = '' +
@@ -441,19 +441,19 @@ var videoPlayer = function videoPlayer(elem) {
 			'</div>';
 
 		self.wrap.append(html);
-	}
+	};
 
 	this.timeTxt = function (time, txtfield) {
 		if (!time) time = 0;
 		var min = Math.floor(time / 60);
 		var sec = Math.floor(time % 60);
 
-		if (min < 10) min = '0' + min
-		if (sec < 10) sec = '0' + sec
+		if (min < 10) min = '0' + min;
+		if (sec < 10) sec = '0' + sec;
 
 		var vdoTime = min + ':' + sec;
-		txtfield.text(vdoTime)
-	}
+		txtfield.text(vdoTime);
+	};
 
 	//requestAnimationFrame재정의
 	window.requestAnimationFrame = function () {
@@ -465,7 +465,7 @@ var videoPlayer = function videoPlayer(elem) {
 
 			function (callback) {
 				window.setTimeout(callback, 1000 / 60);
-			}
+			};
 	}();
 
 	window.cancelAnimationFrame = (function () {
@@ -481,12 +481,12 @@ var videoPlayer = function videoPlayer(elem) {
 
 	this.render = function () {
 		var curT = self.video[0].currentTime;
-		var time = curT / self.video[0].duration
+		var time = curT / self.video[0].duration;
 		var integer = 0;
 		var ceil = String(Math.ceil(time * 1000));
 		if (ceil.length > 1) integer = String(Math.ceil(time * 100));
 		var percent = Number(integer) + '.' + Number(ceil.substring(ceil.length, ceil.length - 1));
-		if (ceil.substring(ceil.length, ceil.length - 1) != 0) self.progressBar.css('width', percent + '%')
+		if (ceil.substring(ceil.length, ceil.length - 1) != 0) self.progressBar.css('width', percent + '%');
 		self.timeTxt(curT, self.currentTime);
 		self.id = window.requestAnimationFrame(self.render);
 
@@ -503,7 +503,7 @@ var videoPlayer = function videoPlayer(elem) {
 		if (!self.wrap.is(':visible')) {
 			self.stop();
 		}
-	}
+	};
 
 	this.track = function () {
 		self.scriptbtn.on('click', function () {
@@ -516,19 +516,19 @@ var videoPlayer = function videoPlayer(elem) {
 
 		for (i = 0; i < cues.length; i++) {
 			cues[i].onenter = function () {
-				self.ctrwrap.find('.script-wrap').html(this.text)
-			}
+				self.ctrwrap.find('.script-wrap').html(this.text);
+			};
 			cues[i].onexit = function () {
-				self.ctrwrap.find('.script-wrap').html('')
-			}
+				self.ctrwrap.find('.script-wrap').html('');
+			};
 		}
 
 		tr.addEventListener('cuechange', function () {
 			if (this.activeCues.length > 0) {
-				self.ctrwrap.find('.script-wrap').html(this.activeCues[0].text)
+				self.ctrwrap.find('.script-wrap').html(this.activeCues[0].text);
 			}
 		});
-	}
+	};
 
 	this.rate = function () {
 		// 배속
@@ -546,9 +546,9 @@ var videoPlayer = function videoPlayer(elem) {
 			var r = $(this).html();
 			self.ctrwrap.find('.r-btn').html(r);
 			self.video[0].playbackRate = r;
-			$(this).parent().hide()
+			$(this).parent().hide();
 		});
-	}
+	};
 
 	this.markMaker = function (time) {
 		var m = time.split(' ');
@@ -566,14 +566,14 @@ var videoPlayer = function videoPlayer(elem) {
 				s = Number(s[0]) * 3600 + Number(s[1]) * 60 + Number(s[2]);
 				m[i] = s;
 
-				console.log(self.video[0].currentTime, d)
+				console.log(self.video[0].currentTime, d);
 				var time = m[i] / d;
 				var integer = 0;
 				var ceil = String(Math.ceil(time * 1000));
 				if (ceil.length > 1) integer = String(Math.ceil(time * 100));
 				var percent = Number(integer) + '.' + Number(ceil.substring(ceil.length, ceil.length - 1));
 
-				var h = '<div class="marker marker' + (i + 1) + '"></div>'
+				var h = '<div class="marker marker' + (i + 1) + '"></div>';
 
 				self.ctrwrap.find('.markerbox').append(h);
 				self.ctrwrap.find('.marker' + (i + 1)).css('left', percent + '%');
@@ -589,7 +589,7 @@ var videoPlayer = function videoPlayer(elem) {
 			$('.markerbox').show();
 			self.markerbox = true;
 		});
-	}
+	};
 
 	this.tabMaker = function (list, time, rmode) {
 		var l = list;
@@ -606,7 +606,7 @@ var videoPlayer = function videoPlayer(elem) {
 				self.vdowrap.find('.tabbox').find('.tab' + (i + 1) + ' .rolemode').on('click', function (e) {
 					e.stopPropagation();
 					self.roleplayMode($(this), m);
-				})
+				});
 			} else {
 				self.vdowrap.find('.tabbox').append('<div class="tab tab' + (i + 1) + '">' + l[i] + '</div>');
 			}
@@ -631,7 +631,7 @@ var videoPlayer = function videoPlayer(elem) {
 		self.tabbox = true;
 
 		if (self.wrap.hasClass('readChart')) {
-			self.wrap.append('<div class="textbox">바로 가기</div>')
+			self.wrap.append('<div class="textbox">바로 가기</div>');
 
 			self.wrap.find('.textbox').on('click', function () {
 				if ($(this).hasClass('on')) {
@@ -650,13 +650,13 @@ var videoPlayer = function videoPlayer(elem) {
 				self.vdowrap.find('.tabbox').hide();
 			});
 		}
-	}
+	};
 
 	this.moveTab = function (time) {
 		var tabtime = [];
 		self.vdowrap.find('.tab').each(function () {
 			tabtime.push($(this).attr('data-time'));
-		})
+		});
 
 		for (var i = 0; i < tabtime.length; i++) {
 			self.vdowrap.find('.tab').removeClass('on');
@@ -679,7 +679,7 @@ var videoPlayer = function videoPlayer(elem) {
 			}
 		}
 
-	}
+	};
 
 	this.roleplayMode = function (elem, time) {
 		var idx = elem.parent().index();
@@ -714,29 +714,29 @@ var videoPlayer = function videoPlayer(elem) {
 			self.c_replay.removeClass('on');
 			self.video.removeAttr('loop');
 		}
-	}
+	};
 
 	this.cancelRoleplayMode = function () {
 		self.vdowrap.find('.rolemode').removeClass('on');
 		self.replayMode = false;
 		self.replayA = 0;
 		self.replayB = 0;
-	}
+	};
 
 	//---------- 2024-08-09 15:49:30 - JGY
 	this.setFull = function (pbIsFull) {
 
 
-        if (pbIsFull) {
+		if (pbIsFull) {
 			// self.wrap.closest('#wrap').addClass('fullMode');
 			wrapTop.addClass('fullMode');
-        }
-        else {
+		}
+		else {
 			// self.wrap.closest('#wrap').removeClass('fullMode');
 			wrapTop.removeClass('fullMode');
-        }
-    };
-    //----------
+		}
+	};
+	//----------
 
 
 	var timer;
@@ -791,8 +791,8 @@ var videoPlayer = function videoPlayer(elem) {
 					clearTimeout(timer);
 					timer = setTimeout(function () {
 						self.ctrwrap.fadeOut();
-						console.log('out')
-					}, 1000)
+						console.log('out');
+					}, 1000);
 				});
 			});
 
@@ -801,7 +801,7 @@ var videoPlayer = function videoPlayer(elem) {
 
 
 
-				console.log('change')
+				console.log('change');
 				clearTimeout(timer);
 				self.video.off('mousemove');
 				self.ctrwrap.off('mouseover');
@@ -820,5 +820,5 @@ var videoPlayer = function videoPlayer(elem) {
 
 			});
 		}
-	}
-}
+	};
+};

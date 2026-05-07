@@ -1,6 +1,6 @@
 imgPreLoad([
-    // 입력 아이콘
-    '../../common/images/inputItem/icon.png'
+	// 입력 아이콘
+	'common/images/inputItem/icon.png'
 ], true);
 
 

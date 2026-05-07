@@ -1,33 +1,33 @@
 
 'use strict';
 
-function loadScriptFile (scriptSrc, callBack) {
-	var script = document.createElement('script');
-	script.src = scriptSrc;
-	if (callBack) {
-		script.onload = function () {
-			callBack();
-		};
-	}
-	document.head.appendChild(script);
+function loadScriptFile(scriptSrc, callBack) {
+    var script = document.createElement('script');
+    script.src = scriptSrc;
+    if (callBack) {
+        script.onload = function () {
+            callBack();
+        };
+    }
+    document.head.appendChild(script);
 }
 
-function run (callBack) {
-	if(window.document) {
-        if ( window.document.readyState === "complete" ) {
-            setTimeout( run );
+function run(callBack) {
+    if (window.document) {
+        if (window.document.readyState === "complete") {
+            setTimeout(run);
         } else {
-            window.addEventListener("load", completed, false );
+            window.addEventListener("load", completed, false);
         }
     }
     function completed() {
-        window.removeEventListener( "load", completed, false );
+        window.removeEventListener("load", completed, false);
         callBack();
     }
 }
 
 
-loadScriptFile('../../common/js/responsive.js', function (){});
+loadScriptFile('common/js/responsive.js', function () { });
 
 run(function () {
     var isAndroid = (/(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki|iphone|ipad|ipod|blackBerry|iemobile)[\/\s-]?([\w\.]+)*/i).test(navigator.userAgent);
@@ -42,15 +42,15 @@ run(function () {
         container.style.visibility = 'visible';
     }, (isAndroid ? 500 : 0));
 
-	window.addEventListener('resize', function () {
-		setTimeout(function () {
-	        FORTEACHERCD.responsive.currentContainerSize.containerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-	        FORTEACHERCD.responsive.currentContainerSize.containerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-	        FORTEACHERCD.responsive.setScaleElement(wrap);
+    window.addEventListener('resize', function () {
+        setTimeout(function () {
+            FORTEACHERCD.responsive.currentContainerSize.containerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            FORTEACHERCD.responsive.currentContainerSize.containerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            FORTEACHERCD.responsive.setScaleElement(wrap);
             wrap.style.visibility = 'visible';
             container.style.visibility = 'visible';
-	    }, (isAndroid ? 500 : 0));
-	}, false);
+        }, (isAndroid ? 500 : 0));
+    }, false);
 });
 
 
