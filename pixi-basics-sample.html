@@ -59,25 +59,56 @@
                 logEl.textContent = "로그: " + text;
             }
 
-            // 1. Application (기본 엔진)
+            /*
+             * ========== 1. Application (기본 엔진) ==========
+             * PIXI.Application 은 한 번의 생성으로 다음을 묶어 줍니다.
+             *   - Renderer: WebGL(가능 시) 또는 Canvas 로 화면에 그리는 역할
+             *   - Ticker: 프레임마다 콜백을 돌리는 내부 타이머(아래 app.ticker 참고)
+             *   - stage: 모든 표시 객체(DisplayObject)의 최상위 부모인 루트 Container
+             * 매 프레임마다 대략 "stage 트리를 순회 → 각 객체를 화면에 합성" 하는 흐름입니다.
+             */
             const app = new PIXI.Application({
+                // 논리 캔버스 크기(픽셀). 실제 DOM 캔버스의 width/height 속성과 연동됩니다.
                 width: 800,
                 height: 600,
+                // 배경을 지우는 색. 0xRRGGBB 형식. 투명 배경을 쓰려면 옵션에서 alpha 등을 조정합니다.
                 backgroundColor: 0x1099bb,
+                /*
+                 * 고해상도(Retina 등)에서 선명하게 보이도록 내부 버퍼 배율을 올립니다.
+                 * devicePixelRatio 가 2이면, 내부적으로 더 큰 해상도로 그린 뒤 CSS 픽셀에 맞게 축소합니다.
+                 */
                 resolution: window.devicePixelRatio || 1,
+                // 다각형·텍스처 경계의 계단 현상을 줄이기 위한 안티앨리어싱 힌트(환경에 따라 효과 차이).
                 antialias: true
             });
 
-            // jQuery로 캔버스 추가 (docs.md)
+            /*
+             * app.view 는 실제 <canvas> 요소입니다. DOM 에 붙여야 브라우저에 보입니다.
+             * docs.md 예시는 document.body 였고, 여기서는 jQuery 로 #container 안에 넣습니다.
+             * append 후에는 해당 div 의 자식으로 캔버스가 생기며, 이후 모든 그림은 이 캔버스 한 장에 그려집니다.
+             */
             $("#container").append(app.view);
 
-            // 2. Container (그룹화)
+            /*
+             * ========== 2. Container (그룹화) ==========
+             * Container 는 "비어 있는 폴더" 같은 노드입니다. 자체 텍스처는 없고, 자식들을 묶습니다.
+             * 부모의 x, y, scale, rotation, alpha 는 자식 좌표계에 곱해집니다(계층 변환).
+             * 예: mainContainer.x = 50 이면, 그 안의 sprite.x=400 은 월드 기준으로 더 오른쪽에 보입니다.
+             */
             const mainContainer = new PIXI.Container();
             mainContainer.x = 0;
             mainContainer.y = 0;
+            // stage 에 붙인 순간부터 렌더 트리에 포함되어 매 프레임 그려집니다.
             app.stage.addChild(mainContainer);
 
-            // 4. Graphics (도형 그리기) — docs.md 예제와 동일한 패턴
+            /*
+             * ========== 4. Graphics (도형 그리기) — docs.md 와 동일 패턴 ==========
+             * Graphics 는 "벡터 명령의 누적"으로 도형을 만듭니다. 이미지 파일 없이 CPU 가 기하를 계산합니다.
+             * beginFill ~ endFill 사이에 그린 닫힌 도형에 채움색이 적용됩니다.
+             * lineStyle 은 이후에 그리는 선·윤곽에 적용됩니다(두께, 색, 불투명도).
+             * drawRect(x, y, w, h): 왼쪽 위 모서리 (x,y), 가로 w, 세로 h 인 축 정렬 사각형.
+             * drawCircle(cx, cy, r): 중심 (cx, cy), 반지름 r 인 원(윤곽선은 lineStyle 설정 시).
+             */
             const graphics = new PIXI.Graphics();
             graphics.beginFill(0xde3249);
             graphics.drawRect(50, 50, 100, 100);
@@ -86,7 +117,17 @@
             graphics.drawCircle(200, 200, 50);
             mainContainer.addChild(graphics);
 
-            // 3. Sprite — 외부 이미지 없이 Texture.WHITE + tint 로 단순 스프라이트 표현
+            /*
+             * ========== 3. Sprite (이미지 사각형) ==========
+             * Sprite 는 "직사각형 메시 + 텍스처(이미지)" 한 장을 화면에 붙이는 표시 객체입니다.
+             * 보통 PIXI.Texture.from('url') 로 로드하지만, 여기서는 내장 PIXI.Texture.WHITE 를 사용합니다.
+             * WHITE 는 1x1 흰색 픽셀 텍스처인데, width/height 를 키우면 단색 사각형처럼 쓸 수 있습니다.
+             * tint 에 16진 색을 주면, 흰 텍스처에 곱해져서 그 색으로 보입니다(필터 없이 저비용 색 변경).
+             * x, y: 부모(여기서는 mainContainer) 좌표계 기준 위치. 왼쪽 위가 원점에 가깝습니다.
+             * anchor.set(0.5): 회전·스케일의 기준점을 스프라이트 중앙으로 둡니다(0~1 정규화 좌표).
+             *   anchor (0,0) 이면 왼쪽 위가 기준, (0.5, 0.5) 이면 정중앙이 기준이라 회전 시 제자리에서 돕니다.
+             * alpha: 0(완전 투명) ~ 1(불투명). 전체 스프라이트에 곱해지는 불투명도입니다.
+             */
             const spriteTexture = PIXI.Texture.WHITE;
             const sprite = new PIXI.Sprite(spriteTexture);
             sprite.width = 120;
@@ -98,14 +139,27 @@
             sprite.alpha = 0.95;
             mainContainer.addChild(sprite);
 
-            // 6. Interaction (이벤트 처리)
+            /*
+             * ========== 6. Interaction (이벤트 처리) ==========
+             * Pixi 의 표시 객체는 기본적으로 클릭을 받지 않습니다. interactive 를 true 로 두면
+             * 히트 영역(스프라이트의 사각 경계 등)에 포인터 이벤트가 들어옵니다.
+             * buttonMode: 마우스가 올라갔을 때 커서를 손 모양으로 바꾸는 등 "버튼 같이" 보이게 하는 힌트.
+             * 'pointerdown': 마우스 누름·터치 시작 등을 통합한 이름(브라우저 Pointer Events 개념과 맞춤).
+             * sprite.on(이벤트명, 콜백): 이 객체에 리스너를 등록합니다(jQuery 의 on 과 유사한 역할).
+             */
             sprite.interactive = true;
             sprite.buttonMode = true;
             sprite.on("pointerdown", function () {
                 setLog("스프라이트 클릭됨! (pointerdown)");
             });
 
-            // 5. Ticker (애니메이션 루프)
+            /*
+             * ========== 5. Ticker (애니메이션 루프) ==========
+             * app.ticker 는 브라우저의 requestAnimationFrame 과 비슷하게 "매 프레임" 콜백을 호출합니다.
+             * add(함수) 로 등록한 함수는 매 프레임마다 실행되며, 첫 인자 delta 는 프레임 보정 값입니다.
+             * delta 는 보통 1 에 가깝고, 프레임이 느리면 1보다 커져서 "초당 변화량"이 기기 성능에 덜 묶이게 합니다.
+             * rotation 은 라디안 단위입니다. 0.01 * delta 는 "프레임당 약간" 회전 → 연속 회전 애니메이션.
+             */
             app.ticker.add(function (delta) {
                 sprite.rotation += 0.01 * delta;
             });
