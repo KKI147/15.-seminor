@@ -69,3 +69,53 @@ sprite.buttonMode = true;  // 마우스 오버 시 커서를 손가락 모양으
 sprite.on('pointerdown', function() {
     console.log('클릭됨!');
 });
+
+---
+
+# 대화 기록 (PixiJS 샘플·학습 메모)
+
+아래는 `readme.md`와 동일하게 **사용자 / 어시스턴트** 형식으로 정리한 Cursor 대화 요약입니다. 위 절은 PixiJS API 요약, 아래는 진행 과정·결론 메모입니다.
+
+## 2026-05-12
+
+**사용자:**  
+`readme.md`를 읽고 파악해 달라.
+
+**어시스턴트:**  
+프로젝트 규칙(jQuery 우선, `const`/`let`, `var`·화살표 함수 금지, CSS는 과도하게 최신 스택 지양), `readme.md`에 대화를 남기는 관행, WeekOne 테트리스·PIOD 계획, 커밋 메시지는 `type: 내용` 스타일 선호 등을 요약해 정리함.
+
+**사용자:**  
+`docs.md`를 참고해 PixiJS 기본 기능이 구현된 HTML 샘플을 만들어 달라.
+
+**어시스턴트:**  
+루트에 `pixi-basics-sample.html` 추가. `docs.md`의 1~6(Application, Container, Sprite, Graphics, Ticker, Interaction)을 반영하고, jQuery로 `#container`에 `app.view`를 붙이며 Pixi 7.4.2 CDN·화살표 함수 미사용으로 구현함.
+
+**사용자:**  
+커밋 메시지를 추천해 달라.
+
+**어시스턴트:**  
+예: `feat: docs.md 기준 PixiJS 기본 기능 데모 HTML 샘플 추가` 등 Conventional Commits 형식 후보를 제시함.
+
+**사용자:**  
+`pixi-basics-sample.html`에 Pixi 내장 기능이 어떻게 동작하는지, 코드가 어떻게 구현되는지 더 자세한 주석을 달아 달라.
+
+**어시스턴트:**  
+스크립트에 블록 주석으로 Application·`app.view`·Container·Graphics·Sprite·Interaction·Ticker 각각의 역할과 `delta`, `anchor`, `Texture.WHITE`+`tint` 등을 설명함.
+
+**사용자:**  
+스프라이트가 직사각형을 그리는데, 빨강과 파랑 두 개가 생기고 파랑에만 클릭 이벤트가 적용된 이유를 물음.
+
+**어시스턴트:**  
+빨간 사각형은 `PIXI.Graphics`의 `drawRect`로 그린 벡터 도형이고, 파란 사각형은 `PIXI.Sprite`(WHITE 텍스처+`tint`)임. `interactive`와 `pointerdown`은 `sprite`에만 걸려 있어 파란 쪽만 클릭됨. 위치도 달라 겹치지 않음을 설명함.
+
+**사용자:**  
+이 샘플만 보면 HTML `<canvas>`와 가장 큰 차이가, canvas 내부 요소에 개별 이벤트를 트리거할 수 있는 것 같다. 맞는지?
+
+**어시스턴트:**  
+Pixi도 결국 `<canvas>` 한 장을 씀. 차이는 “순수 Canvas API는 기본적으로 캔버스 요소 단위 이벤트만 오고, 도형별로는 좌표 히트 테스트를 직접 구현해야 함”에 가깝고, Pixi는 표시 객체 트리와 히트 테스트로 객체 단위 `pointerdown` 등을 제공한다고 정리함.
+
+**사용자:**  
+지금까지 나눈 대화를 `readme.md`를 참고해 `docs.md` 71번째 줄 아래에, 위 API 요약과 구분되게 마크다운으로 넣어 달라.
+
+**어시스턴트:**  
+요청대로 API 요약 아래에 구분선(`---`)과 본 대화 기록 절을 추가함.
