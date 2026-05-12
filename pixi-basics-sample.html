@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixiJS 기본 기능 샘플 (docs.md)</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Malgun Gothic", sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        #page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            font-weight: normal;
+            margin: 0 0 12px;
+        }
+
+        #container {
+            display: inline-block;
+            border: 2px solid #ecf0f1;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        #log {
+            margin-top: 12px;
+            padding: 10px;
+            background: #16213e;
+            border-radius: 6px;
+            font-size: 13px;
+            min-height: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page">
+        <h1>PixiJS 기본 기능 샘플 — Application, Container, Sprite, Graphics, Ticker, Interaction</h1>
+        <div id="container"></div>
+        <div id="log">로그: (회전하는 파란 사각 스프라이트를 클릭해 보세요)</div>
+    </div>
+
+    <script src="common/js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.2/pixi.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const logEl = document.getElementById("log");
+
+            function setLog(text) {
+                logEl.textContent = "로그: " + text;
+            }
+
+            // 1. Application (기본 엔진)
+            const app = new PIXI.Application({
+                width: 800,
+                height: 600,
+                backgroundColor: 0x1099bb,
+                resolution: window.devicePixelRatio || 1,
+                antialias: true
+            });
+
+            // jQuery로 캔버스 추가 (docs.md)
+            $("#container").append(app.view);
+
+            // 2. Container (그룹화)
+            const mainContainer = new PIXI.Container();
+            mainContainer.x = 0;
+            mainContainer.y = 0;
+            app.stage.addChild(mainContainer);
+
+            // 4. Graphics (도형 그리기) — docs.md 예제와 동일한 패턴
+            const graphics = new PIXI.Graphics();
+            graphics.beginFill(0xde3249);
+            graphics.drawRect(50, 50, 100, 100);
+            graphics.endFill();
+            graphics.lineStyle(2, 0xfeeb77, 1);
+            graphics.drawCircle(200, 200, 50);
+            mainContainer.addChild(graphics);
+
+            // 3. Sprite — 외부 이미지 없이 Texture.WHITE + tint 로 단순 스프라이트 표현
+            const spriteTexture = PIXI.Texture.WHITE;
+            const sprite = new PIXI.Sprite(spriteTexture);
+            sprite.width = 120;
+            sprite.height = 120;
+            sprite.tint = 0x3498db;
+            sprite.x = 400;
+            sprite.y = 280;
+            sprite.anchor.set(0.5);
+            sprite.alpha = 0.95;
+            mainContainer.addChild(sprite);
+
+            // 6. Interaction (이벤트 처리)
+            sprite.interactive = true;
+            sprite.buttonMode = true;
+            sprite.on("pointerdown", function () {
+                setLog("스프라이트 클릭됨! (pointerdown)");
+            });
+
+            // 5. Ticker (애니메이션 루프)
+            app.ticker.add(function (delta) {
+                sprite.rotation += 0.01 * delta;
+            });
+
+            setLog("초기화 완료. 빨간 사각·노란 테두리 원(Graphics), 회전 중인 파란 스프라이트(Container 자식).");
+        });
+    </script>
+</body>
+
+</html>
