@@ -1,0 +1,118 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0c0f14;
+    color: #e6edf3;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem 2rem;
+}
+
+.page-title {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #f0f6fc;
+}
+
+.page-desc {
+    margin: 0 0 1.25rem;
+    max-width: 28rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #8b949e;
+    text-align: center;
+}
+
+.ui-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.score-board {
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.score-board span {
+    font-weight: 700;
+    color: #58a6ff;
+}
+
+#status {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: #7ee787;
+    min-width: 7rem;
+    text-align: center;
+}
+
+#start-btn {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(180deg, #f7812d 0%, #d35400 100%);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 #8b4513;
+}
+
+#start-btn:hover {
+    filter: brightness(1.08);
+}
+
+#start-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 #8b4513;
+}
+
+#game-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 3px solid #30363d;
+    box-shadow:
+        0 0 0 1px rgba(240, 246, 252, 0.06),
+        0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+#game-container canvas {
+    display: block;
+    vertical-align: top;
+}
+
+.hint {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: #6e7681;
+    text-align: center;
+    max-width: 26rem;
+    line-height: 1.5;
+}
+
+kbd {
+    display: inline-block;
+    padding: 0.12em 0.4em;
+    font-size: 0.85em;
+    font-family: inherit;
+    border-radius: 4px;
+    background: #21262d;
+    border: 1px solid #30363d;
+}
