@@ -11,42 +11,7 @@
     <link rel="stylesheet" type="text/css" href="common/css/common.css" />
     <link rel="stylesheet" type="text/css" href="common/css/common_sci.css" />
     <link rel="stylesheet" type="text/css" href="common/css/common_repo.css" />
-
-    <style>
-        #game-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 4px solid #ecf0f1;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        #ui-layer {
-            position: relative;
-            top: 10%;
-            text-align: center;
-        }
-
-        .score-board {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #e67e22;
-            border: none;
-            color: white;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #d35400;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
@@ -55,11 +20,17 @@
         <div class="contentsWrap">
             <div class="contents clickPage clickPage1">
                 <div id="ui-layer">
-                    <div class="score-board">Score: <span id="score">0</span></div>
-                    <button id="start-btn">Game Start</button>
+                    <div class="score-board">점수 <span id="score">0</span></div>
+                    <div id="status">READY</div>
+                    <button type="button" id="start-btn">Game Start</button>
                 </div>
 
-                <div id="game-container"></div>
+                <div id="game-container" aria-label="테트리스 플레이 영역"></div>
+
+                <p class="tetris-hint">
+                    <kbd>←</kbd> <kbd>→</kbd> 이동 · <kbd>↓</kbd> 소프트 드롭 · <kbd>↑</kbd> 회전 ·
+                    <kbd>Space</kbd> 하드 드롭 · <kbd>Shift</kbd> 또는 <kbd>C</kbd> 홀드
+                </p>
             </div>
         </div>
     </div>
@@ -71,45 +42,7 @@
     <script src="common/js/common_sci.js"></script>
     <script src="common/js/common_repo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.2/pixi.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            const COLS = 10;
-            const ROWS = 20;
-            const BLOCK_SIZE = 30;
-
-            // PixiJS Application 초기화
-            const app = new PIXI.Application({
-                width: COLS * BLOCK_SIZE,
-                height: ROWS * BLOCK_SIZE,
-                backgroundColor: 0x000000,
-                resolution: window.devicePixelRatio || 1,
-            });
-
-            document.getElementById('game-container').appendChild(app.view);
-
-            // 배경 그리드 그리기
-            const gridGraphics = new PIXI.Graphics();
-            gridGraphics.lineStyle(1, 0x333333, 1);
-
-            for (let i = 0; i <= COLS; i++) {
-                gridGraphics.moveTo(i * BLOCK_SIZE, 0);
-                gridGraphics.lineTo(i * BLOCK_SIZE, ROWS * BLOCK_SIZE);
-            }
-            for (let j = 0; j <= ROWS; j++) {
-                gridGraphics.moveTo(0, j * BLOCK_SIZE);
-                gridGraphics.lineTo(COLS * BLOCK_SIZE, j * BLOCK_SIZE);
-            }
-            app.stage.addChild(gridGraphics);
-
-            // 게임 시작 버튼 이벤트 (jQuery 사용)
-            $('#start-btn').on('click', function () {
-                alert('테트리스 게임을 시작합니다!');
-                // 여기에 초기화 로직 추가 예정
-            });
-
-            console.log('PixiJS 및 jQuery 초기화 완료');
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

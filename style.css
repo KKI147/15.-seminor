@@ -1,0 +1,89 @@
+#ui-layer {
+    position: relative;
+    top: 10%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.score-board {
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+    color: #c9d1d9;
+    margin-bottom: 0.5rem;
+}
+
+.score-board span#score {
+    font-weight: 700;
+    color: #58a6ff;
+}
+
+#status {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: #7ee787;
+    min-width: 7rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+#start-btn {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(180deg, #f7812d 0%, #d35400 100%);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 0 #8b4513;
+}
+
+#start-btn:hover {
+    filter: brightness(1.08);
+}
+
+#start-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 #8b4513;
+}
+
+/* 01.css와 유사: 캔버스 프레임·그림자 */
+#game-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px #30363d,
+        0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+#game-container canvas {
+    display: block;
+}
+
+.tetris-hint {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 6%;
+    max-width: 32rem;
+    padding: 0 1rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #6e7681;
+    text-align: center;
+}
+
+.tetris-hint kbd {
+    display: inline-block;
+    padding: 0.12em 0.4em;
+    font-size: 0.85em;
+    font-family: inherit;
+    border-radius: 4px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+}
