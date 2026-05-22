@@ -5,6 +5,14 @@
 PixiJS 7 기반 테트리스. 좌측 HOLD·통계, 중앙 보드, 우측 NEXT 레이아웃을 적용했고,  
 Solo / VS CPU / **WebSocket Multi** 3가지 모드와 대전용 공격·가비지 시스템을 지원합니다.
 
+### 라이브 데모 (Render)
+
+**https://tetris-extra.onrender.com**
+
+- 게임·멀티 WebSocket이 같은 주소에서 동작합니다.
+- 멀티플레이: 위 URL을 **두 브라우저(또는 탭)** 에서 열고 → 방 만들기 / 방 참여.
+- 무료 플랜은 비접속 후 슬립 시 첫 접속이 느릴 수 있습니다.
+
 ---
 
 ## 구현 현황 요약
@@ -37,6 +45,12 @@ npm start
 ---
 
 ## 배포 (WebSocket 자동 실행)
+
+| 항목 | 값 |
+|------|-----|
+| **배포 URL** | https://tetris-extra.onrender.com |
+| **헬스체크** | https://tetris-extra.onrender.com/health |
+| **호스팅** | Render (`tetris-extra` Web Service) |
 
 게임 + WebSocket을 **Render 한 서비스**에 올리는 방식을 권장합니다.  
 **단계별 절차·체크리스트·문제 해결**은 [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md) 를 참고하세요.
