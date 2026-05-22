@@ -87,3 +87,588 @@
     border: 1px solid #30363d;
     color: #c9d1d9;
 }
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 12, 16, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.game-overlay.hidden {
+    display: none !important;
+}
+
+#countdown-overlay {
+    z-index: 110;
+}
+
+#result-overlay {
+    z-index: 120;
+}
+
+/* 승패 결과판 */
+.result-content {
+    background: #1b212c;
+    border: 2px solid #30363d;
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    width: 85%;
+    max-width: 380px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    color: #c9d1d9;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.result-title {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin: 0;
+}
+
+.result-title.result-win {
+    color: #7ee787;
+    text-shadow: 0 0 20px rgba(126, 231, 135, 0.45);
+}
+
+.result-title.result-lose {
+    color: #ff7b72;
+    text-shadow: 0 0 20px rgba(255, 123, 114, 0.45);
+}
+
+.result-subtitle {
+    font-size: 1rem;
+    color: #8b949e;
+    margin: 0;
+}
+
+.result-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #0d1117;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    border: 1px solid #21262d;
+}
+
+.result-score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.result-score-label {
+    color: #8b949e;
+    font-weight: 600;
+}
+
+.result-score-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffea00;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 카운트다운 텍스트 스타일 */
+.countdown-text {
+    display: block;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ffea00;
+    text-shadow: 0 0 25px rgba(255, 234, 0, 0.7);
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.15s ease-out;
+}
+
+.countdown-text.countdown-pop {
+    display: block;
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* 로비 오버레이 세부 스타일 */
+.lobby-content {
+    background: #1b212c;
+    border: 2px solid #30363d;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 85%;
+    max-width: 420px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    color: #c9d1d9;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.lobby-title {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin: 0;
+    color: #ffea00;
+    text-shadow: 0 0 15px rgba(255, 234, 0, 0.4);
+}
+
+/* 모드 선택 버튼 영역 */
+.mode-select-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.mode-btn {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #8b949e;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    color: #f0f6fc;
+    background: #161b22;
+    border-color: #8b949e;
+}
+
+.mode-btn.active {
+    color: #0d1117;
+    background: #ffea00;
+    border-color: #ffea00;
+    box-shadow: 0 0 15px rgba(255, 234, 0, 0.35);
+    font-weight: 700;
+}
+
+.multi-server-hint {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #6e7681;
+    margin: 0;
+    text-align: left;
+}
+
+.multi-server-hint code {
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+}
+
+/* 인풋 및 폼 영역 */
+.multi-form-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background: #0d1117;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid #21262d;
+    text-align: left;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #8b949e;
+    letter-spacing: 1px;
+}
+
+.input-group input,
+.join-group input {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    color: #c9d1d9;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.input-group input:focus,
+.join-group input:focus {
+    border-color: #ffea00;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 234, 0, 0.25);
+}
+
+.multi-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.action-btn {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #c9d1d9;
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: #30363d;
+    color: #f0f6fc;
+}
+
+.join-group {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.35rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.join-group-guest .action-btn {
+    width: 100%;
+}
+
+.join-group.join-ready {
+    border-color: rgba(88, 166, 255, 0.55);
+    animation: joinGroupPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes joinGroupPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.35);
+        border-color: rgba(88, 166, 255, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 14px 2px rgba(255, 234, 0, 0.45);
+        border-color: rgba(255, 234, 0, 0.75);
+    }
+}
+
+.multi-join-hint {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #8b949e;
+    font-weight: 600;
+}
+
+.multi-guest-hint {
+    color: #8b949e;
+}
+
+.multi-join-hint.hidden {
+    display: none !important;
+}
+
+.multi-join-hint.join-hint-active {
+    color: #ffea00;
+    animation: joinHintBlink 1s ease-in-out infinite;
+}
+
+@keyframes joinHintBlink {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+}
+
+.action-btn:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+    filter: grayscale(0.25);
+}
+
+.action-btn:disabled:hover {
+    background: #21262d;
+    color: #c9d1d9;
+}
+
+#join-room-btn.join-pulse:not(:disabled) {
+    animation: joinBtnPulse 0.9s ease-in-out infinite;
+}
+
+@keyframes joinBtnPulse {
+    0%, 100% {
+        background: #238636;
+        color: #fff;
+        box-shadow: 0 0 10px rgba(35, 134, 54, 0.5);
+    }
+    50% {
+        background: #ffea00;
+        color: #0d1117;
+        box-shadow: 0 0 16px rgba(255, 234, 0, 0.55);
+    }
+}
+
+#join-room-btn.join-pulse:not(:disabled):hover {
+    filter: brightness(1.08);
+}
+
+.join-group input {
+    flex: 1;
+    width: 100%;
+}
+
+.join-group .action-btn {
+    flex: 1.2;
+}
+
+/* 로비 시작 버튼 (Solo, VS CPU) */
+.start-btn-primary {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0d1117;
+    background: linear-gradient(180deg, #ffea00 0%, #d4c200 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 234, 0, 0.25);
+    transition: all 0.2s ease;
+}
+
+.start-btn-primary:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 6px 20px rgba(255, 234, 0, 0.35);
+}
+
+.start-btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* 대기 화면 영역 */
+.multi-wait-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #0d1117;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid #21262d;
+}
+
+.wait-status {
+    font-size: 0.95rem;
+    color: #58a6ff;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.multi-wait-area .wait-status {
+    color: #c9d1d9;
+}
+
+.multi-wait-area .action-btn-danger {
+    color: #ff7b72;
+}
+
+.action-btn-danger {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ff7b72;
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid rgba(248, 81, 73, 0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn-danger:hover {
+    background: rgba(248, 81, 73, 0.2);
+    border-color: rgba(248, 81, 73, 0.7);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* 멀티플레이 채팅 (body 고정 — wrap overflow 영향 없음) */
+.multi-chat-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 80px;
+    width: 260px;
+    height: 320px;
+    min-width: 200px;
+    min-height: 180px;
+    max-width: 480px;
+    max-height: 560px;
+    display: flex;
+    flex-direction: column;
+    background: #1b212c;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    z-index: 10050;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.multi-chat-panel.is-dragging,
+.multi-chat-panel.is-resizing {
+    user-select: none;
+    opacity: 0.95;
+}
+
+/* 모서리 크기 조절 핸들 */
+.multi-chat-resize {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    z-index: 5;
+    background: transparent;
+}
+
+.multi-chat-resize-nw {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+}
+
+.multi-chat-resize-ne {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+}
+
+.multi-chat-resize-sw {
+    bottom: 0;
+    left: 0;
+    cursor: sw-resize;
+}
+
+.multi-chat-resize-se {
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+
+.multi-chat-resize:hover {
+    background: rgba(255, 234, 0, 0.2);
+    border-radius: 3px;
+}
+
+.multi-chat-panel.hidden {
+    display: none !important;
+}
+
+.multi-chat-header {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffea00;
+    border-bottom: 1px solid #30363d;
+    background: #0d1117;
+    cursor: move;
+    touch-action: none;
+}
+
+.multi-chat-messages {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0.65rem;
+    flex: 1;
+    min-height: 60px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.multi-chat-msg {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.multi-chat-msg:not(.system) .multi-chat-nick {
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+.multi-chat-msg.system {
+    color: #6e7681;
+    font-style: italic;
+}
+
+.multi-chat-msg.system .multi-chat-body {
+    display: block;
+}
+
+.multi-chat-msg.mine .multi-chat-nick {
+    color: #58a6ff;
+}
+
+.multi-chat-nick {
+    display: inline;
+    font-weight: 700;
+    color: #ffea00;
+    margin-right: 0.35rem;
+}
+
+.multi-chat-body {
+    color: #c9d1d9;
+}
+
+.multi-chat-input-row {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.5rem 0.55rem;
+    border-top: 1px solid #30363d;
+    background: #0d1117;
+}
+
+.multi-chat-input-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.82rem;
+    color: #c9d1d9;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.multi-chat-input-row input:focus {
+    border-color: #ffea00;
+    outline: none;
+}
+
+.multi-chat-input-row .action-btn {
+    flex-shrink: 0;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.78rem;
+}

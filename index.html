@@ -15,6 +15,18 @@
 </head>
 
 <body>
+    <div id="multi-chat-panel" class="multi-chat-panel hidden" aria-label="멀티플레이 채팅">
+        <span class="multi-chat-resize multi-chat-resize-nw" data-resize="nw" title="크기 조절"></span>
+        <span class="multi-chat-resize multi-chat-resize-ne" data-resize="ne" title="크기 조절"></span>
+        <span class="multi-chat-resize multi-chat-resize-sw" data-resize="sw" title="크기 조절"></span>
+        <span class="multi-chat-resize multi-chat-resize-se" data-resize="se" title="크기 조절"></span>
+        <div class="multi-chat-header" title="드래그하여 이동">채팅</div>
+        <ul id="multi-chat-messages" class="multi-chat-messages"></ul>
+        <div class="multi-chat-input-row">
+            <input type="text" id="multi-chat-input" placeholder="메시지 입력" maxlength="80" autocomplete="off">
+            <button type="button" id="multi-chat-send" class="action-btn">전송</button>
+        </div>
+    </div>
     <div id="container"></div>
     <div id="wrap" class="page">
         <div class="contentsWrap">
@@ -22,10 +34,71 @@
                 <div id="ui-layer">
                     <div class="score-board">점수 <span id="score">0</span></div>
                     <div id="status">READY</div>
-                    <button type="button" id="start-btn">Game Start</button>
+                    <button type="button" id="start-btn">Lobby</button>
                 </div>
 
-                <div id="game-container" aria-label="테트리스 플레이 영역"></div>
+                <div id="game-container" aria-label="테트리스 플레이 영역">
+                    <div id="countdown-overlay" class="game-overlay hidden">
+                        <div class="countdown-text">3</div>
+                    </div>
+                    <div id="result-overlay" class="game-overlay hidden">
+                        <div class="result-content">
+                            <h2 id="result-title" class="result-title result-win">YOU WIN</h2>
+                            <p id="result-subtitle" class="result-subtitle"></p>
+                            <div class="result-scores">
+                                <div class="result-score-row">
+                                    <span class="result-score-label">나</span>
+                                    <span id="result-p1-score" class="result-score-value">0</span>
+                                </div>
+                                <div class="result-score-row">
+                                    <span id="result-p2-label" class="result-score-label">상대</span>
+                                    <span id="result-p2-score" class="result-score-value">0</span>
+                                </div>
+                            </div>
+                            <button type="button" id="result-lobby-btn" class="start-btn-primary">로비로 (Lobby)</button>
+                        </div>
+                    </div>
+                    <!-- 로비 및 모드 선택 오버레이 -->
+                    <div id="lobby-overlay" class="game-overlay">
+                        <div class="lobby-content">
+                            <h2 class="lobby-title">TETRIS EXTRA</h2>
+                            
+                            <!-- 모드 선택 버튼 그룹 -->
+                            <div class="mode-select-area">
+                                <button type="button" class="mode-btn active" data-mode="solo">혼자 하기 (Solo)</button>
+                                <button type="button" class="mode-btn" data-mode="cpu">AI 대결 (VS CPU)</button>
+                                <button type="button" class="mode-btn" data-mode="multi">멀티플레이 (Multi)</button>
+                            </div>
+                            
+                            <!-- 멀티플레이 전용 설정 폼 -->
+                            <div class="multi-form-area" style="display: none;">
+                                <p class="multi-server-hint">멀티플레이 전 터미널에서 <code>npm install</code> 후 <code>npm run server</code> 실행 (포트 8765)</p>
+                                <div class="input-group">
+                                    <label for="nickname-input">닉네임</label>
+                                    <input type="text" id="nickname-input" placeholder="닉네임 입력" maxlength="8">
+                                </div>
+                                <div class="multi-actions">
+                                    <button type="button" id="create-room-btn" class="action-btn">방 만들기</button>
+                                    <div id="join-group-wrap" class="join-group join-group-guest">
+                                        <button type="button" id="join-room-btn" class="action-btn" disabled>방 참여</button>
+                                    </div>
+                                    <p id="multi-join-hint" class="multi-join-hint multi-guest-hint">방을 만든 사람이 [방 만들기]를 누르면 [방 참여]가 활성화됩니다.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Solo 및 CPU 시작 버튼 -->
+                            <div class="solo-cpu-actions">
+                                <button type="button" id="lobby-start-btn" class="start-btn-primary">게임 시작 (Start)</button>
+                            </div>
+                            
+                            <!-- 멀티플레이어 매칭 대기 화면 -->
+                            <div class="multi-wait-area" style="display: none;">
+                                <p class="wait-status">상대방을 기다리는 중...</p>
+                                <button type="button" id="cancel-match-btn" class="action-btn-danger">매칭 취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <p class="tetris-hint">
                     <kbd>←</kbd> <kbd>→</kbd> 이동 · <kbd>↓</kbd> 소프트 드롭 · <kbd>↑</kbd> 회전 ·

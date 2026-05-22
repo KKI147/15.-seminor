@@ -1,0 +1,13 @@
+{
+  "name": "tetris-extra-multi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tetris EXTRA WebSocket multiplayer server",
+  "scripts": {
+    "server": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
