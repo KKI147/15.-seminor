@@ -34,15 +34,19 @@
 * [x] 클라이언트: 매칭 → 카운트다운 → 게임, P2 보드 렌더, 결과판
 * [ ] 재접속, active piece 동기화 (2차)
 
-### 6단계: P6 - 멀티 UX·품질 (대기)
-* 연결 끊김·재접속, 상대 피스/HOLD/NEXT 동기화, 서버 URL 설정 UI.
+### 6단계: P6 - 배포·멀티 UX [배포 1차 완료 — 2026-05-22]
+* [x] `server.js` HTTP 정적 서빙 + WebSocket 동일 포트 (`process.env.PORT`)
+* [x] `npm start` 로컬·Render 자동 기동 (`render.yaml`, `/health`)
+* [x] `ws-config.js` — Vercel+Render 분리 시 WS URL 설정
+* [x] [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md) — Render 배포 절차 문서
+* [ ] 재접속, active piece 동기화, 서버 URL 설정 UI
 
 ---
 
 ## 🧪 검증 계획
 
 ### 멀티플레이 (8차 추가)
-1. 터미널에서 `npm run server` 실행.
+1. 터미널에서 `npm start` 실행 후 `http://localhost:8765` 접속.
 2. 브라우저 2개(또는 탭 2개)에서 Multi → 방 만들기 / 방 참여.
 3. `MATCH_START` 후 카운트다운·양쪽 플레이 가능 확인.
 4. 한쪽 라인 제거 시 상대 가비지 미터·주입 확인.

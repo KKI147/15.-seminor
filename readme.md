@@ -21,17 +21,31 @@ Solo / VS CPU / **WebSocket Multi** 3가지 모드와 대전용 공격·가비�
 
 ---
 
-## 멀티플레이 서버 실행
+## 멀티플레이 서버 실행 (로컬)
 
 ```bash
 npm install
-npm run server
+npm start
 ```
 
-- 기본 주소: `ws://localhost:8765`
-- 브라우저에서 `index.html`을 연 뒤 **멀티플레이** → 방 만들기 / 방 참여
-- 두 클라이언트(또는 탭 2개)가 같은 방에 들어가면 `MATCH_START` 후 카운트다운·게임 시작
-- **채팅·프로토콜 변경 후에는 서버 재시작** (`Ctrl+C` → `npm run server`) 권장
+- 브라우저에서 **`http://localhost:8765`** 로 접속 (게임 + WebSocket 동일 포트)
+- **멀티플레이** → 방 만들기 / 방 참여
+- 두 탭이 같은 URL을 쓰면 `MATCH_START` 후 카운트다운·게임 시작
+- `index.html`을 `file://`로 직접 열면 WS만 `ws://localhost:8765` 로 연결 시도 → **`npm start` 후 http 접속 권장**
+- 프로토콜 변경 후: `Ctrl+C` → `npm start` 재실행
+
+---
+
+## 배포 (WebSocket 자동 실행)
+
+게임 + WebSocket을 **Render 한 서비스**에 올리는 방식을 권장합니다.  
+**단계별 절차·체크리스트·문제 해결**은 [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md) 를 참고하세요.
+
+| 파일 | 설명 |
+|------|------|
+| [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md) | **배포 가이드 (필독)** |
+| `render.yaml` | Render Blueprint (`npm start` 자동 실행) |
+| `ws-config.js` | Vercel+Render 분리 시에만 `wss://` URL 설정 |
 
 ---
 
@@ -195,7 +209,8 @@ npm run server
 - [ ] 연결 끊김 후 재접속·방 복구
 - [ ] 상대 활성 피스(active piece) 실시간 동기화
 - [ ] 상대 HOLD / NEXT 미리보기 동기화
-- [ ] 멀티 전용 서버 URL 설정 UI
+- [x] 통합 서버 (`npm start` — 게임·WS 동일 포트) + Render 자동 기동 (`render.yaml`)
+- [ ] 멀티 전용 서버 URL 설정 UI (현재 `ws-config.js` 수동 설정)
 
 ### 게임플레이 · 밸런스
 - [ ] CPU AI 틱 600ms vs 800ms 난이도 옵션
@@ -241,10 +256,12 @@ npm run server
 | 2026-05-22 | 9차-5 | 한글 IME Enter 중복 수정 (keyup·composition·debounce) |
 | 2026-05-22 | 9차-6 | 멀티 방 만들기 후 [방 참여] 깜빡임 유도 (초기) |
 | 2026-05-22 | 9차-7 | 방 코드 UI 제거, 방장/참가자 역할 분리, `ROOM_WAITING`·자동 매칭 |
+| 2026-05-22 | 10차 | 통합 서버(HTTP+WS), `process.env.PORT`, Render Blueprint, `ws-config.js` |
 
 ---
 
 ## 관련 문서
 
+- 서버 배포: [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md)
 - 상세 로드맵: [`implementation_plan.md`](implementation_plan.md)
 - 카운트다운 수정 계획: [`countdown_overlay_fix_plan.md`](countdown_overlay_fix_plan.md)

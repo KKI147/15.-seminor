@@ -1,13 +1,41 @@
 /**
- * Tetris EXTRA WebSocket 멀티플레이 서버
- * 실행: npm install && npm run server  (기본 포트 8765)
+ * Tetris EXTRA — 정적 파일 + WebSocket 멀티플레이 (단일 포트)
+ * 로컬: npm install && npm start  → http://localhost:8765
+ * 배포: Render/Railway 등에서 npm start (PORT 환경 변수 자동 적용)
  */
 'use strict';
 
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const WebSocket = require('ws');
 
-const PORT = 8765;
+const PORT = parseInt(process.env.PORT, 10) || 8765;
+const ROOT_DIR = __dirname;
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+const MIME_TYPES = {
+    '.html': 'text/html; charset=utf-8',
+    '.js': 'application/javascript; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.svg': 'image/svg+xml',
+    '.ico': 'image/x-icon',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.ttf': 'font/ttf',
+    '.eot': 'application/vnd.ms-fontobject',
+    '.otf': 'font/otf',
+    '.mp3': 'audio/mpeg',
+    '.wav': 'audio/wav'
+};
+
+/** @type {import('ws').WebSocketServer} */
+let wss;
 
 /** @type {Record<string, { host: import('ws').WebSocket, guest: import('ws').WebSocket|null, hostNick: string, guestNick: string }>} */
 const rooms = {};
@@ -117,9 +145,58 @@ function startMatch(roomCode) {
     sendJson(room.guest, payload);
 }
 
-const wss = new WebSocket.Server({ port: PORT });
+function resolveSafePath(urlPath) {
+    let decoded = decodeURIComponent(urlPath.split('?')[0]);
+    if (decoded === '/' || decoded === '') {
+        decoded = '/index.html';
+    }
+    const relative = decoded.replace(/^\/+/, '').replace(/\.\./g, '');
+    const full = path.normalize(path.join(ROOT_DIR, relative));
+    if (full.indexOf(ROOT_DIR) !== 0) {
+        return null;
+    }
+    return full;
+}
 
-console.log('Tetris WebSocket server listening on ws://localhost:' + PORT);
+function serveStatic(req, res) {
+    const filePath = resolveSafePath(req.url || '/');
+    if (!filePath) {
+        res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Forbidden');
+        return;
+    }
+
+    fs.stat(filePath, function (err, stat) {
+        if (err || !stat.isFile()) {
+            res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+            res.end('Not Found');
+            return;
+        }
+
+        const ext = path.extname(filePath).toLowerCase();
+        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        res.writeHead(200, { 'Content-Type': contentType });
+        fs.createReadStream(filePath).pipe(res);
+    });
+}
+
+function handleHttpRequest(req, res) {
+    if (req.url === '/health') {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ ok: true, service: 'tetris-multi' }));
+        return;
+    }
+    serveStatic(req, res);
+}
+
+const httpServer = http.createServer(handleHttpRequest);
+wss = new WebSocket.Server({ server: httpServer });
+
+httpServer.listen(PORT, function () {
+    console.log('Tetris server ready');
+    console.log('  Game:  http://localhost:' + PORT);
+    console.log('  WS:    ws://localhost:' + PORT + ' (same origin)');
+});
 
 wss.on('connection', function (ws) {
     ws.on('message', function (raw) {

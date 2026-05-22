@@ -72,7 +72,7 @@
                             
                             <!-- 멀티플레이 전용 설정 폼 -->
                             <div class="multi-form-area" style="display: none;">
-                                <p class="multi-server-hint">멀티플레이 전 터미널에서 <code>npm install</code> 후 <code>npm run server</code> 실행 (포트 8765)</p>
+                                <p class="multi-server-hint">멀티플레이: 터미널에서 <code>npm install</code> 후 <code>npm start</code> → 브라우저에서 <code>http://localhost:8765</code> 로 접속</p>
                                 <div class="input-group">
                                     <label for="nickname-input">닉네임</label>
                                     <input type="text" id="nickname-input" placeholder="닉네임 입력" maxlength="8">
@@ -115,6 +115,7 @@
     <script src="common/js/common_sci.js"></script>
     <script src="common/js/common_repo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.2/pixi.min.js"></script>
+    <script src="ws-config.js"></script>
     <script src="script.js"></script>
 </body>
 

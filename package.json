@@ -4,8 +4,11 @@
   "private": true,
   "description": "Tetris EXTRA WebSocket multiplayer server",
   "scripts": {
-    "server": "node server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "ws": "^8.18.0"

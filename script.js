@@ -806,15 +806,17 @@ function initTetris() {
     }
 
     function getMultiWsUrl() {
-        let host = window.location.hostname;
-        if (!host) {
-            host = "localhost";
+        if (typeof window.TETRIS_WS_URL === "string" && window.TETRIS_WS_URL.length > 0) {
+            return window.TETRIS_WS_URL;
+        }
+        if (window.location.protocol === "file:") {
+            return "ws://localhost:" + MULTI_WS_PORT;
         }
         let protocol = "ws:";
         if (window.location.protocol === "https:") {
             protocol = "wss:";
         }
-        return protocol + "//" + host + ":" + MULTI_WS_PORT;
+        return protocol + "//" + window.location.host;
     }
 
     function sendMultiMessage(payload) {

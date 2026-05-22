@@ -1,0 +1,13 @@
+# Render Web Service — 저장소 연결 시 npm start 가 자동 실행됩니다.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: tetris-extra
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
