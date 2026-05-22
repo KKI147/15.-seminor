@@ -5,12 +5,13 @@
 PixiJS 7 기반 테트리스. 좌측 HOLD·통계, 중앙 보드, 우측 NEXT 레이아웃을 적용했고,  
 Solo / VS CPU / **WebSocket Multi** 3가지 모드와 대전용 공격·가비지 시스템을 지원합니다.
 
-### 라이브 데모 (Render)
+### 라이브 데모 (Render) — 배포·멀티 검증 완료 ✅
 
 **https://tetris-extra.onrender.com**
 
 - 게임·멀티 WebSocket이 같은 주소에서 동작합니다.
 - 멀티플레이: 위 URL을 **두 브라우저(또는 탭)** 에서 열고 → 방 만들기 / 방 참여.
+- **2026-05-22** Render 배포 후 **멀티플레이(매칭·대전·WS 연결) 정상 동작 확인**.
 - 무료 플랜은 비접속 후 슬립 시 첫 접속이 느릴 수 있습니다.
 
 ---
@@ -25,6 +26,7 @@ Solo / VS CPU / **WebSocket Multi** 3가지 모드와 대전용 공격·가비�
 | WebSocket 멀티플레이 (P5) | ✅ 1차 구현 완료 |
 | 멀티 채팅 (P5-1) | ✅ 구현 완료 |
 | 채팅 UI·전송 버그 수정 | ✅ 구현 완료 (9차-2 ~ 9차-5) |
+| Render 배포·프로덕션 멀티 검증 | ✅ 완료 ([tetris-extra.onrender.com](https://tetris-extra.onrender.com)) |
 | 멀티 UX 보완 (끊김·재접속 등) | ⏳ 일부 미구현 |
 
 ---
@@ -50,10 +52,18 @@ npm start
 |------|-----|
 | **배포 URL** | https://tetris-extra.onrender.com |
 | **헬스체크** | https://tetris-extra.onrender.com/health |
-| **호스팅** | Render (`tetris-extra` Web Service) |
+| **호스팅** | Render (`tetris-extra` Web Service, Blueprint `15-seminor-tetris`) |
+| **배포 상태** | ✅ Live — 멀티플레이 프로덕션 동작 확인 (2026-05-22) |
 
 게임 + WebSocket을 **Render 한 서비스**에 올리는 방식을 권장합니다.  
 **단계별 절차·체크리스트·문제 해결**은 [`SERVER_DEPLOY.md`](SERVER_DEPLOY.md) 를 참고하세요.
+
+### 프로덕션 멀티 검증 체크리스트 (완료)
+
+- [x] `https://tetris-extra.onrender.com` 접속·게임 로비 표시
+- [x] WebSocket same-origin (`wss://`) 연결
+- [x] 방 만들기 / 방 참여 → `MATCH_START` → 카운트다운·게임 시작
+- [x] 멀티 대전(보드·공격·승패) 동작
 
 | 파일 | 설명 |
 |------|------|
@@ -112,6 +122,12 @@ npm start
 ### 인프라 · 연동
 - [x] `initTetris()` + `contentScript` switch 연동
 - [x] jQuery DOM, `function` 문법, IE 호환 고려 구조
+
+### P6 — 배포 · 프로덕션 (10차)
+- [x] 통합 서버 (`server.js` HTTP + WebSocket, `process.env.PORT`)
+- [x] `render.yaml` Blueprint → Render `tetris-extra` 자동 `npm start`
+- [x] 배포 URL: **https://tetris-extra.onrender.com**
+- [x] 프로덕션 멀티플레이 동작 검증 (매칭·대전·WS)
 
 ---
 
@@ -224,6 +240,7 @@ npm start
 - [ ] 상대 활성 피스(active piece) 실시간 동기화
 - [ ] 상대 HOLD / NEXT 미리보기 동기화
 - [x] 통합 서버 (`npm start` — 게임·WS 동일 포트) + Render 자동 기동 (`render.yaml`)
+- [x] Render 프로덕션 배포 및 멀티플레이 동작 검증 (`tetris-extra.onrender.com`)
 - [ ] 멀티 전용 서버 URL 설정 UI (현재 `ws-config.js` 수동 설정)
 
 ### 게임플레이 · 밸런스
@@ -231,7 +248,8 @@ npm start
 - [ ] 가비지 주입 후 top-out 판정 강화 검증
 
 ### 문서 · 품질
-- [ ] VS CPU / 멀티 / 가비지 수동 테스트 체크리스트 실행 기록
+- [x] 프로덕션 멀티플레이 수동 테스트 기록 (Render URL, 2026-05-22)
+- [ ] VS CPU / 가비지 등 나머지 수동 테스트 체크리스트 실행 기록
 
 ### 선택 (개선)
 - [ ] 카운트다운·결과 애니메이션 강화
@@ -244,11 +262,14 @@ npm start
 
 | 파일 | 설명 |
 |------|------|
-| `index.html` | 로비, 카운트다운, 결과판, 채팅 패널·리사이즈 핸들, 멀티 서버 안내 |
+| `index.html` | 로비, 카운트다운, 결과판, 채팅 패널·리사이즈 핸들 |
+| `render.yaml` | Render Blueprint 배포 설정 |
+| `SERVER_DEPLOY.md` | 서버 배포 가이드 |
+| `ws-config.js` | WS URL 설정 (분리 배포 시) |
 | `style.css` | 게임·로비·결과판·채팅(고정·드래그·리사이즈) 스타일 |
 | `script.js` | 게임·AI·공격·멀티 WS·채팅(IME·중복전송 방지) |
 | `server.js` | WebSocket 서버 (방·동기화·CHAT·CHAT_ACK) |
-| `package.json` | `ws` 의존성, `npm run server` |
+| `package.json` | `ws` 의존성, `npm start` |
 | `README.md` | 기획·구현·수정 이력 문서 |
 | `implementation_plan.md` | 단계별 로드맵 |
 | `countdown_overlay_fix_plan.md` | 카운트다운 오버레이 수정 계획 |
@@ -271,6 +292,7 @@ npm start
 | 2026-05-22 | 9차-6 | 멀티 방 만들기 후 [방 참여] 깜빡임 유도 (초기) |
 | 2026-05-22 | 9차-7 | 방 코드 UI 제거, 방장/참가자 역할 분리, `ROOM_WAITING`·자동 매칭 |
 | 2026-05-22 | 10차 | 통합 서버(HTTP+WS), `process.env.PORT`, Render Blueprint, `ws-config.js` |
+| 2026-05-22 | 10차-2 | Render 배포 Live (`tetris-extra.onrender.com`), **프로덕션 멀티 검증 완료** |
 
 ---
 
