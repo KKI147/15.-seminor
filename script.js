@@ -1,3 +1,33 @@
+/**
+ * =============================================================================
+ * script.js — 테트리스 클라이언트 (PixiJS 렌더링 + 싱글/CPU/멀티)
+ * =============================================================================
+ *
+ * [진입점]
+ * contentScript() → initTetris() 한 번 호출로 게임 전체가 초기화됩니다.
+ * (다른 페이지 프레임워크와 연동되는 훅이며, index.html에서는 contentsIdx===0 일 때 실행)
+ *
+ * [게임 모드 gameMode]
+ * - "solo"  : 1인 플레이
+ * - "cpu"   : 오른쪽 보드에 CPU AI 대전 (가비지 공격)
+ * - "multi" : WebSocket으로 상대 보드 동기화 (server.js가 메시지 중계)
+ *
+ * [한 프레임의 흐름 — 가장 중요]
+ * app.ticker (Pixi 게임 루프)
+ *   → 시간 누적(gameMs), P1 softDrop, CPU면 cpuExecuteMove
+ *   → renderAll() 으로 보드·고스트·UI 전부 다시 그림
+ *
+ * [조각 1개의 생명주기]
+ * spawnPieceEx → move/rotate/softDrop/hardDrop → lockCurrentPieceEx
+ *   → mergePieceEx(보드에 고정) → clearLinesEx → calcAttackStrength/sendAttackEx
+ *   → spawnPieceEx(다음 조각)
+ *
+ * [멀티플레이]
+ * connectMultiLobbyWatch / connectMultiAndSend → handleMultiIncoming
+ * lock 시 sendBoardSync, 라인 공격 시 ATTACK, 패배 시 GAME_OVER (server.js가 상대에게 전달)
+ */
+
+/** 페이지 전환 시 호출. 이 프로젝트에서는 테트리스 화면 초기화만 수행 */
 function contentScript(_idx, _page) {
     if (typeof (videoCon) !== 'undefined') { videoCon.stop(); }
     if (typeof (resetPopIn) !== 'undefined') { resetPopIn(); }
@@ -11,12 +41,12 @@ function contentScript(_idx, _page) {
 }
 
 /**
- * index.html용 PixiJS 7 테트리스 (03.js 로직 기반)
- * - 01.js 스타일: 라운드 블록 + 하이라이트, 낙하 위치 고스트
+ * 테트리스 메인 초기화 (Pixi 캔버스, 로직, 이벤트, 멀티 WS 모두 이 함수 안에 있음)
  * - 홀드: Shift 또는 C (한 번 잠금 전 1회만 교환)
- * - 조각 순서: 순수 난수가 아니라 7-bag(7종을 한 번씩 섞어 제공)으로 체감 편향·연속 출현을 줄임
+ * - 조각 순서: 7-bag (7종을 한 바퀴씩 섞어서 공급)
  */
 function initTetris() {
+    // ----- 보드·타이밍 상수 -----
     const COLS = 10;
     const ROWS = 20;
     const BLOCK = 30;
@@ -62,6 +92,7 @@ function initTetris() {
     const appW = HOLD_PANEL + PANEL_GAP + BOARD_PAD * 2 + COLS * BLOCK + PANEL_GAP + NEXT_PANEL;
     const appH = BOARD_PAD * 2 + ROWS * BLOCK;
 
+    // ----- PixiJS 앱 생성 & #game-container에 캔버스 삽입 -----
     const app = new PIXI.Application({
         width: appW,
         height: appH,
@@ -81,6 +112,7 @@ function initTetris() {
     const stage = app.stage;
     stage.sortableChildren = true;
 
+    // zIndex 순: 패널(0) → 테두리(1) → 보드(2) → 그리드(3) → 고스트(4) → 활성 블록(5) …
     const boardOriginX = HOLD_PANEL + PANEL_GAP + BOARD_PAD;
     const boardOriginY = BOARD_PAD;
 
@@ -207,8 +239,8 @@ function initTetris() {
     timeTx.zIndex = 7;
     stage.addChild(timeTx);
 
-    // --- 플레이어 2 (CPU/상대)용 그래픽스 및 텍스트 ---
-    const singleAppW = appW;
+    // --- 플레이어 2 (CPU 또는 멀티 상대) — solo일 때는 setP2Visible(false)로 숨김 ---
+    const singleAppW = appW;  // 1인 화면 너비. cpu/multi 시 캔버스를 singleAppW*2로 늘림
     const p2Elements = [];
 
     const p2PanelGfx = new PIXI.Graphics();
@@ -333,6 +365,7 @@ function initTetris() {
     }
     setP2Visible(false);
 
+    // ----- P1 게임 상태 (board, current, hold, 점수, 모드, 멀티 소켓 등) -----
     let board = createBoard();
     let current = null;
     let hold = null;
@@ -371,7 +404,7 @@ function initTetris() {
     let p1B2b = false;           // P1 B2B 상태
     let p1GarbageQueue = 0;      // P1 가비지 큐 라인 수
 
-    // CPU용 게임 상태 변수
+    // ----- P2 역할: CPU 모드에서는 AI가 cpuBoard를 조작, 멀티에서는 상대 보드 미러 -----
     let cpuBoard = createBoard();
     let cpuCurrent = null;
     let cpuHold = null;
@@ -386,7 +419,10 @@ function initTetris() {
     let cpuB2b = false;          // CPU B2B 상태
     let cpuGarbageQueue = 0;     // CPU 가비지 큐 라인 수
 
-    /** 7-bag: 0..6 타입을 한 바퀴씩 무작위 순서로 소비, 비면 다시 채움 */
+    // =========================================================================
+    // 7-bag — 테트로미노 7종을 한 세트로 섞어 순서대로 pop (공정한 랜덤)
+    // P1: bag / CPU: cpuBag (각자 독립)
+    // =========================================================================
     let bag = [];
 
     function shuffle(arr) {
@@ -461,6 +497,9 @@ function initTetris() {
         return result;
     }
 
+    // =========================================================================
+    // 보드 데이터: 2차원 배열 board[y][x], 0=빈 칸, 1~7=블록 색 인덱스, 8=가비지
+    // =========================================================================
     function createBoard() {
         const matrix = [];
         for (let y = 0; y < ROWS; y++) {
@@ -498,9 +537,10 @@ function initTetris() {
         return rotated;
     }
 
-    // --- CPU Tetris AI Heuristics ---
-
-    // 보드 상태 평가 지표 계산
+    // =========================================================================
+    // CPU AI — 모든 회전·x 위치를 시뮬레이션 후 evaluateBoard 점수가 최고인 수 선택
+    // getBestMove → cpuPlanMove → cpuExecuteMove(틱마다) → hardDrop
+    // =========================================================================
     function evaluateBoard(matrix) {
         const heights = [];
         for (let i = 0; i < COLS; i++) heights.push(0);
@@ -679,6 +719,7 @@ function initTetris() {
         return dy;
     }
 
+    // ----- 충돌·고정·라인 클리어 (isCpu로 P1/P2 보드 분기) -----
     function collidesEx(targetBoard, piece, dx, dy, testShape) {
         const shape = testShape || piece.shape;
         for (let y = 0; y < shape.length; y++) {
@@ -735,6 +776,10 @@ function initTetris() {
         return lines;
     }
 
+    /**
+     * 대전 공격력: 2줄=1, 3줄=2, 4줄=4 + B2B/콤보 보너스
+     * sendAttackEx → 상대 가비지 큐(p1GarbageQueue / cpuGarbageQueue) 또는 멀티 ATTACK 메시지
+     */
     function calcAttackStrength(lines, isCpu) {
         if (lines <= 0) return 0;
         let base = 0;
@@ -805,6 +850,10 @@ function initTetris() {
         }
     }
 
+    // =========================================================================
+    // 멀티플레이 WebSocket (server.js와 JSON type으로 통신)
+    // 흐름: LOBBY_WATCH → CREATE_ROOM/JOIN_ROOM → MATCH_START → BOARD_SYNC/ATTACK/CHAT
+    // =========================================================================
     function getMultiWsUrl() {
         if (typeof window.TETRIS_WS_URL === "string" && window.TETRIS_WS_URL.length > 0) {
             return window.TETRIS_WS_URL;
@@ -1222,6 +1271,7 @@ function initTetris() {
         resetMultiLobbyForm();
     }
 
+    /** 상대가 보낸 BOARD_SYNC 수신 → cpuBoard에 반영 (멀티에서 오른쪽 화면) */
     function applyOpponentState(payload) {
         let y;
         let x;
@@ -1282,6 +1332,10 @@ function initTetris() {
         startGame();
     }
 
+    /**
+     * 서버에서 온 모든 WS 메시지의 분기 처리 (server.js sendJson ↔ 여기)
+     * 로비 UI 갱신 / 매칭 시작 / 상대 보드·공격 / 연결 끊김 처리
+     */
     function handleMultiIncoming(msg) {
         if (!msg || !msg.type) {
             return;
@@ -1460,6 +1514,7 @@ function initTetris() {
         };
     }
 
+    /** 가비지 라인: 위에서 rows만큼 밀어내고, 아래에 구멍 1개 뚫린 회색 줄 추가 */
     function insertGarbageLinesEx(isCpu, lines) {
         let targetBoard = isCpu ? cpuBoard : board;
         targetBoard.splice(0, lines);
@@ -1523,6 +1578,7 @@ function initTetris() {
         return { x: x, y: 0, shape: shape, type: i };
     }
 
+    // ----- 조각 생성·이동 (Ex 접미사 = isCpu로 P1/CPU 분기) -----
     function spawnPieceEx(isCpu) {
         if (!isCpu) {
             current = randomPieceEx(false);
@@ -1597,6 +1653,10 @@ function initTetris() {
         }
     }
 
+    /**
+     * 조각 착지(잠금): 보드 병합 → 라인 제거 → 공격/가비지 처리 → 다음 spawn
+     * 멀티 P1은 lock 후 sendBoardSync()로 상대 화면 갱신
+     */
     function lockCurrentPieceEx(isCpu) {
         if (isCpu) {
             mergePieceEx(cpuBoard, cpuCurrent);
@@ -2168,6 +2228,7 @@ function initTetris() {
         timeTx.text = min + ":" + padS + "." + padMs;
     }
 
+    /** 매 틱·키 입력 후 호출 — 모든 Graphics/Text를 clear 후 다시 그림 */
     function renderAll() {
         drawPanelAndBorder();
         drawBoard();
@@ -2198,6 +2259,7 @@ function initTetris() {
         }
     }
 
+    /** P1 스택이 꼭대기까지 차면 호출. 대전이면 sendMultiGameOver + handleVersusEnd */
     function endGame() {
         isGameOver = true;
         if (gameMode === "cpu" || gameMode === "multi") {
@@ -2254,6 +2316,9 @@ function initTetris() {
         }
     }
 
+    /**
+     * 게임 시작: 상태 초기화 → (대전 시) 캔버스 2배 확장 → 3-2-1 카운트다운 → isRunning=true → spawn
+     */
     function startGame() {
         if (countdownTimeout) {
             clearTimeout(countdownTimeout);
@@ -2374,6 +2439,7 @@ function initTetris() {
         resetMultiLobbyForm();
     });
 
+    // 키보드: 화살표 이동/소프트드롭, 위=회전, 스페이스=하드드롭, Shift/C=홀드
     $(document).on("keydown", function (e) {
         if ($("#multi-chat-input").is(":focus")) {
             return;
@@ -2415,6 +2481,10 @@ function initTetris() {
         if (e.code === "ArrowDown") dropMs = DROP_INTERVAL;
     });
 
+    // =========================================================================
+    // 메인 게임 루프 — Pixi ticker ≈ requestAnimationFrame
+    // isRunning일 때만 낙하·CPU AI, 항상 renderAll() 호출
+    // =========================================================================
     app.ticker.add(function () {
         if (isRunning && !isGameOver) {
             gameMs += app.ticker.elapsedMS;
@@ -2443,9 +2513,9 @@ function initTetris() {
     $("#status").text("READY");
     renderAll();
 
-    // --- 로비 UI 이벤트 바인딩 ---
-
-    // 모드 선택 버튼 클릭
+    // =========================================================================
+    // 로비 UI — 모드 선택, 싱글/CPU 시작, 멀티 방 만들기/참여, 채팅
+    // =========================================================================
     $(".mode-btn").on("click", function () {
         $(".mode-btn").removeClass("active");
         $(this).addClass("active");

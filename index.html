@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixiJS Tetris - Week 1</title>
+    <title>PixiJS Tetris - Week 3</title>
     <link rel="stylesheet" type="text/css" href="common/fonts/fonts.css" />
     <link rel="stylesheet" type="text/css" href="common/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="common/css/animate.css" />
@@ -62,14 +62,14 @@
                     <div id="lobby-overlay" class="game-overlay">
                         <div class="lobby-content">
                             <h2 class="lobby-title">TETRIS EXTRA</h2>
-                            
+
                             <!-- 모드 선택 버튼 그룹 -->
                             <div class="mode-select-area">
                                 <button type="button" class="mode-btn active" data-mode="solo">혼자 하기 (Solo)</button>
                                 <button type="button" class="mode-btn" data-mode="cpu">AI 대결 (VS CPU)</button>
                                 <button type="button" class="mode-btn" data-mode="multi">멀티플레이 (Multi)</button>
                             </div>
-                            
+
                             <!-- 멀티플레이 전용 설정 폼 -->
                             <div class="multi-form-area" style="display: none;">
                                 <div class="input-group">
@@ -79,17 +79,20 @@
                                 <div class="multi-actions">
                                     <button type="button" id="create-room-btn" class="action-btn">방 만들기</button>
                                     <div id="join-group-wrap" class="join-group join-group-guest">
-                                        <button type="button" id="join-room-btn" class="action-btn" disabled>방 참여</button>
+                                        <button type="button" id="join-room-btn" class="action-btn" disabled>방
+                                            참여</button>
                                     </div>
-                                    <p id="multi-join-hint" class="multi-join-hint multi-guest-hint">방을 만든 사람이 [방 만들기]를 누르면 [방 참여]가 활성화됩니다.</p>
+                                    <p id="multi-join-hint" class="multi-join-hint multi-guest-hint">방을 만든 사람이 [방 만들기]를
+                                        누르면 [방 참여]가 활성화됩니다.</p>
                                 </div>
                             </div>
-                            
+
                             <!-- Solo 및 CPU 시작 버튼 -->
                             <div class="solo-cpu-actions">
-                                <button type="button" id="lobby-start-btn" class="start-btn-primary">게임 시작 (Start)</button>
+                                <button type="button" id="lobby-start-btn" class="start-btn-primary">게임 시작
+                                    (Start)</button>
                             </div>
-                            
+
                             <!-- 멀티플레이어 매칭 대기 화면 -->
                             <div class="multi-wait-area" style="display: none;">
                                 <p class="wait-status">상대방을 기다리는 중...</p>

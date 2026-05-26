@@ -1,7 +1,20 @@
 /**
- * Tetris EXTRA — 정적 파일 + WebSocket 멀티플레이 (단일 포트)
+ * Tetris EXTRA — Node.js 서버 (정적 파일 + WebSocket 멀티플레이)
+ *
+ * [이 파일의 역할]
+ * 브라우저(script.js)가 열리는 HTML/CSS/JS를 제공하고,
+ * 두 명이 같은 방에서 대전할 때 JSON 메시지를 중계(relay)합니다.
+ * 게임 규칙(블록 이동, 라인 클리어 등)은 서버에 없고, 전부 클라이언트에서 처리합니다.
+ *
+ * [실행]
  * 로컬: npm install && npm start  → http://localhost:8765
  * 배포: Render/Railway 등에서 npm start (PORT 환경 변수 자동 적용)
+ *
+ * [전체 흐름 요약]
+ * 1) HTTP: index.html, script.js 등 정적 파일 전송
+ * 2) WebSocket: 클라이언트가 보낸 type별 메시지를 파싱 → 방(rooms) 상태 갱신 또는 상대에게 전달
+ * 3) 방: host 1명 + guest 1명. guest 입장 시 MATCH_START를 양쪽에 보냄
+ * 4) 게임 중: BOARD_SYNC / ATTACK / GAME_OVER / CHAT 은 보낸 사람 제외한 상대(peer)에게만 전달
  */
 'use strict';
 
@@ -10,9 +23,12 @@ const fs = require('fs');
 const path = require('path');
 const WebSocket = require('ws');
 
+// ---------------------------------------------------------------------------
+// 설정 상수
+// ---------------------------------------------------------------------------
 const PORT = parseInt(process.env.PORT, 10) || 8765;
-const ROOT_DIR = __dirname;
-const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const ROOT_DIR = __dirname;  // 프로젝트 루트 = 정적 파일 기준 경로
+const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';  // 방 코드에 쓸 문자(혼동 문자 제외)
 
 const MIME_TYPES = {
     '.html': 'text/html; charset=utf-8',
@@ -37,9 +53,18 @@ const MIME_TYPES = {
 /** @type {import('ws').WebSocketServer} */
 let wss;
 
-/** @type {Record<string, { host: import('ws').WebSocket, guest: import('ws').WebSocket|null, hostNick: string, guestNick: string }>} */
+/**
+ * 메모리 상의 방 목록.
+ * 키: 5자리 방 코드(대문자), 값: { host, guest, hostNick, guestNick }
+ * DB 없음 — 서버 재시작 시 모든 방 정보는 사라집니다.
+ */
 const rooms = {};
 
+// ---------------------------------------------------------------------------
+// 방·소켓 유틸 (멀티플레이 핵심 헬퍼)
+// ---------------------------------------------------------------------------
+
+/** 5자리 랜덤 방 코드 생성 (이미 존재하면 CREATE_ROOM에서 다시 뽑음) */
 function generateRoomCode() {
     let code = '';
     let i;
@@ -49,12 +74,14 @@ function generateRoomCode() {
     return code;
 }
 
+/** WebSocket이 열려 있을 때만 JSON 문자열로 전송 */
 function sendJson(ws, data) {
     if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(JSON.stringify(data));
     }
 }
 
+/** 이 소켓이 host 또는 guest로 들어가 있는 방을 찾음. 없으면 null */
 function getRoomBySocket(ws) {
     const keys = Object.keys(rooms);
     let i;
@@ -68,6 +95,10 @@ function getRoomBySocket(ws) {
     return null;
 }
 
+/**
+ * 같은 방의 "상대"에게만 메시지 전달 (보낸 사람 senderWs 제외).
+ * BOARD_SYNC, ATTACK, GAME_OVER, CHAT 등 게임·채팅 중계에 사용.
+ */
 function broadcastToPeer(roomCode, msg, senderWs) {
     const room = rooms[roomCode];
     if (!room) {
@@ -81,6 +112,10 @@ function broadcastToPeer(roomCode, msg, senderWs) {
     }
 }
 
+/**
+ * 연결 종료·LEAVE_ROOM 시 호출.
+ * 상대에게 OPPONENT_DISCONNECTED 알림 → 방 삭제 → 로비 대기자들에게 ROOM_CLOSED
+ */
 function cleanupSocket(ws) {
     const info = getRoomBySocket(ws);
     if (!info) {
@@ -98,6 +133,7 @@ function cleanupSocket(ws) {
     broadcastRoomClosed();
 }
 
+/** guest 자리가 비어 있는 첫 번째 방 코드 (JOIN_ROOM에서 코드 미입력 시 사용) */
 function findFirstOpenRoom() {
     const keys = Object.keys(rooms);
     let i;
@@ -111,6 +147,10 @@ function findFirstOpenRoom() {
     return null;
 }
 
+/**
+ * 방을 만든 직후: 아직 방에 없는 클라이언트(로비 감시 중)에게 ROOM_WAITING 브로드캐스트.
+ * → script.js에서 [방 참여] 버튼 활성화 안내에 쓰임.
+ */
 function broadcastRoomWaiting(hostWs, hostNick) {
     wss.clients.forEach(function (client) {
         if (client !== hostWs && client.readyState === WebSocket.OPEN && !getRoomBySocket(client)) {
@@ -122,6 +162,7 @@ function broadcastRoomWaiting(hostWs, hostNick) {
     });
 }
 
+/** 방이 사라졌을 때 로비 대기자에게 ROOM_CLOSED (참여 버튼 비활성화 등) */
 function broadcastRoomClosed() {
     wss.clients.forEach(function (client) {
         if (client.readyState === WebSocket.OPEN && !getRoomBySocket(client)) {
@@ -130,6 +171,7 @@ function broadcastRoomClosed() {
     });
 }
 
+/** host·guest 모두 준비되면 양쪽에 MATCH_START → 클라이언트가 startGame() 호출 */
 function startMatch(roomCode) {
     const room = rooms[roomCode];
     if (!room || !room.host || !room.guest) {
@@ -145,6 +187,11 @@ function startMatch(roomCode) {
     sendJson(room.guest, payload);
 }
 
+// ---------------------------------------------------------------------------
+// HTTP 정적 파일 서빙 (게임 페이지 로드)
+// ---------------------------------------------------------------------------
+
+/** URL을 로컬 파일 경로로 변환. ../ 등 경로 탈취 차단 */
 function resolveSafePath(urlPath) {
     let decoded = decodeURIComponent(urlPath.split('?')[0]);
     if (decoded === '/' || decoded === '') {
@@ -180,6 +227,7 @@ function serveStatic(req, res) {
     });
 }
 
+/** /health → 배포 헬스체크, 그 외 → serveStatic */
 function handleHttpRequest(req, res) {
     if (req.url === '/health') {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -189,6 +237,9 @@ function handleHttpRequest(req, res) {
     serveStatic(req, res);
 }
 
+// ---------------------------------------------------------------------------
+// 서버 기동: HTTP + WebSocket 같은 포트
+// ---------------------------------------------------------------------------
 const httpServer = http.createServer(handleHttpRequest);
 wss = new WebSocket.Server({ server: httpServer });
 
@@ -198,6 +249,10 @@ httpServer.listen(PORT, function () {
     console.log('  WS:    ws://localhost:' + PORT + ' (same origin)');
 });
 
+// ---------------------------------------------------------------------------
+// WebSocket: 클라이언트 메시지 라우팅
+// script.js sendMultiMessage() ↔ 여기 ws.on('message') 가 쌍을 이룸
+// ---------------------------------------------------------------------------
 wss.on('connection', function (ws) {
     ws.on('message', function (raw) {
         let msg;
@@ -213,6 +268,7 @@ wss.on('connection', function (ws) {
             return;
         }
 
+        // --- 로비: 멀티 메뉴만 열었을 때 대기 방 목록 감시 ---
         if (msg.type === 'LOBBY_WATCH') {
             ws.lobbyWatch = true;
             const openCode = findFirstOpenRoom();
@@ -225,6 +281,7 @@ wss.on('connection', function (ws) {
             return;
         }
 
+        // --- 방 만들기: host 등록 → ROOM_CREATED → 다른 사람에게 ROOM_WAITING ---
         if (msg.type === 'CREATE_ROOM') {
             let code = generateRoomCode();
             while (rooms[code]) {
@@ -244,6 +301,7 @@ wss.on('connection', function (ws) {
             return;
         }
 
+        // --- 방 참여: guest 등록 → JOIN_OK / OPPONENT_JOINED → startMatch ---
         if (msg.type === 'JOIN_ROOM') {
             let code = String(msg.roomCode || '').toUpperCase();
             if (!code) {
@@ -282,6 +340,7 @@ wss.on('connection', function (ws) {
             return;
         }
 
+        // --- 게임 중: 상대 보드·공격·게임오버 (서버는 중계만, 판정 없음) ---
         if (msg.type === 'BOARD_SYNC' || msg.type === 'ATTACK' || msg.type === 'GAME_OVER') {
             const info = getRoomBySocket(ws);
             if (!info) {
@@ -296,6 +355,7 @@ wss.on('connection', function (ws) {
             return;
         }
 
+        // --- 채팅: guest 없으면 CHAT_ACK delivered:false ---
         if (msg.type === 'CHAT') {
             const info = getRoomBySocket(ws);
             if (!info) {
@@ -323,6 +383,7 @@ wss.on('connection', function (ws) {
         }
     });
 
+    // 탭 닫기·네트워크 끊김 시에도 방 정리
     ws.on('close', function () {
         cleanupSocket(ws);
     });
